@@ -1,0 +1,122 @@
+# \WebhooksApi
+
+All URIs are relative to *https://api.bombbomb.com/v2*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**AddWebHook**](WebhooksApi.md#AddWebHook) | **Post** /webhook | Add Webhook
+[**DeleteWebHook**](WebhooksApi.md#DeleteWebHook) | **Delete** /webhook/{hookId} | Deletes Webhook
+[**GetWebHooks**](WebhooksApi.md#GetWebHooks) | **Get** /webhook/ | Lists Webhooks
+[**SendWebhookExample**](WebhooksApi.md#SendWebhookExample) | **Post** /webhook/test | Sends test Webhook
+
+
+# **AddWebHook**
+> BbWebHook AddWebHook($hookUrl)
+
+Add Webhook
+
+Idempotently adds a Webhook url
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **hookUrl** | **string**| The Url of your listener | 
+
+### Return type
+
+[**BbWebHook**](BBWebHook.md)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteWebHook**
+> string DeleteWebHook($hookId)
+
+Deletes Webhook
+
+Deletes a Webhook
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **hookId** | **string**| The id of the webhook to delete | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetWebHooks**
+> []BbWebHook GetWebHooks()
+
+Lists Webhooks
+
+Lists all registered Webhooks
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[]BbWebHook**](BBWebHook.md)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **SendWebhookExample**
+> SendWebhookExample()
+
+Sends test Webhook
+
+Triggers a test webhook to be sent to your endpoints.
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

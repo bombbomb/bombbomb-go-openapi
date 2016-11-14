@@ -25,104 +25,98 @@ package bombbomb
 import (
 	"net/url"
 	"encoding/json"
-	"fmt"
-	"strings"
 )
 
-type PromptsApi struct {
+type CurriculumApi struct {
 	Configuration Configuration
 }
 
-func NewPromptsApi() *PromptsApi {
+func NewCurriculumApi() *CurriculumApi {
 	configuration := NewConfiguration()
-	return &PromptsApi{
+	return &CurriculumApi{
 		Configuration: *configuration,
 	}
 }
 
-func NewPromptsApiWithBasePath(basePath string) *PromptsApi {
+func NewCurriculumApiWithBasePath(basePath string) *CurriculumApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &PromptsApi{
+	return &CurriculumApi{
 		Configuration: *configuration,
 	}
 }
 
 /**
- * Prompts user to send a video
- * Sends the account holder an email prompting them to add a video to a scheduled outgoing message. Recipients, content and timing is all preset for the user.
+ * Get Curricula
+ * Get Curricula, optionally with progress included.
  *
- * @param prompt The Video Email Prompt to be created
- * @return *VideoEmailPrompt
+ * @param includeProgress Whether to return progress with the curriculum.
+ * @return []Curriculum
  */
-func (a PromptsApi) CreateVideoEmailPrompt(prompt VideoEmailPrompt) (*VideoEmailPrompt, *APIResponse, error) {
-
-	var httpMethod = "Post"
-	// create path and map variables
-	path := a.Configuration.BasePath + "/prompt"
-
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := make(map[string]string)
-	var postBody interface{}
-	var fileName string
-	var fileBytes []byte
-	// authentication '(BBOAuth2)' required
-	// oauth required
-	if a.Configuration.AccessToken != ""{
-		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
-	}
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headerParams[key] = a.Configuration.DefaultHeader[key]
-	}
-
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/json",  }
-
-	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		headerParams["Content-Type"] = localVarHttpContentType
-	}
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		"application/json",
-	}
-
-	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		headerParams["Accept"] = localVarHttpHeaderAccept
-	}
-	// body params
-	postBody = &prompt
-
-	var successPayload = new(VideoEmailPrompt)
-	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
-	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-}
-
-/**
- * Gets a prompt
- * Gets a prompt
- *
- * @param id The Id of the prompt
- * @return *VideoEmailPrompt
- */
-func (a PromptsApi) GetVideoEmailPrompt(id string) (*VideoEmailPrompt, *APIResponse, error) {
+func (a CurriculumApi) GetCurricula(includeProgress bool) ([]Curriculum, *APIResponse, error) {
 
 	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/prompt/{id}"
-	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
+	path := a.Configuration.BasePath + "/curricula/"
+
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := make(map[string]string)
+	var postBody interface{}
+	var fileName string
+	var fileBytes []byte
+	// authentication '(BBOAuth2)' required
+	// oauth required
+	if a.Configuration.AccessToken != ""{
+		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
+	}
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headerParams[key] = a.Configuration.DefaultHeader[key]
+	}
+		queryParams.Add("includeProgress", a.Configuration.APIClient.ParameterToString(includeProgress, ""))
+	
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		headerParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+	}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		headerParams["Accept"] = localVarHttpHeaderAccept
+	}
+	var successPayload = new([]Curriculum)
+	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
+	if err != nil {
+		return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+	}
+	err = json.Unmarshal(httpResponse.Body(), &successPayload)
+	return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+}
+
+/**
+ * Get Detailed For User
+ * Get all curricula for user including progress for each curriculum.
+ *
+ * @return []CurriculumWithProgress
+ */
+func (a CurriculumApi) GetUserCurriculumWithProgress() ([]CurriculumWithProgress, *APIResponse, error) {
+
+	var httpMethod = "Get"
+	// create path and map variables
+	path := a.Configuration.BasePath + "/curriculum/getForUserWithProgress"
 
 
 	headerParams := make(map[string]string)
@@ -160,71 +154,12 @@ func (a PromptsApi) GetVideoEmailPrompt(id string) (*VideoEmailPrompt, *APIRespo
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(VideoEmailPrompt)
+	var successPayload = new([]CurriculumWithProgress)
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
 	}
 	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-}
-
-/**
- * Respond to a prompt
- * Respond to a prompt by either adding a video, sending without a video or cancelling the prompt.
- *
- * @param id The id of the prompt.
- * @param choice The users&#39; selection. Can be: WithVideo, WithoutVideo, Cancel
- * @param videoId The id of the video.
- * @return *VideoEmailPrompt
- */
-func (a PromptsApi) RespondToVideoEmailPrompt(id string, choice string, videoId string) (*VideoEmailPrompt, *APIResponse, error) {
-
-	var httpMethod = "Post"
-	// create path and map variables
-	path := a.Configuration.BasePath + "/prompt/{id}/response"
-	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
-
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := make(map[string]string)
-	var postBody interface{}
-	var fileName string
-	var fileBytes []byte
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headerParams[key] = a.Configuration.DefaultHeader[key]
-	}
-
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
-
-	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		headerParams["Content-Type"] = localVarHttpContentType
-	}
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		"application/json",
-	}
-
-	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		headerParams["Accept"] = localVarHttpHeaderAccept
-	}
-
-	formParams["videoId"] = videoId
-	formParams["choice"] = choice
-	var successPayload = new(VideoEmailPrompt)
-	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
-	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+	return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
 }
 

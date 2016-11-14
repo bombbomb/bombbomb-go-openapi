@@ -4,12 +4,50 @@ All URIs are relative to *https://api.bombbomb.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AddTeamMember**](TeamsApi.md#AddTeamMember) | **Post** /team/{teamId}/member | Add Member to Team
 [**CancelJerichoSend**](TeamsApi.md#CancelJerichoSend) | **Delete** /team/{teamId}/jericho/{jerichoId} | Cancel a Jericho Send
+[**CreateSubteam**](TeamsApi.md#CreateSubteam) | **Post** /team/{teamId}/subteam | Add a Subteam
+[**DeleteSubteam**](TeamsApi.md#DeleteSubteam) | **Delete** /team/{teamId}/subteam | Delete Subteam
 [**GetClientGroupAssets**](TeamsApi.md#GetClientGroupAssets) | **Get** /team/assets/ | Lists team assets
 [**GetJerichoSends**](TeamsApi.md#GetJerichoSends) | **Get** /team/{teamId}/jericho | List Jericho Sends
 [**GetJerichoStats**](TeamsApi.md#GetJerichoStats) | **Get** /team/{teamId}/jericho/{jerichoId}/performance | Gets Jericho performance statistics
+[**GetSubteams**](TeamsApi.md#GetSubteams) | **Get** /team/{teamId}/subteam | List Subteams
 [**QueueJerichoSend**](TeamsApi.md#QueueJerichoSend) | **Post** /team/{teamId}/jericho | Creates a Jericho send.
+[**RemoveMemberFromTeam**](TeamsApi.md#RemoveMemberFromTeam) | **Delete** /team/{teamId}/member/{userId} | Remove Member from Team
+[**UpdateTeam**](TeamsApi.md#UpdateTeam) | **Post** /team/{teamId} | Update a team
 
+
+# **AddTeamMember**
+> string AddTeamMember($teamId, $userId, $userEmail, $admin)
+
+Add Member to Team
+
+Adds a member to a team.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **userId** | **string**| The user id of the member being added to the team. | [optional] 
+ **userEmail** | **string**| The email of the member being added to the team. | [optional] 
+ **admin** | **bool**| Set if the user is an admin of this team. | [optional] 
+
+### Return type
+
+**string**
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CancelJerichoSend**
 > CancelJerichoSend($jerichoId)
@@ -35,7 +73,67 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **CreateSubteam**
+> TeamPublicRepresentation CreateSubteam($teamId, $name)
+
+Add a Subteam
+
+Adds a subteam to a parent team
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **name** | **string**| The subteam&#39;s name. | 
+
+### Return type
+
+[**TeamPublicRepresentation**](TeamPublicRepresentation.md)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteSubteam**
+> string DeleteSubteam($teamId, $subteamId)
+
+Delete Subteam
+
+Deletes a subteam
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **subteamId** | **string**| The subteam you wish to delete. | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -69,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -98,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -128,7 +226,36 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetSubteams**
+> []TeamPublicRepresentation GetSubteams($teamId)
+
+List Subteams
+
+Returns a collection of subteams for a parent team
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+
+### Return type
+
+[**[]TeamPublicRepresentation**](TeamPublicRepresentation.md)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -158,7 +285,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **RemoveMemberFromTeam**
+> string RemoveMemberFromTeam($teamId, $userId)
+
+Remove Member from Team
+
+Removes a member from a team.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **userId** | **string**| The user id of the member being removed. | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateTeam**
+> TeamPublicRepresentation UpdateTeam($teamId, $name)
+
+Update a team
+
+Update fields on a team
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **name** | **string**| The name of the team | [optional] 
+
+### Return type
+
+[**TeamPublicRepresentation**](TeamPublicRepresentation.md)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

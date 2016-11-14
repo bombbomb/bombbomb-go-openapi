@@ -22,18 +22,30 @@
 
 package bombbomb
 
-// The BBWebHook class
-type BbWebHook struct {
+// The Curriculum class
+type Curriculum struct {
 
-	// The user to whom the webhook belongs
-	UserId string `json:"userId,omitempty"`
+	// Id
+	Id string `json:"id,omitempty"`
 
-	// The id of the hook
-	HookId int32 `json:"hookId,omitempty"`
+	// Name
+	Name string `json:"name,omitempty"`
 
-	// the url to send hook requests to
-	Url string `json:"url,omitempty"`
+	// HTML formatted intro
+	HtmlIntro string `json:"htmlIntro,omitempty"`
 
-	// Whether the hook is displayed to the user
-	IsHidden bool `json:"isHidden,omitempty"`
+	// URI of header image
+	ImgUrl string `json:"imgUrl,omitempty"`
+
+	// Number of curriculum items
+	ItemCount int32 `json:"itemCount,omitempty"`
+
+	// Render method for curriculum
+	RenderAs string `json:"renderAs,omitempty"`
+
+	// Globally visible
+	VisibleToAllUsers bool `json:"visibleToAllUsers,omitempty"`
+
+	// Collection of User Progress for Curriculum
+	Progress []CurriculumUserProgress `json:"progress,omitempty"`
 }

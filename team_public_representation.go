@@ -22,18 +22,15 @@
 
 package bombbomb
 
-// The BBWebHook class
-type BbWebHook struct {
+// The TeamPublicRepresentation class
+type TeamPublicRepresentation struct {
 
-	// The user to whom the webhook belongs
-	UserId string `json:"userId,omitempty"`
+	// The id of the team
+	Id string `json:"id,omitempty"`
 
-	// The id of the hook
-	HookId int32 `json:"hookId,omitempty"`
+	// The name of the team
+	Name string `json:"name,omitempty"`
 
-	// the url to send hook requests to
-	Url string `json:"url,omitempty"`
-
-	// Whether the hook is displayed to the user
-	IsHidden bool `json:"isHidden,omitempty"`
+	// The date the team was created
+	CreatedDate string `json:"createdDate,omitempty"`
 }

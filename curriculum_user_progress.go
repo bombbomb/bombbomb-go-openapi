@@ -22,18 +22,25 @@
 
 package bombbomb
 
-// The BBWebHook class
-type BbWebHook struct {
+import (
+	"time"
+)
 
-	// The user to whom the webhook belongs
+// The CurriculumUserProgress class
+type CurriculumUserProgress struct {
+
+	// Id
+	Id string `json:"id,omitempty"`
+
+	// User Id
 	UserId string `json:"userId,omitempty"`
 
-	// The id of the hook
-	HookId int32 `json:"hookId,omitempty"`
+	// Curriculum Item Id
+	CurriculumItemId string `json:"curriculumItemId,omitempty"`
 
-	// the url to send hook requests to
-	Url string `json:"url,omitempty"`
+	// Curriculum Id
+	CurriculumId string `json:"curriculumId,omitempty"`
 
-	// Whether the hook is displayed to the user
-	IsHidden bool `json:"isHidden,omitempty"`
+	// When the final email is scheduled to be sent
+	CompletedDate time.Time `json:"completedDate,omitempty"`
 }

@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**AddWebHook**](WebhooksApi.md#AddWebHook) | **Post** /webhook | Add Webhook
 [**DeleteWebHook**](WebhooksApi.md#DeleteWebHook) | **Delete** /webhook/{hookId} | Deletes Webhook
 [**GetWebHooks**](WebhooksApi.md#GetWebHooks) | **Get** /webhook/ | Lists Webhooks
+[**ListWebHookEvents**](WebhooksApi.md#ListWebHookEvents) | **Get** /webhook/events | Describe WebHook Events
 [**SendWebhookExample**](WebhooksApi.md#SendWebhookExample) | **Post** /webhook/test | Sends test Webhook
 
 
@@ -34,7 +35,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -63,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -89,7 +90,33 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListWebHookEvents**
+> ListWebHookEvents()
+
+Describe WebHook Events
+
+Returns example Webhook events for each kind of possible event.
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -115,7 +142,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

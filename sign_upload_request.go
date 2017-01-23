@@ -22,13 +22,16 @@
 
 package bombbomb
 
-type InlineResponse200Items struct {
+import (
+	"time"
+)
 
-	Id string `json:"id,omitempty"`
+// The SignUploadRequest class
+type SignUploadRequest struct {
 
-	Name string `json:"name,omitempty"`
+	// when the upload will expire.
+	Expiration time.Time `json:"expiration,omitempty"`
 
-	UserId string `json:"userId,omitempty"`
-
-	ThumbUrl string `json:"thumbUrl,omitempty"`
+	// Key/Value object of request conditions.
+	Conditions Object `json:"conditions,omitempty"`
 }

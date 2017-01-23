@@ -24,41 +24,45 @@ package bombbomb
 
 import (
 	"net/url"
-	"encoding/json"
+	"fmt"
+	"strings"
 )
 
-type CurriculumApi struct {
+type AutomationsApi struct {
 	Configuration Configuration
 }
 
-func NewCurriculumApi() *CurriculumApi {
+func NewAutomationsApi() *AutomationsApi {
 	configuration := NewConfiguration()
-	return &CurriculumApi{
+	return &AutomationsApi{
 		Configuration: *configuration,
 	}
 }
 
-func NewCurriculumApiWithBasePath(basePath string) *CurriculumApi {
+func NewAutomationsApiWithBasePath(basePath string) *AutomationsApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &CurriculumApi{
+	return &AutomationsApi{
 		Configuration: *configuration,
 	}
 }
 
 /**
- * Get Curricula
- * Get Curricula, optionally with progress included.
+ * Get Automation Email Stats
+ * Get Automation Email Stats
  *
- * @param includeProgress Whether to return progress with the curriculum.
- * @return []Curriculum
+ * @param dripId The id of the drip
+ * @param dripDropId The id of the drip drop
+ * @return void
  */
-func (a CurriculumApi) GetCurricula(includeProgress bool) ([]Curriculum, *APIResponse, error) {
+func (a AutomationsApi) GetDripDropStats(dripId string, dripDropId string) (*APIResponse, error) {
 
 	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/curricula/"
+	path := a.Configuration.BasePath + "/automation/{dripId}/dripdrop/{dripDropId}/stats"
+	path = strings.Replace(path, "{"+"dripId"+"}", fmt.Sprintf("%v", dripId), -1)
+	path = strings.Replace(path, "{"+"dripDropId"+"}", fmt.Sprintf("%v", dripDropId), -1)
 
 
 	headerParams := make(map[string]string)
@@ -76,8 +80,7 @@ func (a CurriculumApi) GetCurricula(includeProgress bool) ([]Curriculum, *APIRes
 	for key := range a.Configuration.DefaultHeader {
 		headerParams[key] = a.Configuration.DefaultHeader[key]
 	}
-		queryParams.Add("includeProgress", a.Configuration.APIClient.ParameterToString(includeProgress, ""))
-	
+
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
@@ -97,26 +100,28 @@ func (a CurriculumApi) GetCurricula(includeProgress bool) ([]Curriculum, *APIRes
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new([]Curriculum)
+
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return NewAPIResponse(httpResponse.RawResponse), err
 	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+
+	return NewAPIResponse(httpResponse.RawResponse), err
 }
 
 /**
- * Get Detailed For User
- * Get all curricula for user including progress for each curriculum.
+ * Get Automation Stats
+ * Get Automation Stats
  *
- * @return []CurriculumWithProgress
+ * @param id The id of the automation
+ * @return void
  */
-func (a CurriculumApi) GetUserCurriculumWithProgress() ([]CurriculumWithProgress, *APIResponse, error) {
+func (a AutomationsApi) GetDripStats(id string) (*APIResponse, error) {
 
 	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/curriculum/getForUserWithProgress"
+	path := a.Configuration.BasePath + "/automation/{id}/stats"
+	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
 
 
 	headerParams := make(map[string]string)
@@ -154,12 +159,12 @@ func (a CurriculumApi) GetUserCurriculumWithProgress() ([]CurriculumWithProgress
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new([]CurriculumWithProgress)
+
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return NewAPIResponse(httpResponse.RawResponse), err
 	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+
+	return NewAPIResponse(httpResponse.RawResponse), err
 }
 

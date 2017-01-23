@@ -27,38 +27,39 @@ import (
 	"encoding/json"
 )
 
-type CurriculumApi struct {
+type VideosApi struct {
 	Configuration Configuration
 }
 
-func NewCurriculumApi() *CurriculumApi {
+func NewVideosApi() *VideosApi {
 	configuration := NewConfiguration()
-	return &CurriculumApi{
+	return &VideosApi{
 		Configuration: *configuration,
 	}
 }
 
-func NewCurriculumApiWithBasePath(basePath string) *CurriculumApi {
+func NewVideosApiWithBasePath(basePath string) *VideosApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &CurriculumApi{
+	return &VideosApi{
 		Configuration: *configuration,
 	}
 }
 
 /**
- * Get Curricula
- * Get Curricula, optionally with progress included.
+ * Get Live Video Recorder HTML
+ * Returns an object with a number of properties to help you put a video recorder on your site.         This is to be used in conjunction with the VideoRecordedLive call one the user has confirmed in your UI that         the video is how they want it.
  *
- * @param includeProgress Whether to return progress with the curriculum.
- * @return []Curriculum
+ * @param width The width of the recorder to present.
+ * @param videoId The id of the video to record
+ * @return *VideoRecorderMethodResponse
  */
-func (a CurriculumApi) GetCurricula(includeProgress bool) ([]Curriculum, *APIResponse, error) {
+func (a VideosApi) GetVideoRecorder(width int32, videoId string) (*VideoRecorderMethodResponse, *APIResponse, error) {
 
 	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/curricula/"
+	path := a.Configuration.BasePath + "/videos/live/getRecorder"
 
 
 	headerParams := make(map[string]string)
@@ -76,7 +77,8 @@ func (a CurriculumApi) GetCurricula(includeProgress bool) ([]Curriculum, *APIRes
 	for key := range a.Configuration.DefaultHeader {
 		headerParams[key] = a.Configuration.DefaultHeader[key]
 	}
-		queryParams.Add("includeProgress", a.Configuration.APIClient.ParameterToString(includeProgress, ""))
+		queryParams.Add("width", a.Configuration.APIClient.ParameterToString(width, ""))
+			queryParams.Add("videoId", a.Configuration.APIClient.ParameterToString(videoId, ""))
 	
 
 	// to determine the Content-Type header
@@ -97,26 +99,29 @@ func (a CurriculumApi) GetCurricula(includeProgress bool) ([]Curriculum, *APIRes
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new([]Curriculum)
+	var successPayload = new(VideoRecorderMethodResponse)
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
 	}
 	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
 }
 
 /**
- * Get Detailed For User
- * Get all curricula for user including progress for each curriculum.
+ * Completes a live recording
+ * Used in conjunction with the live recorder method to mark a video recording as complete.
  *
- * @return []CurriculumWithProgress
+ * @param videoId The id of the video to mark as done.
+ * @param filename The filename that was chosen as the final video.
+ * @param title The title to give the video
+ * @return *VideoPublicRepresentation
  */
-func (a CurriculumApi) GetUserCurriculumWithProgress() ([]CurriculumWithProgress, *APIResponse, error) {
+func (a VideosApi) MarkLiveRecordingComplete(videoId string, filename string, title string) (*VideoPublicRepresentation, *APIResponse, error) {
 
-	var httpMethod = "Get"
+	var httpMethod = "Post"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/curriculum/getForUserWithProgress"
+	path := a.Configuration.BasePath + "/videos/live/markComplete"
 
 
 	headerParams := make(map[string]string)
@@ -154,12 +159,75 @@ func (a CurriculumApi) GetUserCurriculumWithProgress() ([]CurriculumWithProgress
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new([]CurriculumWithProgress)
+
+	formParams["videoId"] = videoId
+	formParams["filename"] = filename
+	formParams["title"] = title
+	var successPayload = new(VideoPublicRepresentation)
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
 	}
 	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
+	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+}
+
+/**
+ * Generate Signed Url
+ * Generates a signed url to be used for video uploads.
+ *
+ * @param policy The policy to sign
+ * @param v4 Whether to do v4 signing
+ * @return *string
+ */
+func (a VideosApi) SignUpload(policy SignUploadRequest, v4 bool) (*string, *APIResponse, error) {
+
+	var httpMethod = "Post"
+	// create path and map variables
+	path := a.Configuration.BasePath + "/video/signedUpload"
+
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := make(map[string]string)
+	var postBody interface{}
+	var fileName string
+	var fileBytes []byte
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headerParams[key] = a.Configuration.DefaultHeader[key]
+	}
+
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/json",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		headerParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+	}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		headerParams["Accept"] = localVarHttpHeaderAccept
+	}
+
+	formParams["v4"] = v4
+	// body params
+	postBody = &policy
+
+	var successPayload = new(string)
+	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
+	if err != nil {
+		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+	}
+	err = json.Unmarshal(httpResponse.Body(), &successPayload)
+	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
 }
 

@@ -22,13 +22,12 @@
 
 package bombbomb
 
-type InlineResponse200Items struct {
+// The SignUploadResponse class
+type SignUploadResponse struct {
 
-	Id string `json:"id,omitempty"`
+	// Base64 encoded policy.
+	Policy string `json:"policy,omitempty"`
 
-	Name string `json:"name,omitempty"`
-
-	UserId string `json:"userId,omitempty"`
-
-	ThumbUrl string `json:"thumbUrl,omitempty"`
+	// Signature for policy.
+	Signature string `json:"signature,omitempty"`
 }

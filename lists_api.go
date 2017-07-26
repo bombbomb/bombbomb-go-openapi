@@ -24,44 +24,43 @@ package bombbomb
 
 import (
 	"net/url"
-	"encoding/json"
 	"fmt"
 	"strings"
 )
 
-type VideosApi struct {
+type ListsApi struct {
 	Configuration Configuration
 }
 
-func NewVideosApi() *VideosApi {
+func NewListsApi() *ListsApi {
 	configuration := NewConfiguration()
-	return &VideosApi{
+	return &ListsApi{
 		Configuration: *configuration,
 	}
 }
 
-func NewVideosApiWithBasePath(basePath string) *VideosApi {
+func NewListsApiWithBasePath(basePath string) *ListsApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &VideosApi{
+	return &ListsApi{
 		Configuration: *configuration,
 	}
 }
 
 /**
- * Video Encoding Status
- * Get information about the current state of encoding for a given video id.
+ * Clear Contacts from List
+ * Clears all contacts from a list.
  *
- * @param videoId The video&#39;s id.
- * @return *VideoEncodingStatusResponse
+ * @param listId The list to be cleared.
+ * @return void
  */
-func (a VideosApi) GetVideoEncodingStatus(videoId string) (*VideoEncodingStatusResponse, *APIResponse, error) {
+func (a ListsApi) ClearList(listId string) (*APIResponse, error) {
 
-	var httpMethod = "Get"
+	var httpMethod = "Put"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/videos/{videoId}/status"
-	path = strings.Replace(path, "{"+"videoId"+"}", fmt.Sprintf("%v", videoId), -1)
+	path := a.Configuration.BasePath + "/lists/{listId}/clear"
+	path = strings.Replace(path, "{"+"listId"+"}", fmt.Sprintf("%v", listId), -1)
 
 
 	headerParams := make(map[string]string)
@@ -99,90 +98,29 @@ func (a VideosApi) GetVideoEncodingStatus(videoId string) (*VideoEncodingStatusR
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(VideoEncodingStatusResponse)
+
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return NewAPIResponse(httpResponse.RawResponse), err
 	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+
+	return NewAPIResponse(httpResponse.RawResponse), err
 }
 
 /**
- * Get Live Video Recorder HTML
- * Returns an object with a number of properties to help you put a video recorder on your site.         This is to be used in conjunction with the VideoRecordedLive call one the user has confirmed in your UI that         the video is how they want it.
+ * Copy All Contacts from a List
+ * Copy all contacts from a list.
  *
- * @param width The width of the recorder to present.
- * @param videoId The id of the video to record
- * @return *VideoRecorderMethodResponse
+ * @param fromListId The list to be cleared.
+ * @param listId The list to be cleared.
+ * @return void
  */
-func (a VideosApi) GetVideoRecorder(width int32, videoId string) (*VideoRecorderMethodResponse, *APIResponse, error) {
-
-	var httpMethod = "Get"
-	// create path and map variables
-	path := a.Configuration.BasePath + "/videos/live/getRecorder"
-
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := make(map[string]string)
-	var postBody interface{}
-	var fileName string
-	var fileBytes []byte
-	// authentication '(BBOAuth2)' required
-	// oauth required
-	if a.Configuration.AccessToken != ""{
-		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
-	}
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headerParams[key] = a.Configuration.DefaultHeader[key]
-	}
-		queryParams.Add("width", a.Configuration.APIClient.ParameterToString(width, ""))
-			queryParams.Add("videoId", a.Configuration.APIClient.ParameterToString(videoId, ""))
-	
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
-
-	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		headerParams["Content-Type"] = localVarHttpContentType
-	}
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		"application/json",
-	}
-
-	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		headerParams["Accept"] = localVarHttpHeaderAccept
-	}
-	var successPayload = new(VideoRecorderMethodResponse)
-	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
-	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-}
-
-/**
- * Completes a live recording
- * Used in conjunction with the live recorder method to mark a video recording as complete.
- *
- * @param videoId The id of the video to mark as done.
- * @param filename The filename that was chosen as the final video.
- * @param title The title to give the video
- * @return *VideoPublicRepresentation
- */
-func (a VideosApi) MarkLiveRecordingComplete(videoId string, filename string, title string) (*VideoPublicRepresentation, *APIResponse, error) {
+func (a ListsApi) CopyListContacts(fromListId string, listId string) (*APIResponse, error) {
 
 	var httpMethod = "Post"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/videos/live/markComplete"
+	path := a.Configuration.BasePath + "/lists/{listId}/copy"
+	path = strings.Replace(path, "{"+"listId"+"}", fmt.Sprintf("%v", listId), -1)
 
 
 	headerParams := make(map[string]string)
@@ -221,31 +159,29 @@ func (a VideosApi) MarkLiveRecordingComplete(videoId string, filename string, ti
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	formParams["videoId"] = videoId
-	formParams["filename"] = filename
-	formParams["title"] = title
-	var successPayload = new(VideoPublicRepresentation)
+	formParams["fromListId"] = fromListId
+
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return NewAPIResponse(httpResponse.RawResponse), err
 	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+
+	return NewAPIResponse(httpResponse.RawResponse), err
 }
 
 /**
- * Generate Signed Url
- * Generates a signed url to be used for video uploads.
+ * Suppress All Contacts from List
+ * Suppresses all contacts in a list.
  *
- * @param policy The policy to sign
- * @param v4 Whether to do v4 signing
- * @return *string
+ * @param listId The list to be cleared.
+ * @return void
  */
-func (a VideosApi) SignUpload(policy SignUploadRequest, v4 bool) (*string, *APIResponse, error) {
+func (a ListsApi) SuppressAllInList(listId string) (*APIResponse, error) {
 
-	var httpMethod = "Post"
+	var httpMethod = "Put"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/video/signedUpload"
+	path := a.Configuration.BasePath + "/lists/{listId}/suppress"
+	path = strings.Replace(path, "{"+"listId"+"}", fmt.Sprintf("%v", listId), -1)
 
 
 	headerParams := make(map[string]string)
@@ -254,6 +190,11 @@ func (a VideosApi) SignUpload(policy SignUploadRequest, v4 bool) (*string, *APIR
 	var postBody interface{}
 	var fileName string
 	var fileBytes []byte
+	// authentication '(BBOAuth2)' required
+	// oauth required
+	if a.Configuration.AccessToken != ""{
+		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
+	}
 	// add default headers if any
 	for key := range a.Configuration.DefaultHeader {
 		headerParams[key] = a.Configuration.DefaultHeader[key]
@@ -261,7 +202,7 @@ func (a VideosApi) SignUpload(policy SignUploadRequest, v4 bool) (*string, *APIR
 
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/json",  }
+	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
 
 	// set Content-Type header
 	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
@@ -279,16 +220,11 @@ func (a VideosApi) SignUpload(policy SignUploadRequest, v4 bool) (*string, *APIR
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	formParams["v4"] = v4
-	// body params
-	postBody = &policy
-
-	var successPayload = new(string)
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return NewAPIResponse(httpResponse.RawResponse), err
 	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+
+	return NewAPIResponse(httpResponse.RawResponse), err
 }
 

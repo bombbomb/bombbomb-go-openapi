@@ -4,10 +4,40 @@ All URIs are relative to *https://api.bombbomb.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetVideoEncodingStatus**](VideosApi.md#GetVideoEncodingStatus) | **Get** /videos/{videoId}/status | Video Encoding Status
 [**GetVideoRecorder**](VideosApi.md#GetVideoRecorder) | **Get** /videos/live/getRecorder | Get Live Video Recorder HTML
 [**MarkLiveRecordingComplete**](VideosApi.md#MarkLiveRecordingComplete) | **Post** /videos/live/markComplete | Completes a live recording
 [**SignUpload**](VideosApi.md#SignUpload) | **Post** /video/signedUpload | Generate Signed Url
 
+
+# **GetVideoEncodingStatus**
+> VideoEncodingStatusResponse GetVideoEncodingStatus($videoId)
+
+Video Encoding Status
+
+Get information about the current state of encoding for a given video id.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **videoId** | **string**| The video&#39;s id. | 
+
+### Return type
+
+[**VideoEncodingStatusResponse**](VideoEncodingStatusResponse.md)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetVideoRecorder**
 > VideoRecorderMethodResponse GetVideoRecorder($width, $videoId)

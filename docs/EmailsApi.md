@@ -11,11 +11,11 @@ Method | HTTP request | Description
 
 
 # **CreatePrintingPressEmail**
-> CreatePrintingPressEmail($templateId, $content, $replace, $videoId, $subjectLine)
+> CreatePrintingPressEmail($templateId, $content, $emailId, $videoId, $subjectLine)
 
 Create an Email with Printing Press
 
-Prints an email using the template id and content to the users account.If a video id, is include it will replace any video placeholders with that video.
+Prints an email using the template id and content to the users account.If a video id is included, it will replace any video placeholders with that video.
 
 
 ### Parameters
@@ -24,7 +24,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **templateId** | **string**| The template id to be printed. | 
  **content** | **string**| The content of the email. | 
- **replace** | **bool**| Set whether to replace video placeholders with video id. | 
+ **emailId** | **string**| The email id to be printed to. | [optional] 
  **videoId** | **string**| A video to replace video place holders with. | [optional] 
  **subjectLine** | **string**| The subject line to be printed. | [optional] 
 

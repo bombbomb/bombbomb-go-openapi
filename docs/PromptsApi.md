@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 # **CreatePromptBot**
-> PromptBotBot CreatePromptBot($listId, $emailId, $endDate, $promptSubject, $promptBody, $botTypeId, $templateId)
+> PromptBot CreatePromptBot($listId, $emailId, $name, $subject, $content, $contactFieldValueColumn, $botTypeId, $templateId, $videoId, $endDate)
 
 Create a running Prompt Bot for a list
 
@@ -30,15 +30,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **listId** | **string**| The list id to attach the bot to. | 
  **emailId** | **string**| The default email to use. | 
- **endDate** | **string**| The time frame to complete sending to the list. | 
- **promptSubject** | **string**| The prompt subject. | 
- **promptBody** | **string**| The prompt script. | 
+ **name** | **string**| The name of the bot. | 
+ **subject** | **string**| The subject of the default email. | 
+ **content** | **string**| The content used in the email. | 
+ **contactFieldValueColumn** | **string**| The custom field value column with dates for this bot. | 
  **botTypeId** | **string**| The type of bot to create. | 
  **templateId** | **string**| The template used to create the email id. | 
+ **videoId** | **string**| The video used in the email. | [optional] 
+ **endDate** | **string**| The time frame to complete sending to the list. | [optional] 
 
 ### Return type
 
-[**PromptBotBot**](PromptBot\Bot.md)
+[**PromptBot**](Prompt\Bot.md)
 
 ### Authorization
 
@@ -107,7 +110,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetPromptBots**
-> []PromptBotBot GetPromptBots()
+> []PromptBot GetPromptBots()
 
 List Prompt Bots
 
@@ -119,7 +122,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[]PromptBotBot**](PromptBot\Bot.md)
+[**[]PromptBot**](Prompt\Bot.md)
 
 ### Authorization
 
@@ -214,7 +217,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **RespondToVideoEmailPrompt**
-> VideoEmailPrompt RespondToVideoEmailPrompt($id, $choice, $videoId, $emailId)
+> VideoEmailPrompt RespondToVideoEmailPrompt($id, $choice, $videoId, $emailId, $subject)
 
 Respond to a prompt
 
@@ -226,9 +229,10 @@ Respond to a prompt by either adding a video, sending without a video or cancell
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| The id of the prompt. | 
- **choice** | **string**| The users&#39; selection. Can be: WithVideo, WithEmail, Cancel | 
+ **choice** | **string**| The users&#39; selection. Can be: WithVideo, WithEmail, Cancel, Restore, Reset, Manual | 
  **videoId** | **string**| The id of the video. | [optional] 
- **emailId** | **string**| The id of the video. | [optional] 
+ **emailId** | **string**| The id of the email. | [optional] 
+ **subject** | **string**| The subject of the email | [optional] 
 
 ### Return type
 
@@ -246,7 +250,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdatePromptBot**
-> PromptBotBot UpdatePromptBot($id, $emailId, $endDate, $status)
+> PromptBot UpdatePromptBot($id, $listId, $emailId, $name, $subject, $content, $contactFieldValueColumn, $templateId, $videoId, $endDate, $status)
 
 Update Prompt Bot
 
@@ -258,13 +262,20 @@ Updates a Prompt Bot's settings.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| The bot id. | 
- **emailId** | **string**| The default email to use. | [optional] 
+ **listId** | **string**| The list id to attach the bot to. | 
+ **emailId** | **string**| The default email to use. | 
+ **name** | **string**| The name of the bot. | 
+ **subject** | **string**| The subject of the default email. | 
+ **content** | **string**| The content used in the default email. | 
+ **contactFieldValueColumn** | **string**| The custom field value column with dates for this bot. | 
+ **templateId** | **string**| The template used to create the email id. | 
+ **videoId** | **string**| The video used in the default email. | [optional] 
  **endDate** | **string**| The time frame to complete sending to the list. | [optional] 
  **status** | **string**| The status of the bot. | [optional] 
 
 ### Return type
 
-[**PromptBotBot**](PromptBot\Bot.md)
+[**PromptBot**](Prompt\Bot.md)
 
 ### Authorization
 
@@ -278,7 +289,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdatePromptCampaign**
-> UpdatePromptCampaign($clientGroupId, $brandedTemplateId, $personalTemplateId, $enabled)
+> UpdatePromptCampaign($clientGroupId, $brandedTemplateId, $personalTemplateId, $enabled, $autoShares)
 
 Update Prompt Campaign
 
@@ -293,6 +304,7 @@ Name | Type | Description  | Notes
  **brandedTemplateId** | **string**| The template to use for branded feel emails. | [optional] 
  **personalTemplateId** | **string**| The template to use for personal feel emails. | [optional] 
  **enabled** | **bool**| Set whether the user is able to start receiving prompts. | [optional] 
+ **autoShares** | **string**| These are what we are autosharing to | [optional] 
 
 ### Return type
 

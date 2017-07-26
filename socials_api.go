@@ -24,218 +24,42 @@ package bombbomb
 
 import (
 	"net/url"
-	"encoding/json"
-	"fmt"
-	"strings"
 )
 
-type WebhooksApi struct {
+type SocialsApi struct {
 	Configuration Configuration
 }
 
-func NewWebhooksApi() *WebhooksApi {
+func NewSocialsApi() *SocialsApi {
 	configuration := NewConfiguration()
-	return &WebhooksApi{
+	return &SocialsApi{
 		Configuration: *configuration,
 	}
 }
 
-func NewWebhooksApiWithBasePath(basePath string) *WebhooksApi {
+func NewSocialsApiWithBasePath(basePath string) *SocialsApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &WebhooksApi{
+	return &SocialsApi{
 		Configuration: *configuration,
 	}
 }
 
 /**
- * Add Webhook
- * Idempotently adds a Webhook url
+ * Gets the social email properties
+ * Gets the social email properties
  *
- * @param hookUrl The Url of your listener
- * @return *BbWebHook
- */
-func (a WebhooksApi) AddWebHook(hookUrl string) (*BbWebHook, *APIResponse, error) {
-
-	var httpMethod = "Post"
-	// create path and map variables
-	path := a.Configuration.BasePath + "/webhook"
-
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := make(map[string]string)
-	var postBody interface{}
-	var fileName string
-	var fileBytes []byte
-	// authentication '(BBOAuth2)' required
-	// oauth required
-	if a.Configuration.AccessToken != ""{
-		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
-	}
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headerParams[key] = a.Configuration.DefaultHeader[key]
-	}
-
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
-
-	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		headerParams["Content-Type"] = localVarHttpContentType
-	}
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		"application/json",
-	}
-
-	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		headerParams["Accept"] = localVarHttpHeaderAccept
-	}
-
-	formParams["hookUrl"] = hookUrl
-	var successPayload = new(BbWebHook)
-	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
-	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-}
-
-/**
- * Deletes Webhook
- * Deletes a Webhook
- *
- * @param hookId The id of the webhook to delete
- * @return *string
- */
-func (a WebhooksApi) DeleteWebHook(hookId string) (*string, *APIResponse, error) {
-
-	var httpMethod = "Delete"
-	// create path and map variables
-	path := a.Configuration.BasePath + "/webhook/{hookId}"
-	path = strings.Replace(path, "{"+"hookId"+"}", fmt.Sprintf("%v", hookId), -1)
-
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := make(map[string]string)
-	var postBody interface{}
-	var fileName string
-	var fileBytes []byte
-	// authentication '(BBOAuth2)' required
-	// oauth required
-	if a.Configuration.AccessToken != ""{
-		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
-	}
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headerParams[key] = a.Configuration.DefaultHeader[key]
-	}
-
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
-
-	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		headerParams["Content-Type"] = localVarHttpContentType
-	}
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		"application/json",
-	}
-
-	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		headerParams["Accept"] = localVarHttpHeaderAccept
-	}
-	var successPayload = new(string)
-	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
-	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-}
-
-/**
- * Lists Webhooks
- * Lists all registered Webhooks
- *
- * @return []BbWebHook
- */
-func (a WebhooksApi) GetWebHooks() ([]BbWebHook, *APIResponse, error) {
-
-	var httpMethod = "Get"
-	// create path and map variables
-	path := a.Configuration.BasePath + "/webhook/"
-
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := make(map[string]string)
-	var postBody interface{}
-	var fileName string
-	var fileBytes []byte
-	// authentication '(BBOAuth2)' required
-	// oauth required
-	if a.Configuration.AccessToken != ""{
-		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
-	}
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headerParams[key] = a.Configuration.DefaultHeader[key]
-	}
-
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
-
-	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		headerParams["Content-Type"] = localVarHttpContentType
-	}
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		"application/json",
-	}
-
-	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		headerParams["Accept"] = localVarHttpHeaderAccept
-	}
-	var successPayload = new([]BbWebHook)
-	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
-	if err != nil {
-		return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
-	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return *successPayload, NewAPIResponse(httpResponse.RawResponse), err
-}
-
-/**
- * Describe WebHook Events
- * Returns example Webhook events for each kind of possible event.
- *
+ * @param jerichoId associated jericho Id
+ * @param emailId This is the email Id for the email url
+ * @param originatorId This is the originator Id
  * @return void
  */
-func (a WebhooksApi) ListWebHookEvents() (*APIResponse, error) {
+func (a SocialsApi) GetSocialArticleProperties(jerichoId string, emailId string, originatorId string) (*APIResponse, error) {
 
 	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/webhook/events"
+	path := a.Configuration.BasePath + "/socials/properties"
 
 
 	headerParams := make(map[string]string)
@@ -244,11 +68,19 @@ func (a WebhooksApi) ListWebHookEvents() (*APIResponse, error) {
 	var postBody interface{}
 	var fileName string
 	var fileBytes []byte
+	// authentication '(BBOAuth2)' required
+	// oauth required
+	if a.Configuration.AccessToken != ""{
+		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
+	}
 	// add default headers if any
 	for key := range a.Configuration.DefaultHeader {
 		headerParams[key] = a.Configuration.DefaultHeader[key]
 	}
-
+		queryParams.Add("jerichoId", a.Configuration.APIClient.ParameterToString(jerichoId, ""))
+			queryParams.Add("emailId", a.Configuration.APIClient.ParameterToString(emailId, ""))
+			queryParams.Add("originatorId", a.Configuration.APIClient.ParameterToString(originatorId, ""))
+	
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
@@ -278,16 +110,195 @@ func (a WebhooksApi) ListWebHookEvents() (*APIResponse, error) {
 }
 
 /**
- * Sends test Webhook
- * Triggers a test webhook to be sent to your endpoints.
+ * Gets the auto shares from the client group assoc id
+ * Gets the auto shares from the client group assoc id
  *
+ * @param clientGroupId ID of the client group association
  * @return void
  */
-func (a WebhooksApi) SendWebhookExample() (*APIResponse, error) {
+func (a SocialsApi) GetSocialAutoShares(clientGroupId string) (*APIResponse, error) {
 
-	var httpMethod = "Post"
+	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/webhook/test"
+	path := a.Configuration.BasePath + "/socials/shares"
+
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := make(map[string]string)
+	var postBody interface{}
+	var fileName string
+	var fileBytes []byte
+	// authentication '(BBOAuth2)' required
+	// oauth required
+	if a.Configuration.AccessToken != ""{
+		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
+	}
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headerParams[key] = a.Configuration.DefaultHeader[key]
+	}
+		queryParams.Add("clientGroupId", a.Configuration.APIClient.ParameterToString(clientGroupId, ""))
+	
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		headerParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+	}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		headerParams["Accept"] = localVarHttpHeaderAccept
+	}
+
+	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
+	if err != nil {
+		return NewAPIResponse(httpResponse.RawResponse), err
+	}
+
+	return NewAPIResponse(httpResponse.RawResponse), err
+}
+
+/**
+ * Get permissions for social integration
+ * Get permissions for social integration and has redirect for user to login
+ *
+ * @param socialType Type of social integration
+ * @return void
+ */
+func (a SocialsApi) GetSocialPermissions(socialType string) (*APIResponse, error) {
+
+	var httpMethod = "Get"
+	// create path and map variables
+	path := a.Configuration.BasePath + "/socials/permissions"
+
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := make(map[string]string)
+	var postBody interface{}
+	var fileName string
+	var fileBytes []byte
+	// authentication '(BBOAuth2)' required
+	// oauth required
+	if a.Configuration.AccessToken != ""{
+		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
+	}
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headerParams[key] = a.Configuration.DefaultHeader[key]
+	}
+		queryParams.Add("socialType", a.Configuration.APIClient.ParameterToString(socialType, ""))
+	
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		headerParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+	}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		headerParams["Accept"] = localVarHttpHeaderAccept
+	}
+
+	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
+	if err != nil {
+		return NewAPIResponse(httpResponse.RawResponse), err
+	}
+
+	return NewAPIResponse(httpResponse.RawResponse), err
+}
+
+/**
+ * Gets the social state
+ * Gets the social state
+ *
+ * @param originatorId associated originatorId
+ * @return void
+ */
+func (a SocialsApi) GetSocialStatus(originatorId string) (*APIResponse, error) {
+
+	var httpMethod = "Get"
+	// create path and map variables
+	path := a.Configuration.BasePath + "/socials/states"
+
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := make(map[string]string)
+	var postBody interface{}
+	var fileName string
+	var fileBytes []byte
+	// authentication '(BBOAuth2)' required
+	// oauth required
+	if a.Configuration.AccessToken != ""{
+		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
+	}
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headerParams[key] = a.Configuration.DefaultHeader[key]
+	}
+		queryParams.Add("originatorId", a.Configuration.APIClient.ParameterToString(originatorId, ""))
+	
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		headerParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+	}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		headerParams["Accept"] = localVarHttpHeaderAccept
+	}
+
+	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
+	if err != nil {
+		return NewAPIResponse(httpResponse.RawResponse), err
+	}
+
+	return NewAPIResponse(httpResponse.RawResponse), err
+}
+
+/**
+ * Gets the auto shares from the client group assoc id
+ * Gets the auto shares from the client group assoc id
+ *
+ * @param autoShare The social share that will auto share to
+ * @param clientGroupId ID of the client group association
+ * @return void
+ */
+func (a SocialsApi) UpdateSocialAutoShares(autoShare string, clientGroupId string) (*APIResponse, error) {
+
+	var httpMethod = "Put"
+	// create path and map variables
+	path := a.Configuration.BasePath + "/socials/shares"
 
 
 	headerParams := make(map[string]string)
@@ -325,6 +336,133 @@ func (a WebhooksApi) SendWebhookExample() (*APIResponse, error) {
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
+
+	formParams["autoShare"] = autoShare
+	formParams["clientGroupId"] = clientGroupId
+
+	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
+	if err != nil {
+		return NewAPIResponse(httpResponse.RawResponse), err
+	}
+
+	return NewAPIResponse(httpResponse.RawResponse), err
+}
+
+/**
+ * Sets the users social message to what they typed in
+ * Sets the users social message to what they typed in
+ *
+ * @param message The social message the user typed in
+ * @param originatorId The parent id tied to the social share
+ * @return void
+ */
+func (a SocialsApi) UpdateSocialMessage(message string, originatorId string) (*APIResponse, error) {
+
+	var httpMethod = "Put"
+	// create path and map variables
+	path := a.Configuration.BasePath + "/socials/message"
+
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := make(map[string]string)
+	var postBody interface{}
+	var fileName string
+	var fileBytes []byte
+	// authentication '(BBOAuth2)' required
+	// oauth required
+	if a.Configuration.AccessToken != ""{
+		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
+	}
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headerParams[key] = a.Configuration.DefaultHeader[key]
+	}
+
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		headerParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+	}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		headerParams["Accept"] = localVarHttpHeaderAccept
+	}
+
+	formParams["message"] = message
+	formParams["originatorId"] = originatorId
+
+	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
+	if err != nil {
+		return NewAPIResponse(httpResponse.RawResponse), err
+	}
+
+	return NewAPIResponse(httpResponse.RawResponse), err
+}
+
+/**
+ * Updates the social state for the object
+ * Updates the social state for the object
+ *
+ * @param state The state to set to
+ * @param originatorId The parent id tied to the social share
+ * @return void
+ */
+func (a SocialsApi) UpdateSocialStatus(state string, originatorId string) (*APIResponse, error) {
+
+	var httpMethod = "Put"
+	// create path and map variables
+	path := a.Configuration.BasePath + "/socials/state"
+
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := make(map[string]string)
+	var postBody interface{}
+	var fileName string
+	var fileBytes []byte
+	// authentication '(BBOAuth2)' required
+	// oauth required
+	if a.Configuration.AccessToken != ""{
+		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
+	}
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headerParams[key] = a.Configuration.DefaultHeader[key]
+	}
+
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		headerParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+	}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		headerParams["Accept"] = localVarHttpHeaderAccept
+	}
+
+	formParams["state"] = state
+	formParams["originatorId"] = originatorId
 
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {

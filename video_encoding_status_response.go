@@ -22,23 +22,15 @@
 
 package bombbomb
 
-type OAuthClient struct {
+// The VideoEncodingStatusResponse class
+type VideoEncodingStatusResponse struct {
 
-	// The id of the OAuth Client
-	Identifier string `json:"identifier,omitempty"`
+	// Returns true if the video is done encoding and finalized.
+	IsReady bool `json:"isReady,omitempty"`
 
-	// The user-facing name of the client. Eg. MyCrm
-	Name string `json:"name,omitempty"`
+	// Returns true if the video encoding process failed.
+	IsFailed bool `json:"isFailed,omitempty"`
 
-	// The secret supplied to the OAuth Application
-	ClientSecret string `json:"clientSecret,omitempty"`
-
-	// The grants allowed
-	GrantsAllowed string `json:"grantsAllowed,omitempty"`
-
-	// The user who controls the OAuth App
-	OwningUserId string `json:"owningUserId,omitempty"`
-
-	// Where OAuth authorization sessions are returned to
-	RedirectUri string `json:"redirectUri,omitempty"`
+	// 0-100 value indicating progress of video encoding process.
+	Progress int32 `json:"progress,omitempty"`
 }

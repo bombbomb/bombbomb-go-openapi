@@ -24,44 +24,42 @@ package bombbomb
 
 import (
 	"net/url"
-	"encoding/json"
-	"fmt"
-	"strings"
 )
 
-type VideosApi struct {
+type AccountsApi struct {
 	Configuration Configuration
 }
 
-func NewVideosApi() *VideosApi {
+func NewAccountsApi() *AccountsApi {
 	configuration := NewConfiguration()
-	return &VideosApi{
+	return &AccountsApi{
 		Configuration: *configuration,
 	}
 }
 
-func NewVideosApiWithBasePath(basePath string) *VideosApi {
+func NewAccountsApiWithBasePath(basePath string) *AccountsApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &VideosApi{
+	return &AccountsApi{
 		Configuration: *configuration,
 	}
 }
 
 /**
- * Video Encoding Status
- * Get information about the current state of encoding for a given video id.
+ * Get account details.
+ * Get the details of the user&#39;s account.
  *
- * @param videoId The video&#39;s id.
- * @return *VideoEncodingStatusResponse
+ * @param email Your login email address
+ * @param pw Your password
+ * @param apiKey Your Api Key
+ * @return void
  */
-func (a VideosApi) GetVideoEncodingStatus(videoId string) (*VideoEncodingStatusResponse, *APIResponse, error) {
+func (a AccountsApi) AccountDetails(email string, pw string, apiKey string) (*APIResponse, error) {
 
 	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/videos/{videoId}/status"
-	path = strings.Replace(path, "{"+"videoId"+"}", fmt.Sprintf("%v", videoId), -1)
+	path := a.Configuration.BasePath + "/accounts"
 
 
 	headerParams := make(map[string]string)
@@ -70,76 +68,13 @@ func (a VideosApi) GetVideoEncodingStatus(videoId string) (*VideoEncodingStatusR
 	var postBody interface{}
 	var fileName string
 	var fileBytes []byte
-	// authentication '(BBOAuth2)' required
-	// oauth required
-	if a.Configuration.AccessToken != ""{
-		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
-	}
 	// add default headers if any
 	for key := range a.Configuration.DefaultHeader {
 		headerParams[key] = a.Configuration.DefaultHeader[key]
 	}
-
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
-
-	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		headerParams["Content-Type"] = localVarHttpContentType
-	}
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		"application/json",
-	}
-
-	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		headerParams["Accept"] = localVarHttpHeaderAccept
-	}
-	var successPayload = new(VideoEncodingStatusResponse)
-	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
-	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
-}
-
-/**
- * Get Live Video Recorder HTML
- * Returns an object with a number of properties to help you put a video recorder on your site.         This is to be used in conjunction with the VideoRecordedLive call one the user has confirmed in your UI that         the video is how they want it.
- *
- * @param width The width of the recorder to present.
- * @param videoId The id of the video to record
- * @return *VideoRecorderMethodResponse
- */
-func (a VideosApi) GetVideoRecorder(width int32, videoId string) (*VideoRecorderMethodResponse, *APIResponse, error) {
-
-	var httpMethod = "Get"
-	// create path and map variables
-	path := a.Configuration.BasePath + "/videos/live/getRecorder"
-
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := make(map[string]string)
-	var postBody interface{}
-	var fileName string
-	var fileBytes []byte
-	// authentication '(BBOAuth2)' required
-	// oauth required
-	if a.Configuration.AccessToken != ""{
-		headerParams["Authorization"] =  "Bearer " + a.Configuration.AccessToken
-	}
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headerParams[key] = a.Configuration.DefaultHeader[key]
-	}
-		queryParams.Add("width", a.Configuration.APIClient.ParameterToString(width, ""))
-			queryParams.Add("videoId", a.Configuration.APIClient.ParameterToString(videoId, ""))
+		queryParams.Add("email", a.Configuration.APIClient.ParameterToString(email, ""))
+			queryParams.Add("pw", a.Configuration.APIClient.ParameterToString(pw, ""))
+			queryParams.Add("api_key", a.Configuration.APIClient.ParameterToString(apiKey, ""))
 	
 
 	// to determine the Content-Type header
@@ -160,29 +95,37 @@ func (a VideosApi) GetVideoRecorder(width int32, videoId string) (*VideoRecorder
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(VideoRecorderMethodResponse)
+
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return NewAPIResponse(httpResponse.RawResponse), err
 	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+
+	return NewAPIResponse(httpResponse.RawResponse), err
 }
 
 /**
- * Completes a live recording
- * Used in conjunction with the live recorder method to mark a video recording as complete.
+ * Create Account
+ * Creates a new BombBomb account. This method is currently only available to paid seat admins.
  *
- * @param videoId The id of the video to mark as done.
- * @param filename The filename that was chosen as the final video.
- * @param title The title to give the video
- * @return *VideoPublicRepresentation
+ * @param teamId The team id
+ * @param firstName First name of the user.
+ * @param lastName Last name of the user.
+ * @param emailAddress Email address of the user.
+ * @param companyName Company of the user.
+ * @param phone Phone number of the user.
+ * @param country Country of the user.
+ * @param industry Industry of the user.
+ * @param address Street Address of the user.
+ * @param city City of the user.
+ * @param postalCode Postal/Zip code of the user.
+ * @return *string
  */
-func (a VideosApi) MarkLiveRecordingComplete(videoId string, filename string, title string) (*VideoPublicRepresentation, *APIResponse, error) {
+func (a AccountsApi) CreateAccount(teamId string, firstName string, lastName string, emailAddress string, companyName string, phone string, country string, industry string, address string, city string, postalCode string) (*string, *APIResponse, error) {
 
 	var httpMethod = "Post"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/videos/live/markComplete"
+	path := a.Configuration.BasePath + "/accounts"
 
 
 	headerParams := make(map[string]string)
@@ -221,10 +164,18 @@ func (a VideosApi) MarkLiveRecordingComplete(videoId string, filename string, ti
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	formParams["videoId"] = videoId
-	formParams["filename"] = filename
-	formParams["title"] = title
-	var successPayload = new(VideoPublicRepresentation)
+	formParams["teamId"] = teamId
+	formParams["firstName"] = firstName
+	formParams["lastName"] = lastName
+	formParams["emailAddress"] = emailAddress
+	formParams["companyName"] = companyName
+	formParams["phone"] = phone
+	formParams["country"] = country
+	formParams["industry"] = industry
+	formParams["address"] = address
+	formParams["city"] = city
+	formParams["postalCode"] = postalCode
+	var successPayload = new(string)
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
 		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
@@ -234,18 +185,19 @@ func (a VideosApi) MarkLiveRecordingComplete(videoId string, filename string, ti
 }
 
 /**
- * Generate Signed Url
- * Generates a signed url to be used for video uploads.
+ * Check if subscription purchase allowed.
+ * Check whether the user can purchase a subscription.
  *
- * @param policy The policy to sign
- * @param v4 Whether to do v4 signing
- * @return *string
+ * @param email Your login email address
+ * @param pw Your password
+ * @param apiKey Your Api Key
+ * @return void
  */
-func (a VideosApi) SignUpload(policy SignUploadRequest, v4 bool) (*string, *APIResponse, error) {
+func (a AccountsApi) SubscriptionPurchaseAllowed(email string, pw string, apiKey string) (*APIResponse, error) {
 
-	var httpMethod = "Post"
+	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/video/signedUpload"
+	path := a.Configuration.BasePath + "/accounts/purchaseable"
 
 
 	headerParams := make(map[string]string)
@@ -258,10 +210,13 @@ func (a VideosApi) SignUpload(policy SignUploadRequest, v4 bool) (*string, *APIR
 	for key := range a.Configuration.DefaultHeader {
 		headerParams[key] = a.Configuration.DefaultHeader[key]
 	}
-
+		queryParams.Add("email", a.Configuration.APIClient.ParameterToString(email, ""))
+			queryParams.Add("pw", a.Configuration.APIClient.ParameterToString(pw, ""))
+			queryParams.Add("api_key", a.Configuration.APIClient.ParameterToString(apiKey, ""))
+	
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/json",  }
+	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
 
 	// set Content-Type header
 	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
@@ -279,16 +234,11 @@ func (a VideosApi) SignUpload(policy SignUploadRequest, v4 bool) (*string, *APIR
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	formParams["v4"] = v4
-	// body params
-	postBody = &policy
-
-	var successPayload = new(string)
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+		return NewAPIResponse(httpResponse.RawResponse), err
 	}
-	err = json.Unmarshal(httpResponse.Body(), &successPayload)
-	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
+
+	return NewAPIResponse(httpResponse.RawResponse), err
 }
 

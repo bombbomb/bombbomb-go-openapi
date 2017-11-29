@@ -6,11 +6,12 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AccountDetails**](AccountsApi.md#AccountDetails) | **Get** /accounts | Get account details.
 [**CreateAccount**](AccountsApi.md#CreateAccount) | **Post** /accounts | Create Account
+[**GetClientStatistics**](AccountsApi.md#GetClientStatistics) | **Get** /accounts/stats | Get Client Statistics
 [**SubscriptionPurchaseAllowed**](AccountsApi.md#SubscriptionPurchaseAllowed) | **Get** /accounts/purchaseable | Check if subscription purchase allowed.
 
 
 # **AccountDetails**
-> AccountDetails($email, $pw, $apiKey)
+> AccountDetails()
 
 Get account details.
 
@@ -18,12 +19,7 @@ Get the details of the user's account.
 
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **string**| Your login email address | [optional] 
- **pw** | **string**| Your password | [optional] 
- **apiKey** | **string**| Your Api Key | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -41,7 +37,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CreateAccount**
-> string CreateAccount($teamId, $firstName, $lastName, $emailAddress, $companyName, $phone, $country, $industry, $address, $city, $postalCode)
+> string CreateAccount($teamId, $firstName, $lastName, $emailAddress, $companyName, $phone, $country, $industry, $address, $city, $postalCode, $preventWelcomeEmail)
 
 Create Account
 
@@ -63,6 +59,7 @@ Name | Type | Description  | Notes
  **address** | **string**| Street Address of the user. | [optional] 
  **city** | **string**| City of the user. | [optional] 
  **postalCode** | **string**| Postal/Zip code of the user. | [optional] 
+ **preventWelcomeEmail** | **string**| prevent an email with login credentials from being sent to the new account. must be set to &#39;true&#39; | [optional] 
 
 ### Return type
 
@@ -79,8 +76,37 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **GetClientStatistics**
+> GetClientStatistics($clientId)
+
+Get Client Statistics
+
+Gets general statics for a Client
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **clientId** | **string**| Client ID of the account to retrieve. Defaults to yourself. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **SubscriptionPurchaseAllowed**
-> SubscriptionPurchaseAllowed($email, $pw, $apiKey)
+> SubscriptionPurchaseAllowed()
 
 Check if subscription purchase allowed.
 
@@ -88,12 +114,7 @@ Check whether the user can purchase a subscription.
 
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **string**| Your login email address | [optional] 
- **pw** | **string**| Your password | [optional] 
- **apiKey** | **string**| Your Api Key | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 

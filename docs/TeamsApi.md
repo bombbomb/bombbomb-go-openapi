@@ -10,11 +10,16 @@ Method | HTTP request | Description
 [**DeleteSubteam**](TeamsApi.md#DeleteSubteam) | **Delete** /team/{teamId}/subteam | Delete Subteam
 [**GetAllClientGroupAssociations**](TeamsApi.md#GetAllClientGroupAssociations) | **Get** /team/associations/ | Lists team associations
 [**GetClientGroupAssets**](TeamsApi.md#GetClientGroupAssets) | **Get** /team/assets/ | Lists team assets
+[**GetClientGroupStatistics**](TeamsApi.md#GetClientGroupStatistics) | **Get** /team/{teamId}/stats | Get Team statistics
 [**GetJerichoSends**](TeamsApi.md#GetJerichoSends) | **Get** /team/{teamId}/jericho | List Jericho Sends
 [**GetJerichoStats**](TeamsApi.md#GetJerichoStats) | **Get** /team/{teamId}/jericho/{jerichoId}/performance | Gets Jericho performance statistics
+[**GetPagedClientGroupMembers**](TeamsApi.md#GetPagedClientGroupMembers) | **Get** /team/{teamId}/members | List Team Members
 [**GetSubteams**](TeamsApi.md#GetSubteams) | **Get** /team/{teamId}/subteam | List Subteams
+[**GetTeamPromptAggregateStats**](TeamsApi.md#GetTeamPromptAggregateStats) | **Get** /team/{clientGroupId}/campaign/stats | Get aggregate stats for campaigns
+[**GetTeamPromptCampaigns**](TeamsApi.md#GetTeamPromptCampaigns) | **Get** /team/{clientGroupId}/campaign | Get campaigns for team
 [**QueueJerichoSend**](TeamsApi.md#QueueJerichoSend) | **Post** /team/{teamId}/jericho | Creates a Jericho send.
 [**RemoveMemberFromTeam**](TeamsApi.md#RemoveMemberFromTeam) | **Delete** /team/{teamId}/member/{userId} | Remove Member from Team
+[**ResendTeamMemberInvitation**](TeamsApi.md#ResendTeamMemberInvitation) | **Post** /team/{teamId}/{memberUserId}/rewelcome | Resend invite
 [**UpdateJerichoPromptSend**](TeamsApi.md#UpdateJerichoPromptSend) | **Put** /team/{teamId}/jericho/{jerichoId} | Updates the Jericho Prompt Settings
 [**UpdateTeam**](TeamsApi.md#UpdateTeam) | **Post** /team/{teamId} | Update a team
 [**UpdateTeamMember**](TeamsApi.md#UpdateTeamMember) | **Put** /team/{teamId}/member | Update Member of Team
@@ -204,6 +209,36 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **GetClientGroupStatistics**
+> GetClientGroupStatistics($teamId, $memberStatus)
+
+Get Team statistics
+
+Get top level statistic data for a Team
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **memberStatus** | **string**| The status of members to query for | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **GetJerichoSends**
 > []JerichoConfiguration GetJerichoSends($teamId)
 
@@ -263,6 +298,41 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **GetPagedClientGroupMembers**
+> GetPagedClientGroupMembers($teamId, $pageSize, $page, $status, $search, $orderBy, $orderDirection)
+
+List Team Members
+
+Get a paginated listing of Team members
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **pageSize** | **string**| Amount of records to return in a page. | 
+ **page** | **string**| The page to return. | 
+ **status** | **string**| The status type to filter by. | [optional] 
+ **search** | **string**| Filter results with names that match the search term. | [optional] 
+ **orderBy** | **string**| Key to order results by | [optional] 
+ **orderDirection** | **string**| ASC or DESC | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **GetSubteams**
 > []TeamPublicRepresentation GetSubteams($teamId)
 
@@ -280,6 +350,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]TeamPublicRepresentation**](TeamPublicRepresentation.md)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetTeamPromptAggregateStats**
+> GetTeamPromptAggregateStats($clientGroupId)
+
+Get aggregate stats for campaigns
+
+Get all the campaigns aggregate stats
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **clientGroupId** | **string**| ID of the client group association | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetTeamPromptCampaigns**
+> GetTeamPromptCampaigns($clientGroupId, $searchTerm, $orderBy, $asc)
+
+Get campaigns for team
+
+Get campaigns for the team and their stats
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **clientGroupId** | **string**| ID of the client group association | 
+ **searchTerm** | **string**| The value to search for in prompt subject | [optional] 
+ **orderBy** | **string**| How to sort the column | [optional] 
+ **asc** | **string**| Ascending or not | [optional] 
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
@@ -352,6 +483,36 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **ResendTeamMemberInvitation**
+> TeamPublicRepresentation ResendTeamMemberInvitation($teamId, $memberUserId)
+
+Resend invite
+
+Resend invitation to a member of a team
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **memberUserId** | **string**| The user id of the member being resent an invitation. | 
+
+### Return type
+
+[**TeamPublicRepresentation**](TeamPublicRepresentation.md)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **UpdateJerichoPromptSend**
 > UpdateJerichoPromptSend($teamId, $jerichoId)
 
@@ -383,7 +544,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateTeam**
-> TeamPublicRepresentation UpdateTeam($teamId, $name)
+> TeamPublicRepresentation UpdateTeam($teamId, $name, $state)
 
 Update a team
 
@@ -396,6 +557,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
  **name** | **string**| The name of the team | [optional] 
+ **state** | **string**| The status of the login permissions | [optional] 
 
 ### Return type
 

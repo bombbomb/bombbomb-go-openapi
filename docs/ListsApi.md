@@ -4,10 +4,41 @@ All URIs are relative to *https://api.bombbomb.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AddNewList**](ListsApi.md#AddNewList) | **Post** /lists/ | Add list.
 [**ClearList**](ListsApi.md#ClearList) | **Put** /lists/{listId}/clear | Clear Contacts from List
 [**CopyListContacts**](ListsApi.md#CopyListContacts) | **Post** /lists/{listId}/copy | Copy All Contacts from a List
+[**GetAllLists**](ListsApi.md#GetAllLists) | **Get** /lists/ | Get all Lists
 [**SuppressAllInList**](ListsApi.md#SuppressAllInList) | **Put** /lists/{listId}/suppress | Suppress All Contacts from List
 
+
+# **AddNewList**
+> AddNewList($listName)
+
+Add list.
+
+Add a list to the users account.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **listName** | **string**| Name of the new list being added | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ClearList**
 > ClearList($listId)
@@ -52,6 +83,32 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **fromListId** | **string**| The list to be cleared. | 
  **listId** | **string**| The list to be cleared. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetAllLists**
+> GetAllLists()
+
+Get all Lists
+
+Get all the lists for a specific user.
+
+
+### Parameters
+This endpoint does not need any parameter.
 
 ### Return type
 

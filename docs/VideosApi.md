@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**GetVideoRecorder**](VideosApi.md#GetVideoRecorder) | **Get** /videos/live/getRecorder | Get Live Video Recorder HTML
 [**MarkLiveRecordingComplete**](VideosApi.md#MarkLiveRecordingComplete) | **Post** /videos/live/markComplete | Completes a live recording
 [**SignUpload**](VideosApi.md#SignUpload) | **Post** /video/signedUpload | Generate Signed Url
+[**UpdateVideoThumbnailV2**](VideosApi.md#UpdateVideoThumbnailV2) | **Put** /videos/thumbnail | Upload thumbnail
 
 
 # **GetVideoEncodingStatus**
@@ -126,6 +127,37 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateVideoThumbnailV2**
+> UpdateVideoThumbnailV2($videoId, $thumbnail, $custom)
+
+Upload thumbnail
+
+Upload a new video thumbnail
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **videoId** | **string**| The id of the video | 
+ **thumbnail** | **string**| The thumbnail being uploaded | 
+ **custom** | **bool**| The default email to use. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

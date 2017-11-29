@@ -29,6 +29,12 @@ Name | Type | Description | Notes
 **ApplyTemplate** | **bool** | Controls whether a user template is applied to the message as it is sent | [optional] [default to null]
 **CreatedDate** | [**time.Time**](time.Time.md) | When the email was first sent out | [optional] [default to null]
 **LastNotified** | [**time.Time**](time.Time.md) | When the user was last notified about a prompt email waiting for a video | [optional] [default to null]
+**FacebookMessage** | **string** | The facebook message to be passed off to social sender | [optional] [default to null]
+**TwitterMessage** | **string** | The twitter message to be passed off to social sender | [optional] [default to null]
+**LinkedinMessage** | **string** | The linkedin message to be passed off to social sender | [optional] [default to null]
+**SendMechanism** | **string** | The sendMechanism property | [optional] [default to null]
+**HasSocial** | **bool** | this determines whether or not it has a social content. | [optional] [default to null]
+**SendTypes** | **[]string** | The types of mechanisms this prompt can send. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

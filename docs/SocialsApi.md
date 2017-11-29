@@ -4,17 +4,45 @@ All URIs are relative to *https://api.bombbomb.com/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetFacebookPages**](SocialsApi.md#GetFacebookPages) | **Get** /socials/facebook/pages | Gets facebook pages
 [**GetSocialArticleProperties**](SocialsApi.md#GetSocialArticleProperties) | **Get** /socials/properties | Gets the social email properties
-[**GetSocialAutoShares**](SocialsApi.md#GetSocialAutoShares) | **Get** /socials/shares | Gets the auto shares from the client group assoc id
-[**GetSocialPermissions**](SocialsApi.md#GetSocialPermissions) | **Get** /socials/permissions | Get permissions for social integration
-[**GetSocialStatus**](SocialsApi.md#GetSocialStatus) | **Get** /socials/states | Gets the social state
-[**UpdateSocialAutoShares**](SocialsApi.md#UpdateSocialAutoShares) | **Put** /socials/shares | Gets the auto shares from the client group assoc id
-[**UpdateSocialMessage**](SocialsApi.md#UpdateSocialMessage) | **Put** /socials/message | Sets the users social message to what they typed in
-[**UpdateSocialStatus**](SocialsApi.md#UpdateSocialStatus) | **Put** /socials/state | Updates the social state for the object
+[**GetSocialAuthorizations**](SocialsApi.md#GetSocialAuthorizations) | **Get** /socials/authorizations | Get authorizations for all social integration
+[**GetSocialProfileProperties**](SocialsApi.md#GetSocialProfileProperties) | **Get** /socials/profile | Gets the profile properties
+[**GetSocialStats**](SocialsApi.md#GetSocialStats) | **Get** /socials/{promptId}/stats | Get social stats for a prompt
+[**PostSocialContent**](SocialsApi.md#PostSocialContent) | **Post** /socials/content | Creates social content
+[**UpdateClientGroupSendMechanism**](SocialsApi.md#UpdateClientGroupSendMechanism) | **Put** /socials/client/sendMechanism | Gets the auto shares from the client group assoc id
+[**UpdateFacebookPages**](SocialsApi.md#UpdateFacebookPages) | **Put** /socials/facebook/pages | Updates facebook page Ids
+[**UpdateSocialContent**](SocialsApi.md#UpdateSocialContent) | **Put** /socials/content | Updates social content
 
+
+# **GetFacebookPages**
+> GetFacebookPages()
+
+Gets facebook pages
+
+Gets facebook pages by client id
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSocialArticleProperties**
-> GetSocialArticleProperties($jerichoId, $emailId, $originatorId)
+> GetSocialArticleProperties($emailId)
 
 Gets the social email properties
 
@@ -25,9 +53,7 @@ Gets the social email properties
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **jerichoId** | **string**| associated jericho Id | 
  **emailId** | **string**| This is the email Id for the email url | 
- **originatorId** | **string**| This is the originator Id | 
 
 ### Return type
 
@@ -44,8 +70,124 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetSocialAutoShares**
-> GetSocialAutoShares($clientGroupId)
+# **GetSocialAuthorizations**
+> GetSocialAuthorizations($clientGroupId)
+
+Get authorizations for all social integration
+
+Get authorizations and autoshares for all social integration and has redirect for user to login
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **clientGroupId** | **string**| ID of the client group association | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetSocialProfileProperties**
+> GetSocialProfileProperties($socialType)
+
+Gets the profile properties
+
+Gets the social profile properties
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **socialType** | **string**| The social type | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetSocialStats**
+> GetSocialStats($promptId)
+
+Get social stats for a prompt
+
+Get social stats for a prompt by id
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **promptId** | **string**| ID of the prompt | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **PostSocialContent**
+> PostSocialContent($emailId)
+
+Creates social content
+
+Creates social content for an email
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **emailId** | **string**| The email&#39;s id | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateClientGroupSendMechanism**
+> UpdateClientGroupSendMechanism($sendMechanism, $clientGroupId, $enabled)
 
 Gets the auto shares from the client group assoc id
 
@@ -56,7 +198,9 @@ Gets the auto shares from the client group assoc id
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **sendMechanism** | **string**| The send mechanism for the prompt | 
  **clientGroupId** | **string**| ID of the client group association | 
+ **enabled** | **string**| Is the send mechanism enabled? | [optional] 
 
 ### Return type
 
@@ -73,19 +217,19 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetSocialPermissions**
-> GetSocialPermissions($socialType)
+# **UpdateFacebookPages**
+> UpdateFacebookPages($pageIds)
 
-Get permissions for social integration
+Updates facebook page Ids
 
-Get permissions for social integration and has redirect for user to login
+Updates facebook page Ids to be sent to for prompts
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **socialType** | **string**| Type of social integration | 
+ **pageIds** | **string**| Page Ids for the prompt | 
 
 ### Return type
 
@@ -102,109 +246,23 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetSocialStatus**
-> GetSocialStatus($originatorId)
+# **UpdateSocialContent**
+> UpdateSocialContent($socialId, $title, $description, $pictureUrl, $suggestedMessage)
 
-Gets the social state
+Updates social content
 
-Gets the social state
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **originatorId** | **string**| associated originatorId | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BBOAuth2](../README.md#BBOAuth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **UpdateSocialAutoShares**
-> UpdateSocialAutoShares($autoShare, $clientGroupId)
-
-Gets the auto shares from the client group assoc id
-
-Gets the auto shares from the client group assoc id
+Updates social content for an email
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **autoShare** | **string**| The social share that will auto share to | 
- **clientGroupId** | **string**| ID of the client group association | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BBOAuth2](../README.md#BBOAuth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **UpdateSocialMessage**
-> UpdateSocialMessage($message, $originatorId)
-
-Sets the users social message to what they typed in
-
-Sets the users social message to what they typed in
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **message** | **string**| The social message the user typed in | 
- **originatorId** | **string**| The parent id tied to the social share | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BBOAuth2](../README.md#BBOAuth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **UpdateSocialStatus**
-> UpdateSocialStatus($state, $originatorId)
-
-Updates the social state for the object
-
-Updates the social state for the object
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **state** | **string**| The state to set to | 
- **originatorId** | **string**| The parent id tied to the social share | 
+ **socialId** | **string**| The social id | 
+ **title** | **string**| The title for the article | [optional] 
+ **description** | **string**| The article description | [optional] 
+ **pictureUrl** | **string**| The article picture url | [optional] 
+ **suggestedMessage** | **string**| The suggested message to use | [optional] 
 
 ### Return type
 

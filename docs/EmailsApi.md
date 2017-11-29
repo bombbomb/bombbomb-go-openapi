@@ -5,9 +5,12 @@ All URIs are relative to *https://api.bombbomb.com/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreatePrintingPressEmail**](EmailsApi.md#CreatePrintingPressEmail) | **Post** /emails/print | Create an Email with Printing Press
+[**GetAllTemplatesForCurrentUser**](EmailsApi.md#GetAllTemplatesForCurrentUser) | **Get** /emails/templates | Get all user templates
 [**GetEmailTracking**](EmailsApi.md#GetEmailTracking) | **Get** /emails/{emailId}/tracking | Get Email Tracking
 [**GetEmailTrackingInteractions**](EmailsApi.md#GetEmailTrackingInteractions) | **Get** /emails/{emailId}/tracking/interactions | Get Email Tracking Interactions
 [**GetHourlyEmailTracking**](EmailsApi.md#GetHourlyEmailTracking) | **Get** /emails/{emailId}/tracking/hourly | Get Hourly Email Tracking
+[**GetQuickSendTemplates**](EmailsApi.md#GetQuickSendTemplates) | **Get** /emails/quicksend/templates | Get all quicksend templates
+[**VideoQuickSender**](EmailsApi.md#VideoQuickSender) | **Post** /emails/quicksend | Send a quicksend email
 
 
 # **CreatePrintingPressEmail**
@@ -27,6 +30,35 @@ Name | Type | Description  | Notes
  **emailId** | **string**| The email id to be printed to. | [optional] 
  **videoId** | **string**| A video to replace video place holders with. | [optional] 
  **subjectLine** | **string**| The subject line to be printed. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetAllTemplatesForCurrentUser**
+> GetAllTemplatesForCurrentUser($quickSendOnly)
+
+Get all user templates
+
+Get all templates accessible to the current user
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **quickSendOnly** | **bool**| Whether to return only quick send templates. | [optional] 
 
 ### Return type
 
@@ -120,6 +152,69 @@ Name | Type | Description  | Notes
  **emailId** | **string**| ID of the email | 
  **jobId** | **string**| ID of the Job (or null for all jobs) | [optional] 
  **interactionType** | **string**| Interaction type to filter by | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetQuickSendTemplates**
+> GetQuickSendTemplates()
+
+Get all quicksend templates
+
+Get all quicksend templates accessible to the user.
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **VideoQuickSender**
+> VideoQuickSender($videoId, $emailAddresses, $subject, $message, $listIds, $scheduledSendTimestamp, $extendedProperties, $templateId, $stripHTML)
+
+Send a quicksend email
+
+Send a quicksend video email to the list or users provided.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **videoId** | **string**| A guid id for the video. | [optional] 
+ **emailAddresses** | **string**| A semi-colon separated list of email addresses to send to. | [optional] 
+ **subject** | **string**| Subject line for the email. | [optional] 
+ **message** | **string**| Message for the body of the email. | [optional] 
+ **listIds** | **string**| An array of list ids | [optional] 
+ **scheduledSendTimestamp** | **int32**| When to schedule the send (seconds since epoch). null value means send immediately. | [optional] 
+ **extendedProperties** | **string**| Bool value that when checked will send back both emailId as well as extra properties | [optional] 
+ **templateId** | **string**| Id of a template to use for this send. A null value means use the default for this user. | [optional] 
+ **stripHTML** | **string**| remove HTML elements | [optional] 
 
 ### Return type
 

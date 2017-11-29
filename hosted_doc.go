@@ -26,21 +26,24 @@ import (
 	"time"
 )
 
-// The CurriculumUserProgress class
-type CurriculumUserProgress struct {
+// The HostedDoc class
+type HostedDoc struct {
 
-	// Id
+	// The doc's id.
 	Id string `json:"id,omitempty"`
 
-	// User Id
+	// The doc's owner.
 	UserId string `json:"userId,omitempty"`
 
-	// Curriculum Item Id
-	CurriculumItemId string `json:"curriculumItemId,omitempty"`
+	// docs file name.
+	FileName string `json:"fileName,omitempty"`
 
-	// Curriculum Id
-	CurriculumId string `json:"curriculumId,omitempty"`
+	// The doc's short url.
+	ShortUrl string `json:"shortUrl,omitempty"`
 
-	// When the final email is scheduled to be sent
-	CompletedDate time.Time `json:"completedDate,omitempty"`
+	// The doc's long url.
+	LongUrl string `json:"longUrl,omitempty"`
+
+	// The doc's upload date.
+	UploadDate time.Time `json:"uploadDate,omitempty"`
 }

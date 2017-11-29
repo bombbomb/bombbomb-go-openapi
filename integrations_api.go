@@ -26,38 +26,38 @@ import (
 	"net/url"
 )
 
-type OrdersApi struct {
+type IntegrationsApi struct {
 	Configuration Configuration
 }
 
-func NewOrdersApi() *OrdersApi {
+func NewIntegrationsApi() *IntegrationsApi {
 	configuration := NewConfiguration()
-	return &OrdersApi{
+	return &IntegrationsApi{
 		Configuration: *configuration,
 	}
 }
 
-func NewOrdersApiWithBasePath(basePath string) *OrdersApi {
+func NewIntegrationsApiWithBasePath(basePath string) *IntegrationsApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &OrdersApi{
+	return &IntegrationsApi{
 		Configuration: *configuration,
 	}
 }
 
 /**
- * Deletes image from user s3 store
- * Deletes image from user s3 store
+ * Synchronize your integration list or lists.
+ * Synchronize your integration contact list with the service you are integrated with. If no integration code is provided, all integrations will be synchronized.
  *
- * @param fileName Filename for deletion
- * @return void
+ * @param integrationId The integration to sync lists for. All integrations will sync if nothing is provided.
+ * @return *string
  */
-func (a OrdersApi) TemplateAssetDelete(fileName string) (*APIResponse, error) {
+func (a IntegrationsApi) SyncUsersIntegratedLists(integrationId string) (*string, *APIResponse, error) {
 
-	var httpMethod = "Delete"
+	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/orders/templates/images"
+	path := a.Configuration.BasePath + "/integrations/sync"
 
 
 	headerParams := make(map[string]string)
@@ -75,7 +75,8 @@ func (a OrdersApi) TemplateAssetDelete(fileName string) (*APIResponse, error) {
 	for key := range a.Configuration.DefaultHeader {
 		headerParams[key] = a.Configuration.DefaultHeader[key]
 	}
-
+		queryParams.Add("integration_id", a.Configuration.APIClient.ParameterToString(integrationId, ""))
+	
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
@@ -95,14 +96,12 @@ func (a OrdersApi) TemplateAssetDelete(fileName string) (*APIResponse, error) {
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-
-	formParams["fileName"] = fileName
-
+	var successPayload = new(string)
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {
-		return NewAPIResponse(httpResponse.RawResponse), err
+		return successPayload, NewAPIResponse(httpResponse.RawResponse), err
 	}
-
-	return NewAPIResponse(httpResponse.RawResponse), err
+	err = json.Unmarshal(httpResponse.Body(), &successPayload)
+	return successPayload, NewAPIResponse(httpResponse.RawResponse), err
 }
 

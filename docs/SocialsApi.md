@@ -10,7 +10,10 @@ Method | HTTP request | Description
 [**GetSocialProfileProperties**](SocialsApi.md#GetSocialProfileProperties) | **Get** /socials/profile | Gets the profile properties
 [**GetSocialStats**](SocialsApi.md#GetSocialStats) | **Get** /socials/{promptId}/stats | Get social stats for a prompt
 [**PostSocialContent**](SocialsApi.md#PostSocialContent) | **Post** /socials/content | Creates social content
+[**RetrySocialSend**](SocialsApi.md#RetrySocialSend) | **Post** /socials/send/retry | Sends social content
+[**SendSocial**](SocialsApi.md#SendSocial) | **Post** /socials/send | Sends social content
 [**UpdateClientGroupSendMechanism**](SocialsApi.md#UpdateClientGroupSendMechanism) | **Put** /socials/client/sendMechanism | Gets the auto shares from the client group assoc id
+[**UpdateClientGroupsSendMechanism**](SocialsApi.md#UpdateClientGroupsSendMechanism) | **Put** /socials/client/sendMechanisms | Toggles the prompt campaigns in a users account
 [**UpdateFacebookPages**](SocialsApi.md#UpdateFacebookPages) | **Put** /socials/facebook/pages | Updates facebook page Ids
 [**UpdateSocialContent**](SocialsApi.md#UpdateSocialContent) | **Put** /socials/content | Updates social content
 
@@ -42,7 +45,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSocialArticleProperties**
-> GetSocialArticleProperties($emailId)
+> GetSocialArticleProperties($emailId, $socialContentId)
 
 Gets the social email properties
 
@@ -54,6 +57,7 @@ Gets the social email properties
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **emailId** | **string**| This is the email Id for the email url | 
+ **socialContentId** | **string**| This is the social content Id | 
 
 ### Return type
 
@@ -186,6 +190,65 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **RetrySocialSend**
+> RetrySocialSend($promptId)
+
+Sends social content
+
+Sends social content that failed for a user via their associated prompt
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **promptId** | **string**| The prompt id | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **SendSocial**
+> SendSocial($promptId, $socialType)
+
+Sends social content
+
+Sends social content for a user via their associated prompt
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **promptId** | **string**| The prompt id | 
+ **socialType** | **string**| The destination for social content | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **UpdateClientGroupSendMechanism**
 > UpdateClientGroupSendMechanism($sendMechanism, $clientGroupId, $enabled)
 
@@ -201,6 +264,36 @@ Name | Type | Description  | Notes
  **sendMechanism** | **string**| The send mechanism for the prompt | 
  **clientGroupId** | **string**| ID of the client group association | 
  **enabled** | **string**| Is the send mechanism enabled? | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateClientGroupsSendMechanism**
+> UpdateClientGroupsSendMechanism($sendMechanism, $enabled)
+
+Toggles the prompt campaigns in a users account
+
+Toggles the prompt campaigns in a users account for a social integrations on or off
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sendMechanism** | **string**| The send mechanism for the prompt | 
+ **enabled** | **string**| Is the send mechanism enabled? | 
 
 ### Return type
 

@@ -6,15 +6,18 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreatePromptBot**](PromptsApi.md#CreatePromptBot) | **Post** /prompts/bots | Create a running Prompt Bot for a list
 [**CreateVideoEmailPrompt**](PromptsApi.md#CreateVideoEmailPrompt) | **Post** /prompt | Prompts user to send a video
+[**GetAlternateCampaignContent**](PromptsApi.md#GetAlternateCampaignContent) | **Get** /campaign/{campaignId}/content/alternate | List alternate campaign content
 [**GetPendingVideoEmailPrompts**](PromptsApi.md#GetPendingVideoEmailPrompts) | **Get** /prompt/pending | List pending prompts
 [**GetPromptBots**](PromptsApi.md#GetPromptBots) | **Get** /prompts/bots | List Prompt Bots
-[**GetPromptCampaigns**](PromptsApi.md#GetPromptCampaigns) | **Get** /prompts/campaigns | List Prompt Campaigns
+[**GetPromptCampaigns**](PromptsApi.md#GetPromptCampaigns) | **Get** /prompts/{userId}/campaigns | List Prompt Campaigns
 [**GetVideoEmailPrompt**](PromptsApi.md#GetVideoEmailPrompt) | **Get** /prompt/{id} | Gets a prompt
 [**GetVideoEmailPrompts**](PromptsApi.md#GetVideoEmailPrompts) | **Get** /prompt/ | List prompts
 [**RespondToVideoEmailPrompt**](PromptsApi.md#RespondToVideoEmailPrompt) | **Post** /prompt/{id}/response | Respond to a prompt
+[**SyncPromptSubscriptions**](PromptsApi.md#SyncPromptSubscriptions) | **Post** /prompts/campaigns/sync | Syncs Campaigns and One to Ones Subscriptions for User
 [**UpdatePrompt**](PromptsApi.md#UpdatePrompt) | **Put** /prompts/{id} | Update Prompt
 [**UpdatePromptBot**](PromptsApi.md#UpdatePromptBot) | **Put** /prompts/bots/{id} | Update Prompt Bot
 [**UpdatePromptCampaign**](PromptsApi.md#UpdatePromptCampaign) | **Put** /prompts/campaigns/{id} | Update Prompt Campaign
+[**UpdatePromptTemplate**](PromptsApi.md#UpdatePromptTemplate) | **Put** /prompts/{id}/content | Update Prompt Content
 
 
 # **CreatePromptBot**
@@ -80,6 +83,35 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetAlternateCampaignContent**
+> GetAlternateCampaignContent($clientGroupId)
+
+List alternate campaign content
+
+Returns a list of alternate campaign content by campaign id
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **clientGroupId** | **string**| Id for the campaign | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -250,8 +282,37 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **SyncPromptSubscriptions**
+> SyncPromptSubscriptions($migrate)
+
+Syncs Campaigns and One to Ones Subscriptions for User
+
+Syncs Campaigns and One to Ones Subscriptions for User based on their profile information. The user must be a Prompt Subscriber.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **migrate** | **bool**| After syncing, migrate away from old campaigns. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **UpdatePrompt**
-> UpdatePrompt($id, $sendMechanism, $facebookMessage, $twitterMessage, $videoId, $emailId, $subject)
+> UpdatePrompt($id, $sendMechanism, $facebookMessage, $twitterMessage, $videoId, $emailId, $subject, $resetCache, $resetEmailContent, $status)
 
 Update Prompt
 
@@ -269,6 +330,9 @@ Name | Type | Description  | Notes
  **videoId** | **string**| The id of the video. | [optional] 
  **emailId** | **string**| The id of the email. | [optional] 
  **subject** | **string**| The subject of the email | [optional] 
+ **resetCache** | **string**| The subject of the email | [optional] 
+ **resetEmailContent** | **string**| The subject of the email | [optional] 
+ **status** | **string**| The status of the prompt | [optional] 
 
 ### Return type
 
@@ -341,6 +405,39 @@ Name | Type | Description  | Notes
  **personalTemplateId** | **string**| The template to use for personal feel emails. | [optional] 
  **enabled** | **bool**| Set whether the user is able to start receiving prompts. | [optional] 
  **sendMechanism** | **string**| The way to send the prompt | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdatePromptTemplate**
+> UpdatePromptTemplate($id, $alternateContentId, $newEmailId, $ogEmailId, $newExampleVideoId)
+
+Update Prompt Content
+
+Updates a Prompt Content
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **string**| The prompt&#39;s id | 
+ **alternateContentId** | **string**| The alternate content id | 
+ **newEmailId** | **string**| The prompt&#39;s new email id | 
+ **ogEmailId** | **string**| The prompt&#39;s original email id | 
+ **newExampleVideoId** | **string**| The prompt&#39;s new tutorial video id | 
 
 ### Return type
 

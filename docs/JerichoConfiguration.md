@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **EmailBody** | **string** | Video Prompt: The HTML body of the final sent email. | [optional] [default to null]
 **SendWithoutVideo** | **bool** | Video Prompt: Whether to send the final email if no video was recorded. | [optional] [default to null]
 **Status** | **string** | The state of the send. | [optional] [default to null]
+**MediaType** | **string** | The type of media used for a social send | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

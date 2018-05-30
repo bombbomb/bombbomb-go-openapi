@@ -7,7 +7,10 @@ Method | HTTP request | Description
 [**AccountDetails**](AccountsApi.md#AccountDetails) | **Get** /accounts | Get account details.
 [**CreateAccount**](AccountsApi.md#CreateAccount) | **Post** /accounts | Create Account
 [**GetClientStatistics**](AccountsApi.md#GetClientStatistics) | **Get** /accounts/stats | Get Client Statistics
+[**GetUserCountry**](AccountsApi.md#GetUserCountry) | **Get** /accounts/{clientId}/country | Gets user country
+[**ResetApiKey**](AccountsApi.md#ResetApiKey) | **Put** /accounts/apikey | Reset API key
 [**SubscriptionPurchaseAllowed**](AccountsApi.md#SubscriptionPurchaseAllowed) | **Get** /accounts/purchaseable | Check if subscription purchase allowed.
+[**UpdateProfileData**](AccountsApi.md#UpdateProfileData) | **Post** /account/profile/ | Add profile information.
 
 
 # **AccountDetails**
@@ -27,7 +30,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[BBOAuth2](../README.md#BBOAuth2)
 
 ### HTTP request headers
 
@@ -59,7 +62,7 @@ Name | Type | Description  | Notes
  **address** | **string**| Street Address of the user. | [optional] 
  **city** | **string**| City of the user. | [optional] 
  **postalCode** | **string**| Postal/Zip code of the user. | [optional] 
- **preventWelcomeEmail** | **string**| prevent an email with login credentials from being sent to the new account. must be set to &#39;true&#39; | [optional] 
+ **preventWelcomeEmail** | **bool**| prevent an email with login credentials from being sent to the new account. must be set to &#39;true&#39; | [optional] 
 
 ### Return type
 
@@ -77,7 +80,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetClientStatistics**
-> GetClientStatistics($clientId)
+> GetClientStatistics($clientId, $refresh, $statisticValues)
 
 Get Client Statistics
 
@@ -89,6 +92,60 @@ Gets general statics for a Client
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clientId** | **string**| Client ID of the account to retrieve. Defaults to yourself. | [optional] 
+ **refresh** | **bool**| Boolean for whether data returned should be from cache or not. | [optional] 
+ **statisticValues** | **string**| Array of data that should be returned, used exclusively for cacheless data | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetUserCountry**
+> GetUserCountry()
+
+Gets user country
+
+Gets the users country
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ResetApiKey**
+> ResetApiKey()
+
+Reset API key
+
+Resets the current user's API key and returns the new key
+
+
+### Parameters
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -122,7 +179,36 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateProfileData**
+> UpdateProfileData($profileData)
+
+Add profile information.
+
+Add profile information to this users account
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **profileData** | **string**| Profile field information for the account | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
 
 ### HTTP request headers
 

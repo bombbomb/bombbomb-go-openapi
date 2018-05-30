@@ -24,40 +24,43 @@ package bombbomb
 
 import (
 	"net/url"
+	"fmt"
+	"strings"
 )
 
-type OrdersApi struct {
+type FormsApi struct {
 	Configuration Configuration
 }
 
-func NewOrdersApi() *OrdersApi {
+func NewFormsApi() *FormsApi {
 	configuration := NewConfiguration()
-	return &OrdersApi{
+	return &FormsApi{
 		Configuration: *configuration,
 	}
 }
 
-func NewOrdersApiWithBasePath(basePath string) *OrdersApi {
+func NewFormsApiWithBasePath(basePath string) *FormsApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &OrdersApi{
+	return &FormsApi{
 		Configuration: *configuration,
 	}
 }
 
 /**
- * Deletes image from user s3 store
- * Deletes image from user s3 store
+ * Get csv
+ * Get form tracking as csv
  *
- * @param fileName Filename for deletion
+ * @param id Id of the form
  * @return void
  */
-func (a OrdersApi) TemplateAssetDelete(fileName string) (*APIResponse, error) {
+func (a FormsApi) GetFormTrackingAsCsv(id string) (*APIResponse, error) {
 
-	var httpMethod = "Delete"
+	var httpMethod = "Get"
 	// create path and map variables
-	path := a.Configuration.BasePath + "/orders/templates/images"
+	path := a.Configuration.BasePath + "/forms/{id}/tracking/export"
+	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
 
 
 	headerParams := make(map[string]string)
@@ -95,8 +98,6 @@ func (a OrdersApi) TemplateAssetDelete(fileName string) (*APIResponse, error) {
 	if localVarHttpHeaderAccept != "" {
 		headerParams["Accept"] = localVarHttpHeaderAccept
 	}
-
-	formParams["fileName"] = fileName
 
 	httpResponse, err := a.Configuration.APIClient.CallAPI(path, httpMethod, postBody, headerParams, queryParams, formParams, fileName, fileBytes)
 	if err != nil {

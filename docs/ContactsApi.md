@@ -164,18 +164,19 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteContacts**
-> DeleteContacts($listId)
+> DeleteContacts($listId, $contactIds)
 
 Delete Contacts
 
-Delete contacts
+Delete all contacts within a list, or provide a comma separated list of contactIds to delete.
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**| The list of contacts to be deleted. | 
+ **listId** | **string**| The list of contacts to be deleted. | [optional] 
+ **contactIds** | **string**| comma separated list of contact ids to delete | [optional] 
 
 ### Return type
 

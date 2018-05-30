@@ -5,6 +5,8 @@ All URIs are relative to *https://api.bombbomb.com/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddTeamMember**](TeamsApi.md#AddTeamMember) | **Post** /team/{teamId}/member | Add Member to Team
+[**AddUsers**](TeamsApi.md#AddUsers) | **Post** /team/{teamId}/members | Add users to group.
+[**AddUsersFromCsv**](TeamsApi.md#AddUsersFromCsv) | **Post** /team/{teamId}/members/csv | Add members to group from CSV
 [**CancelJerichoSend**](TeamsApi.md#CancelJerichoSend) | **Delete** /team/{teamId}/jericho/{jerichoId} | Cancel a Jericho Send
 [**CreateSubteam**](TeamsApi.md#CreateSubteam) | **Post** /team/{teamId}/subteam | Add a Subteam
 [**DeleteSubteam**](TeamsApi.md#DeleteSubteam) | **Delete** /team/{teamId}/subteam | Delete Subteam
@@ -17,6 +19,7 @@ Method | HTTP request | Description
 [**GetSubteams**](TeamsApi.md#GetSubteams) | **Get** /team/{teamId}/subteam | List Subteams
 [**GetTeamPromptAggregateStats**](TeamsApi.md#GetTeamPromptAggregateStats) | **Get** /team/{clientGroupId}/campaign/stats | Get aggregate stats for campaigns
 [**GetTeamPromptCampaigns**](TeamsApi.md#GetTeamPromptCampaigns) | **Get** /team/{clientGroupId}/campaign | Get campaigns for team
+[**InviteToSocialPromptTeam**](TeamsApi.md#InviteToSocialPromptTeam) | **Post** /teams/prompt/invite | Invite a list to join the admin&#39;s social prompt team
 [**QueueJerichoSend**](TeamsApi.md#QueueJerichoSend) | **Post** /team/{teamId}/jericho | Creates a Jericho send.
 [**RemoveMemberFromTeam**](TeamsApi.md#RemoveMemberFromTeam) | **Delete** /team/{teamId}/member/{userId} | Remove Member from Team
 [**ResendTeamMemberInvitation**](TeamsApi.md#ResendTeamMemberInvitation) | **Post** /team/{teamId}/{memberUserId}/rewelcome | Resend invite
@@ -26,7 +29,7 @@ Method | HTTP request | Description
 
 
 # **AddTeamMember**
-> string AddTeamMember($teamId, $userId, $userEmail, $admin)
+> string AddTeamMember($teamId, $admin, $subgroupIds, $userEmail, $userId)
 
 Add Member to Team
 
@@ -38,13 +41,79 @@ Adds a member to a team.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
- **userId** | **string**| The user id of the member being added to the team. | [optional] 
- **userEmail** | **string**| The email of the member being added to the team. | [optional] 
  **admin** | **bool**| Set if the user is an admin of this team. | [optional] 
+ **subgroupIds** | **string**| Subgroup IDs to add user to | [optional] 
+ **userEmail** | **string**| The email of the member being added to the team. | [optional] 
+ **userId** | **string**| The user id of the member being added to the team. | [optional] 
 
 ### Return type
 
 **string**
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **AddUsers**
+> AddUsers($teamId, $userDetails, $sendWelcomeEmail, $subgroupIds)
+
+Add users to group.
+
+Add a new or existing user to group.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **userDetails** | **string**| Array of emails or objects containing details needed to create user | 
+ **sendWelcomeEmail** | **string**| Whether to send welcome email to new users | [optional] 
+ **subgroupIds** | **string**| Subgroup IDs to add user to | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **AddUsersFromCsv**
+> AddUsersFromCsv($teamId, $csvImportId, $map_, $sendWelcomeEmail, $subgroupIds)
+
+Add members to group from CSV
+
+Imports members to a group from a given CSV ID.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **csvImportId** | **string**| ID of the CSV to import | 
+ **map_** | **string**| Object to use when mapping import to AccountCreateDetails. Key is property name on details, value is CSV column number. | 
+ **sendWelcomeEmail** | **string**| Whether to send welcome email to new users | [optional] 
+ **subgroupIds** | **string**| Subgroup IDs to add user to | [optional] 
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
@@ -392,7 +461,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetTeamPromptCampaigns**
-> GetTeamPromptCampaigns($clientGroupId, $searchTerm, $orderBy, $asc)
+> GetTeamPromptCampaigns($clientGroupId, $searchTerm, $currentPage)
 
 Get campaigns for team
 
@@ -405,8 +474,37 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clientGroupId** | **string**| ID of the client group association | 
  **searchTerm** | **string**| The value to search for in prompt subject | [optional] 
- **orderBy** | **string**| How to sort the column | [optional] 
- **asc** | **string**| Ascending or not | [optional] 
+ **currentPage** | **string**| The current page | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **InviteToSocialPromptTeam**
+> InviteToSocialPromptTeam($teamId, $listId)
+
+Invite a list to join the admin's social prompt team
+
+Invite to Social Prompt Team
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **teamId** | **string**| The team id | 
+ **listId** | **string**| List to invite to the social prompt team. | 
 
 ### Return type
 
@@ -544,7 +642,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateTeam**
-> TeamPublicRepresentation UpdateTeam($teamId, $name, $state)
+> TeamPublicRepresentation UpdateTeam($teamId, $name, $state, $subteamsCanAddMembers)
 
 Update a team
 
@@ -558,6 +656,7 @@ Name | Type | Description  | Notes
  **teamId** | **string**| The team id | 
  **name** | **string**| The name of the team | [optional] 
  **state** | **string**| The status of the login permissions | [optional] 
+ **subteamsCanAddMembers** | **bool**| Updates subteam member adding setting on group | [optional] 
 
 ### Return type
 
@@ -575,7 +674,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateTeamMember**
-> UpdateTeamMember($teamId, $userId, $admin)
+> UpdateTeamMember($teamId, $userId, $admin, $permissionSuiteId)
 
 Update Member of Team
 
@@ -589,6 +688,7 @@ Name | Type | Description  | Notes
  **teamId** | **string**| The team id | 
  **userId** | **string**| The user id of the member being added to the team. | 
  **admin** | **bool**| Set if the user is an admin of this team. | 
+ **permissionSuiteId** | **string**| Set if the user is an admin of this team. | [optional] 
 
 ### Return type
 

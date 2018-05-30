@@ -9,7 +9,11 @@ Method | HTTP request | Description
 [**GetEmailTracking**](EmailsApi.md#GetEmailTracking) | **Get** /emails/{emailId}/tracking | Get Email Tracking
 [**GetEmailTrackingInteractions**](EmailsApi.md#GetEmailTrackingInteractions) | **Get** /emails/{emailId}/tracking/interactions | Get Email Tracking Interactions
 [**GetHourlyEmailTracking**](EmailsApi.md#GetHourlyEmailTracking) | **Get** /emails/{emailId}/tracking/hourly | Get Hourly Email Tracking
+[**GetLiveFireData**](EmailsApi.md#GetLiveFireData) | **Get** /emails/livefire | Get livefire feed data
 [**GetQuickSendTemplates**](EmailsApi.md#GetQuickSendTemplates) | **Get** /emails/quicksend/templates | Get all quicksend templates
+[**GetTemplateHtmlForTemplateId**](EmailsApi.md#GetTemplateHtmlForTemplateId) | **Get** /emails/templates/{templateId}/html | Get the HTML for a given template
+[**GetVideoQuickSenderData**](EmailsApi.md#GetVideoQuickSenderData) | **Get** /emails/quicksend | Get quicksend data
+[**SaveQuickSenderSettings**](EmailsApi.md#SaveQuickSenderSettings) | **Post** /emails/quicksend/settings | Save quicksender settings
 [**VideoQuickSender**](EmailsApi.md#VideoQuickSender) | **Post** /emails/quicksend | Send a quicksend email
 
 
@@ -168,6 +172,32 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **GetLiveFireData**
+> GetLiveFireData()
+
+Get livefire feed data
+
+Get the user data for the live fire feed emails
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **GetQuickSendTemplates**
 > GetQuickSendTemplates()
 
@@ -178,6 +208,100 @@ Get all quicksend templates accessible to the user.
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetTemplateHtmlForTemplateId**
+> GetTemplateHtmlForTemplateId($templateId, $renderVariables)
+
+Get the HTML for a given template
+
+Get the HTML for a given template, with or without rendered variables
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **templateId** | **string**| The id of the template. | 
+ **renderVariables** | **string**| Whether to render profile variables in the returned HTML. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetVideoQuickSenderData**
+> GetVideoQuickSenderData($message, $subject, $videoId, $templateId, $commaDelimEmails)
+
+Get quicksend data
+
+Get the user data for quicksender, including templates and lists.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **message** | **string**| A message for the video content. | [optional] 
+ **subject** | **string**| A subject for the video content. | [optional] 
+ **videoId** | **string**| A video ID. | [optional] 
+ **templateId** | **string**| A template ID. | [optional] 
+ **commaDelimEmails** | **string**| Comma delimited emails | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **SaveQuickSenderSettings**
+> SaveQuickSenderSettings($alertOnPlay, $alertOnOpen, $templateId)
+
+Save quicksender settings
+
+Save the quicksender notification and default template settings
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **alertOnPlay** | **string**| A preference setting for whether or not to notify user on quicksend email video plays. | [optional] 
+ **alertOnOpen** | **string**| A preference setting for whether or not to notify user on quicksend email opens. | [optional] 
+ **templateId** | **string**| Id of a template to use for this send. A null value means use the default for this user. | [optional] 
 
 ### Return type
 

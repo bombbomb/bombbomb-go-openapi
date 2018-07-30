@@ -15,23 +15,22 @@ Method | HTTP request | Description
 
 
 # **AddContactsCSV**
-> AddContactsCSV($mappingData, $listData)
-
+> AddContactsCSV(ctx, mappingData, listData)
 Add contacts from a CSV file.
 
 Add multiple contacts through the upload importer from a CSV file.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **mappingData** | **string**| The info sent for the contacts | 
- **listData** | **string**| The info sent with the import for the list | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **mappingData** | **string**| The info sent for the contacts | 
+  **listData** | **string**| The info sent with the import for the list | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -45,23 +44,30 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **AddNewContact**
-> AddNewContact($contactEmail, $contactInfo)
-
+> AddNewContact(ctx, contactEmail, optional)
 Add a contact.
 
 Add a contact to the users list.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **contactEmail** | **string**| Email of the new contact we are adding | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **contactEmail** | **string**| Email of the new contact we are adding | 
- **contactInfo** | **string**| The info sent for this contact | [optional] 
+ **contactInfo** | **string**| The info sent for this contact | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -75,23 +81,30 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **AddNewCustomField**
-> AddNewCustomField($fieldName, $fieldType)
-
+> AddNewCustomField(ctx, fieldName, optional)
 Add custom fields.
 
 Add a new custom field.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **fieldName** | **string**| Custom field name to be added | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **fieldName** | **string**| Custom field name to be added | 
- **fieldType** | **string**| Custom field type for the field to be added | [optional] 
+ **fieldType** | **string**| Custom field type for the field to be added | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -105,23 +118,30 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **AddPastedContacts**
-> AddPastedContacts($contactEmails, $listInfo)
-
+> AddPastedContacts(ctx, contactEmails, optional)
 Add pasted contacts.
 
 Add the pasted contacts to the users list.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **contactEmails** | **string**| Emails array of the new contacts we are adding | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **contactEmails** | **string**| Emails array of the new contacts we are adding | 
- **listInfo** | **string**| Information about the lists id, recalculations on totals, consent etc | [optional] 
+ **listInfo** | **string**| Information about the lists id, recalculations on totals, consent etc | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -135,22 +155,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CSVToObject**
-> CSVToObject($file)
-
+> CSVToObject(ctx, file)
 Format CSV.
 
 Format a CSV file to an object.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **string**| The CSV file being uploaded | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **file** | **string**| The CSV file being uploaded | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -164,23 +183,29 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteContacts**
-> DeleteContacts($listId, $contactIds)
-
+> DeleteContacts(ctx, optional)
 Delete Contacts
 
 Delete all contacts within a list, or provide a comma separated list of contactIds to delete.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**| The list of contacts to be deleted. | [optional] 
- **contactIds** | **string**| comma separated list of contact ids to delete | [optional] 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **listId** | **string**| The list of contacts to be deleted. | 
+ **contactIds** | **string**| comma separated list of contact ids to delete | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -194,22 +219,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetContactById**
-> GetContactById($id)
-
+> GetContactById(ctx, id)
 Get Contact Details
 
 Get the contact details
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **string**| Guid for the contact. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **id** | **string**| Guid for the contact. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -223,19 +247,17 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetCustomFields**
-> GetCustomFields()
-
+> GetCustomFields(ctx, )
 Get custom fields.
 
 Get the current users custom fields.
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

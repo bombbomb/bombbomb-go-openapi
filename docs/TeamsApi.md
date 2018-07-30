@@ -16,6 +16,8 @@ Method | HTTP request | Description
 [**GetJerichoSends**](TeamsApi.md#GetJerichoSends) | **Get** /team/{teamId}/jericho | List Jericho Sends
 [**GetJerichoStats**](TeamsApi.md#GetJerichoStats) | **Get** /team/{teamId}/jericho/{jerichoId}/performance | Gets Jericho performance statistics
 [**GetPagedClientGroupMembers**](TeamsApi.md#GetPagedClientGroupMembers) | **Get** /team/{teamId}/members | List Team Members
+[**GetPromptMonthlyStats**](TeamsApi.md#GetPromptMonthlyStats) | **Get** /team/{month}/{year}/monthStats | Jericho Monthly Stats
+[**GetPromptOverview**](TeamsApi.md#GetPromptOverview) | **Get** /team/promptOverview | Get Prompt Overview
 [**GetSubteams**](TeamsApi.md#GetSubteams) | **Get** /team/{teamId}/subteam | List Subteams
 [**GetTeamPromptAggregateStats**](TeamsApi.md#GetTeamPromptAggregateStats) | **Get** /team/{clientGroupId}/campaign/stats | Get aggregate stats for campaigns
 [**GetTeamPromptCampaigns**](TeamsApi.md#GetTeamPromptCampaigns) | **Get** /team/{clientGroupId}/campaign | Get campaigns for team
@@ -29,22 +31,29 @@ Method | HTTP request | Description
 
 
 # **AddTeamMember**
-> string AddTeamMember($teamId, $admin, $subgroupIds, $userEmail, $userId)
-
+> string AddTeamMember(ctx, teamId, optional)
 Add Member to Team
 
 Adds a member to a team.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
- **admin** | **bool**| Set if the user is an admin of this team. | [optional] 
- **subgroupIds** | **string**| Subgroup IDs to add user to | [optional] 
- **userEmail** | **string**| The email of the member being added to the team. | [optional] 
- **userId** | **string**| The user id of the member being added to the team. | [optional] 
+ **admin** | **bool**| Set if the user is an admin of this team. | 
+ **subgroupIds** | **string**| Subgroup IDs to add user to | 
+ **userEmail** | **string**| The email of the member being added to the team. | 
+ **userId** | **string**| The user id of the member being added to the team. | 
 
 ### Return type
 
@@ -62,25 +71,33 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **AddUsers**
-> AddUsers($teamId, $userDetails, $sendWelcomeEmail, $subgroupIds)
-
+> AddUsers(ctx, teamId, userDetails, optional)
 Add users to group.
 
 Add a new or existing user to group.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **userDetails** | **string**| Array of emails or objects containing details needed to create user | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
  **userDetails** | **string**| Array of emails or objects containing details needed to create user | 
- **sendWelcomeEmail** | **string**| Whether to send welcome email to new users | [optional] 
- **subgroupIds** | **string**| Subgroup IDs to add user to | [optional] 
+ **sendWelcomeEmail** | **string**| Whether to send welcome email to new users | 
+ **subgroupIds** | **string**| Subgroup IDs to add user to | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -94,26 +111,35 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **AddUsersFromCsv**
-> AddUsersFromCsv($teamId, $csvImportId, $map_, $sendWelcomeEmail, $subgroupIds)
-
+> AddUsersFromCsv(ctx, teamId, csvImportId, map_, optional)
 Add members to group from CSV
 
 Imports members to a group from a given CSV ID.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **csvImportId** | **string**| ID of the CSV to import | 
+  **map_** | **string**| Object to use when mapping import to AccountCreateDetails. Key is property name on details, value is CSV column number. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
  **csvImportId** | **string**| ID of the CSV to import | 
  **map_** | **string**| Object to use when mapping import to AccountCreateDetails. Key is property name on details, value is CSV column number. | 
- **sendWelcomeEmail** | **string**| Whether to send welcome email to new users | [optional] 
- **subgroupIds** | **string**| Subgroup IDs to add user to | [optional] 
+ **sendWelcomeEmail** | **string**| Whether to send welcome email to new users | 
+ **subgroupIds** | **string**| Subgroup IDs to add user to | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -127,22 +153,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CancelJerichoSend**
-> CancelJerichoSend($jerichoId)
-
+> CancelJerichoSend(ctx, jerichoId)
 Cancel a Jericho Send
 
 Cancels a scheduled Jericho send from being sent.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **jerichoId** | **string**| ID of the Jericho Job to cancel | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **jerichoId** | **string**| ID of the Jericho Job to cancel | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -156,19 +181,18 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CreateSubteam**
-> TeamPublicRepresentation CreateSubteam($teamId, $name)
-
+> TeamPublicRepresentation CreateSubteam(ctx, teamId, name)
 Add a Subteam
 
 Adds a subteam to a parent team
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamId** | **string**| The team id | 
- **name** | **string**| The subteam&#39;s name. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **name** | **string**| The subteam&#39;s name. | 
 
 ### Return type
 
@@ -186,19 +210,18 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteSubteam**
-> string DeleteSubteam($teamId, $subteamId)
-
+> string DeleteSubteam(ctx, teamId, subteamId)
 Delete Subteam
 
 Deletes a subteam
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamId** | **string**| The team id | 
- **subteamId** | **string**| The subteam you wish to delete. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **subteamId** | **string**| The subteam you wish to delete. | 
 
 ### Return type
 
@@ -216,22 +239,21 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetAllClientGroupAssociations**
-> GetAllClientGroupAssociations($clientId)
-
+> GetAllClientGroupAssociations(ctx, clientId)
 Lists team associations
 
 Returns a collection of team associations for a given user
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clientId** | **string**| The clientId requesting group associations. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **clientId** | **string**| The clientId requesting group associations. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -245,23 +267,30 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetClientGroupAssets**
-> InlineResponse200 GetClientGroupAssets($assetType, $teamId, $autoTagName, $pageSize, $page, $search)
-
+> InlineResponse200 GetClientGroupAssets(ctx, assetType, optional)
 Lists team assets
 
 Returns a collection of assets
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **assetType** | **string**| The type of assets. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **assetType** | **string**| The type of assets. | 
- **teamId** | **string**| The team containing the assets. | [optional] 
- **autoTagName** | **string**| The auto tag name containing the assets. | [optional] 
- **pageSize** | **string**| The number of items to retrieve in a single db query. | [optional] 
- **page** | **string**| Zero-based index of the page of data to retrieve from the db. | [optional] 
- **search** | **string**| Search words. | [optional] 
+ **teamId** | **string**| The team containing the assets. | 
+ **autoTagName** | **string**| The auto tag name containing the assets. | 
+ **pageSize** | **string**| The number of items to retrieve in a single db query. | 
+ **page** | **string**| Zero-based index of the page of data to retrieve from the db. | 
+ **search** | **string**| Search words. | 
 
 ### Return type
 
@@ -279,23 +308,30 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetClientGroupStatistics**
-> GetClientGroupStatistics($teamId, $memberStatus)
-
+> GetClientGroupStatistics(ctx, teamId, optional)
 Get Team statistics
 
 Get top level statistic data for a Team
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
- **memberStatus** | **string**| The status of members to query for | [optional] 
+ **memberStatus** | **string**| The status of members to query for | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -309,18 +345,17 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetJerichoSends**
-> []JerichoConfiguration GetJerichoSends($teamId)
-
+> []JerichoConfiguration GetJerichoSends(ctx, teamId)
 List Jericho Sends
 
 Lists Jericho sends, both pending and sent.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamId** | **string**| The team whose Jericho sends you wish to see. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team whose Jericho sends you wish to see. | 
 
 ### Return type
 
@@ -338,19 +373,18 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetJerichoStats**
-> JerichoPerformance GetJerichoStats($jerichoId, $teamId)
-
+> JerichoPerformance GetJerichoStats(ctx, jerichoId, teamId)
 Gets Jericho performance statistics
 
 Returns an aggregate view of the performance of a Jericho send
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **jerichoId** | **string**| ID of the Jericho job | 
- **teamId** | **string**| ID of team through which Jericho was sent | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **jerichoId** | **string**| ID of the Jericho job | 
+  **teamId** | **string**| ID of team through which Jericho was sent | 
 
 ### Return type
 
@@ -368,28 +402,90 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetPagedClientGroupMembers**
-> GetPagedClientGroupMembers($teamId, $pageSize, $page, $status, $search, $orderBy, $orderDirection)
-
+> GetPagedClientGroupMembers(ctx, teamId, pageSize, page, optional)
 List Team Members
 
 Get a paginated listing of Team members
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **pageSize** | **string**| Amount of records to return in a page. | 
+  **page** | **string**| The page to return. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
  **pageSize** | **string**| Amount of records to return in a page. | 
  **page** | **string**| The page to return. | 
- **status** | **string**| The status type to filter by. | [optional] 
- **search** | **string**| Filter results with names that match the search term. | [optional] 
- **orderBy** | **string**| Key to order results by | [optional] 
- **orderDirection** | **string**| ASC or DESC | [optional] 
+ **status** | **string**| The status type to filter by. | 
+ **search** | **string**| Filter results with names that match the search term. | 
+ **orderBy** | **string**| Key to order results by | 
+ **orderDirection** | **string**| ASC or DESC | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetPromptMonthlyStats**
+> string GetPromptMonthlyStats(ctx, month, year)
+Jericho Monthly Stats
+
+Jericho Monthly Stats
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **month** | **string**| The month whose Jericho sends you wish to see. | 
+  **year** | **string**| The year whose Jericho sends you wish to see. | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+[BBOAuth2](../README.md#BBOAuth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetPromptOverview**
+> string GetPromptOverview(ctx, )
+Get Prompt Overview
+
+Get Prompt Overview
+
+### Required Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**string**
 
 ### Authorization
 
@@ -403,18 +499,17 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSubteams**
-> []TeamPublicRepresentation GetSubteams($teamId)
-
+> []TeamPublicRepresentation GetSubteams(ctx, teamId)
 List Subteams
 
 Returns a collection of subteams for a parent team
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamId** | **string**| The team id | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
 
 ### Return type
 
@@ -422,7 +517,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BBOAuth2](../README.md#BBOAuth2)
+No authorization required
 
 ### HTTP request headers
 
@@ -432,22 +527,21 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetTeamPromptAggregateStats**
-> GetTeamPromptAggregateStats($clientGroupId)
-
+> GetTeamPromptAggregateStats(ctx, clientGroupId)
 Get aggregate stats for campaigns
 
 Get all the campaigns aggregate stats
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clientGroupId** | **string**| ID of the client group association | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **clientGroupId** | **string**| ID of the client group association | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -461,24 +555,31 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetTeamPromptCampaigns**
-> GetTeamPromptCampaigns($clientGroupId, $searchTerm, $currentPage)
-
+> GetTeamPromptCampaigns(ctx, clientGroupId, optional)
 Get campaigns for team
 
 Get campaigns for the team and their stats
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **clientGroupId** | **string**| ID of the client group association | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **clientGroupId** | **string**| ID of the client group association | 
- **searchTerm** | **string**| The value to search for in prompt subject | [optional] 
- **currentPage** | **string**| The current page | [optional] 
+ **searchTerm** | **string**| The value to search for in prompt subject | 
+ **currentPage** | **string**| The current page | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -492,23 +593,22 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **InviteToSocialPromptTeam**
-> InviteToSocialPromptTeam($teamId, $listId)
-
+> InviteToSocialPromptTeam(ctx, teamId, listId)
 Invite a list to join the admin's social prompt team
 
 Invite to Social Prompt Team
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamId** | **string**| The team id | 
- **listId** | **string**| List to invite to the social prompt team. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **listId** | **string**| List to invite to the social prompt team. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -522,19 +622,18 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **QueueJerichoSend**
-> JerichoConfiguration QueueJerichoSend($config, $teamId)
-
+> JerichoConfiguration QueueJerichoSend(ctx, config, teamId)
 Creates a Jericho send.
 
 Sends email content on behalf of members of a client group. There are two forms this send can take:         Static Email, and Video Prompt. Static emails require only an emailId.         Video Prompts build emails dynamically and require most of the other fields.         You must be an administrator of a Team Account to use this method.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **config** | [**JerichoConfiguration**](JerichoConfiguration.md)| JSON representing a Jericho configuration | 
- **teamId** | **string**| The ID of the team. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **config** | [**JerichoConfiguration**](JerichoConfiguration.md)| JSON representing a Jericho configuration | 
+  **teamId** | **string**| The ID of the team. | 
 
 ### Return type
 
@@ -552,19 +651,18 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **RemoveMemberFromTeam**
-> string RemoveMemberFromTeam($teamId, $userId)
-
+> string RemoveMemberFromTeam(ctx, teamId, userId)
 Remove Member from Team
 
 Removes a member from a team.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamId** | **string**| The team id | 
- **userId** | **string**| The user id of the member being removed. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **userId** | **string**| The user id of the member being removed. | 
 
 ### Return type
 
@@ -582,19 +680,18 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ResendTeamMemberInvitation**
-> TeamPublicRepresentation ResendTeamMemberInvitation($teamId, $memberUserId)
-
+> TeamPublicRepresentation ResendTeamMemberInvitation(ctx, teamId, memberUserId)
 Resend invite
 
 Resend invitation to a member of a team
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamId** | **string**| The team id | 
- **memberUserId** | **string**| The user id of the member being resent an invitation. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **memberUserId** | **string**| The user id of the member being resent an invitation. | 
 
 ### Return type
 
@@ -612,23 +709,22 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateJerichoPromptSend**
-> UpdateJerichoPromptSend($teamId, $jerichoId)
-
+> UpdateJerichoPromptSend(ctx, teamId, jerichoId)
 Updates the Jericho Prompt Settings
 
 Updates the prompt settings based on the original email id
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **teamId** | **string**| The team id | 
- **jerichoId** | **string**| ID of the Jericho job | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **jerichoId** | **string**| ID of the Jericho job | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -642,21 +738,28 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateTeam**
-> TeamPublicRepresentation UpdateTeam($teamId, $name, $state, $subteamsCanAddMembers)
-
+> TeamPublicRepresentation UpdateTeam(ctx, teamId, optional)
 Update a team
 
 Update fields on a team
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
- **name** | **string**| The name of the team | [optional] 
- **state** | **string**| The status of the login permissions | [optional] 
- **subteamsCanAddMembers** | **bool**| Updates subteam member adding setting on group | [optional] 
+ **name** | **string**| The name of the team | 
+ **state** | **string**| The status of the login permissions | 
+ **subteamsCanAddMembers** | **bool**| Updates subteam member adding setting on group | 
 
 ### Return type
 
@@ -674,25 +777,34 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateTeamMember**
-> UpdateTeamMember($teamId, $userId, $admin, $permissionSuiteId)
-
+> UpdateTeamMember(ctx, teamId, userId, admin, optional)
 Update Member of Team
 
 Updates a member of a team
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **userId** | **string**| The user id of the member being added to the team. | 
+  **admin** | **bool**| Set if the user is an admin of this team. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **teamId** | **string**| The team id | 
  **userId** | **string**| The user id of the member being added to the team. | 
  **admin** | **bool**| Set if the user is an admin of this team. | 
- **permissionSuiteId** | **string**| Set if the user is an admin of this team. | [optional] 
+ **permissionSuiteId** | **string**| Set if the user is an admin of this team. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

@@ -9,18 +9,24 @@ Method | HTTP request | Description
 
 
 # **GetCurricula**
-> []Curriculum GetCurricula($includeProgress)
-
+> []Curriculum GetCurricula(ctx, optional)
 Get Curricula
 
 Get Curricula, optionally with progress included.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **includeProgress** | **bool**| Whether to return progress with the curriculum. | [optional] 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **includeProgress** | **bool**| Whether to return progress with the curriculum. | 
 
 ### Return type
 
@@ -38,14 +44,12 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetUserCurriculumWithProgress**
-> []CurriculumWithProgress GetUserCurriculumWithProgress()
-
+> []CurriculumWithProgress GetUserCurriculumWithProgress(ctx, )
 Get Detailed For User
 
 Get all curricula for user including progress for each curriculum.
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type

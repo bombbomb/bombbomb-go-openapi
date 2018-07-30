@@ -9,12 +9,5 @@
 
 package bombbomb
 
-// The SignUploadResponse class
-type SignUploadResponse struct {
-
-	// Base64 encoded policy.
-	Policy string `json:"policy,omitempty"`
-
-	// Signature for policy.
-	Signature string `json:"signature,omitempty"`
+type ModelString struct {
 }

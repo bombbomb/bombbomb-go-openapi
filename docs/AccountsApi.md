@@ -14,19 +14,17 @@ Method | HTTP request | Description
 
 
 # **AccountDetails**
-> AccountDetails()
-
+> AccountDetails(ctx, )
 Get account details.
 
 Get the details of the user's account.
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -40,14 +38,26 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CreateAccount**
-> string CreateAccount($teamId, $firstName, $lastName, $emailAddress, $companyName, $phone, $country, $industry, $address, $city, $postalCode, $preventWelcomeEmail)
-
+> string CreateAccount(ctx, teamId, firstName, lastName, emailAddress, companyName, phone, optional)
 Create Account
 
 Creates a new BombBomb account. This method is currently only available to paid seat admins.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **teamId** | **string**| The team id | 
+  **firstName** | **string**| First name of the user. | 
+  **lastName** | **string**| Last name of the user. | 
+  **emailAddress** | **string**| Email address of the user. | 
+  **companyName** | **string**| Company of the user. | 
+  **phone** | **string**| Phone number of the user. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -57,12 +67,12 @@ Name | Type | Description  | Notes
  **emailAddress** | **string**| Email address of the user. | 
  **companyName** | **string**| Company of the user. | 
  **phone** | **string**| Phone number of the user. | 
- **country** | **string**| Country of the user. | [optional] 
- **industry** | **string**| Industry of the user. | [optional] 
- **address** | **string**| Street Address of the user. | [optional] 
- **city** | **string**| City of the user. | [optional] 
- **postalCode** | **string**| Postal/Zip code of the user. | [optional] 
- **preventWelcomeEmail** | **bool**| prevent an email with login credentials from being sent to the new account. must be set to &#39;true&#39; | [optional] 
+ **country** | **string**| Country of the user. | 
+ **industry** | **string**| Industry of the user. | 
+ **address** | **string**| Street Address of the user. | 
+ **city** | **string**| City of the user. | 
+ **postalCode** | **string**| Postal/Zip code of the user. | 
+ **preventWelcomeEmail** | **bool**| prevent an email with login credentials from being sent to the new account. must be set to &#39;true&#39; | 
 
 ### Return type
 
@@ -80,24 +90,30 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetClientStatistics**
-> GetClientStatistics($clientId, $refresh, $statisticValues)
-
+> GetClientStatistics(ctx, optional)
 Get Client Statistics
 
 Gets general statics for a Client
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clientId** | **string**| Client ID of the account to retrieve. Defaults to yourself. | [optional] 
- **refresh** | **bool**| Boolean for whether data returned should be from cache or not. | [optional] 
- **statisticValues** | **string**| Array of data that should be returned, used exclusively for cacheless data | [optional] 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **clientId** | **string**| Client ID of the account to retrieve. Defaults to yourself. | 
+ **refresh** | **bool**| Boolean for whether data returned should be from cache or not. | 
+ **statisticValues** | **string**| Array of data that should be returned, used exclusively for cacheless data | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -111,19 +127,17 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetUserCountry**
-> GetUserCountry()
-
+> GetUserCountry(ctx, )
 Gets user country
 
 Gets the users country
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -137,19 +151,17 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ResetApiKey**
-> ResetApiKey()
-
+> ResetApiKey(ctx, )
 Reset API key
 
 Resets the current user's API key and returns the new key
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -163,19 +175,17 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **SubscriptionPurchaseAllowed**
-> SubscriptionPurchaseAllowed()
-
+> SubscriptionPurchaseAllowed(ctx, )
 Check if subscription purchase allowed.
 
 Check whether the user can purchase a subscription.
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -189,22 +199,28 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateProfileData**
-> UpdateProfileData($profileData)
-
+> UpdateProfileData(ctx, optional)
 Add profile information.
 
 Add profile information to this users account
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **profileData** | **string**| Profile field information for the account | [optional] 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **profileData** | **string**| Profile field information for the account | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

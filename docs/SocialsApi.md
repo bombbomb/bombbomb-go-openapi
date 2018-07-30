@@ -19,19 +19,17 @@ Method | HTTP request | Description
 
 
 # **GetFacebookPages**
-> GetFacebookPages()
-
+> GetFacebookPages(ctx, )
 Gets facebook pages
 
 Gets facebook pages by client id
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -45,23 +43,22 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSocialArticleProperties**
-> GetSocialArticleProperties($emailId, $socialContentId)
-
+> GetSocialArticleProperties(ctx, emailId, socialContentId)
 Gets the social email properties
 
 Gets the social email properties
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **emailId** | **string**| This is the email Id for the email url | 
- **socialContentId** | **string**| This is the social content Id | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **emailId** | **string**| This is the email Id for the email url | 
+  **socialContentId** | **string**| This is the social content Id | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -75,22 +72,28 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSocialAuthorizations**
-> GetSocialAuthorizations($clientGroupId)
-
+> GetSocialAuthorizations(ctx, optional)
 Get authorizations for all social integration
 
 Get authorizations and autoshares for all social integration and has redirect for user to login
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clientGroupId** | **string**| ID of the client group association | [optional] 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **clientGroupId** | **string**| ID of the client group association | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -104,22 +107,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSocialProfileProperties**
-> GetSocialProfileProperties($socialType)
-
+> GetSocialProfileProperties(ctx, socialType)
 Gets the profile properties
 
 Gets the social profile properties
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **socialType** | **string**| The social type | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **socialType** | **string**| The social type | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -133,22 +135,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSocialStats**
-> GetSocialStats($promptId)
-
+> GetSocialStats(ctx, promptId)
 Get social stats for a prompt
 
 Get social stats for a prompt by id
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **promptId** | **string**| ID of the prompt | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **promptId** | **string**| ID of the prompt | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -162,22 +163,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PostSocialContent**
-> PostSocialContent($emailId)
-
+> PostSocialContent(ctx, emailId)
 Creates social content
 
 Creates social content for an email
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **emailId** | **string**| The email&#39;s id | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **emailId** | **string**| The email&#39;s id | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -191,22 +191,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **RetrySocialSend**
-> RetrySocialSend($promptId)
-
+> RetrySocialSend(ctx, promptId)
 Sends social content
 
 Sends social content that failed for a user via their associated prompt
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **promptId** | **string**| The prompt id | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **promptId** | **string**| The prompt id | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -220,23 +219,22 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **SendSocial**
-> SendSocial($promptId, $socialType)
-
+> SendSocial(ctx, promptId, socialType)
 Sends social content
 
 Sends social content for a user via their associated prompt
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **promptId** | **string**| The prompt id | 
- **socialType** | **string**| The destination for social content | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **promptId** | **string**| The prompt id | 
+  **socialType** | **string**| The destination for social content | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -250,24 +248,32 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateClientGroupSendMechanism**
-> UpdateClientGroupSendMechanism($sendMechanism, $clientGroupId, $enabled)
-
+> UpdateClientGroupSendMechanism(ctx, sendMechanism, clientGroupId, optional)
 Gets the auto shares from the client group assoc id
 
 Gets the auto shares from the client group assoc id
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **sendMechanism** | **string**| The send mechanism for the prompt | 
+  **clientGroupId** | **string**| ID of the client group association | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sendMechanism** | **string**| The send mechanism for the prompt | 
  **clientGroupId** | **string**| ID of the client group association | 
- **enabled** | **string**| Is the send mechanism enabled? | [optional] 
+ **enabled** | **string**| Is the send mechanism enabled? | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -281,23 +287,22 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateClientGroupsSendMechanism**
-> UpdateClientGroupsSendMechanism($sendMechanism, $enabled)
-
+> UpdateClientGroupsSendMechanism(ctx, sendMechanism, enabled)
 Toggles the prompt campaigns in a users account
 
 Toggles the prompt campaigns in a users account for a social integrations on or off
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sendMechanism** | **string**| The send mechanism for the prompt | 
- **enabled** | **string**| Is the send mechanism enabled? | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **sendMechanism** | **string**| The send mechanism for the prompt | 
+  **enabled** | **string**| Is the send mechanism enabled? | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -311,22 +316,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateFacebookPages**
-> UpdateFacebookPages($pageIds)
-
+> UpdateFacebookPages(ctx, pageIds)
 Updates facebook page Ids
 
 Updates facebook page Ids to be sent to for prompts
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pageIds** | **string**| Page Ids for the prompt | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **pageIds** | **string**| Page Ids for the prompt | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -340,26 +344,33 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateSocialContent**
-> UpdateSocialContent($socialId, $title, $description, $pictureUrl, $suggestedMessage)
-
+> UpdateSocialContent(ctx, socialId, optional)
 Updates social content
 
 Updates social content for an email
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **socialId** | **string**| The social id | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **socialId** | **string**| The social id | 
- **title** | **string**| The title for the article | [optional] 
- **description** | **string**| The article description | [optional] 
- **pictureUrl** | **string**| The article picture url | [optional] 
- **suggestedMessage** | **string**| The suggested message to use | [optional] 
+ **title** | **string**| The title for the article | 
+ **description** | **string**| The article description | 
+ **pictureUrl** | **string**| The article picture url | 
+ **suggestedMessage** | **string**| The suggested message to use | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

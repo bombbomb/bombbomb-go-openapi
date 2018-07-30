@@ -12,22 +12,21 @@ Method | HTTP request | Description
 
 
 # **DocHostDelete**
-> DocHostDelete($docId)
-
+> DocHostDelete(ctx, docId)
 Delete file
 
 Deletes a users file
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **docId** | **string**| Id of document | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **docId** | **string**| Id of document | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -41,18 +40,17 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DocHostGet**
-> HostedDoc DocHostGet($docId)
-
+> HostedDoc DocHostGet(ctx, docId)
 Get file
 
 Get a single file by id
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **docId** | **string**| Id of document | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **docId** | **string**| Id of document | 
 
 ### Return type
 
@@ -70,14 +68,12 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DocHostList**
-> []HostedDoc DocHostList()
-
+> []HostedDoc DocHostList(ctx, )
 List all files
 
 List all uploaded user files
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
@@ -96,18 +92,17 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DocHostUploadV2**
-> []HostedDoc DocHostUploadV2($file)
-
+> []HostedDoc DocHostUploadV2(ctx, file)
 Upload a file
 
 Upload a new file
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **string**| The file being uploaded | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **file** | **string**| The file being uploaded | 
 
 ### Return type
 
@@ -125,24 +120,32 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetHostedImagesPaged**
-> GetHostedImagesPaged($pageSize, $page, $search)
-
+> GetHostedImagesPaged(ctx, pageSize, page, optional)
 Get paged hosted images
 
 Get a specific page of uploaded images available to the user.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **pageSize** | **string**| The number of items to retrieve in a single db query. | 
+  **page** | **string**| Zero-based index of the page of data to retrieve from the db. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageSize** | **string**| The number of items to retrieve in a single db query. | 
  **page** | **string**| Zero-based index of the page of data to retrieve from the db. | 
- **search** | **string**| Filter results with names that match the search term. | [optional] 
+ **search** | **string**| Filter results with names that match the search term. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

@@ -8,22 +8,21 @@ Method | HTTP request | Description
 
 
 # **TemplateAssetDelete**
-> TemplateAssetDelete($fileName)
-
+> TemplateAssetDelete(ctx, fileName)
 Deletes image from user s3 store
 
 Deletes image from user s3 store
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **fileName** | **string**| Filename for deletion | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **fileName** | **string**| Filename for deletion | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

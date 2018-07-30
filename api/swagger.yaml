@@ -1,0 +1,5064 @@
+---
+swagger: "2.0"
+info:
+  description: "We make it easy to build relationships using simple videos."
+  version: "2.0.831"
+  title: "BombBomb"
+host: "api.bombbomb.com"
+basePath: "/v2"
+tags:
+- name: "EMAILS"
+  description: "Emails"
+- name: "CONTACTS"
+  description: "Contacts"
+- name: "LISTS"
+  description: "Lists"
+- name: "VIDEOS"
+  description: "Videos"
+- name: "UTILITIES"
+  description: "Utilities"
+- name: "WEBHOOKS"
+  description: "Webhooks"
+- name: "AUTOMATIONS"
+  description: "Automations"
+- name: "CURRICULUM"
+  description: "Curriculum"
+- name: "PROMPTS"
+  description: "Prompts"
+- name: "ORDERS"
+  description: "Orders"
+- name: "SOCIALS"
+  description: "Socials"
+- name: "TEAMS"
+  description: "Teams"
+- name: "ACCOUNTS"
+  description: "Accounts"
+- name: "INTEGRATIONS"
+  description: "Integrations"
+- name: "FILES"
+  description: "Files"
+- name: "FORMS"
+  description: "Forms"
+- name: "USERS"
+  description: "Users"
+schemes:
+- "https"
+paths:
+  /account/profile/:
+    post:
+      tags:
+      - "Accounts"
+      summary: "Add profile information."
+      description: "Add profile information to this users account"
+      operationId: "UpdateProfileData"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "profileData"
+        in: "formData"
+        description: "Profile field information for the account"
+        required: false
+        type: "string"
+        x-exportParamName: "ProfileData"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:manage"
+  /accounts:
+    get:
+      tags:
+      - "Accounts"
+      summary: "Get account details."
+      description: "Get the details of the user's account."
+      operationId: "AccountDetails"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:read"
+    post:
+      tags:
+      - "Accounts"
+      summary: "Create Account"
+      description: "Creates a new BombBomb account. This method is currently only\
+        \ available to paid seat admins."
+      operationId: "CreateAccount"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "formData"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "firstName"
+        in: "formData"
+        description: "First name of the user."
+        required: true
+        type: "string"
+        x-exportParamName: "FirstName"
+      - name: "lastName"
+        in: "formData"
+        description: "Last name of the user."
+        required: true
+        type: "string"
+        x-exportParamName: "LastName"
+      - name: "emailAddress"
+        in: "formData"
+        description: "Email address of the user."
+        required: true
+        type: "string"
+        x-exportParamName: "EmailAddress"
+      - name: "companyName"
+        in: "formData"
+        description: "Company of the user."
+        required: true
+        type: "string"
+        x-exportParamName: "CompanyName"
+      - name: "phone"
+        in: "formData"
+        description: "Phone number of the user."
+        required: true
+        type: "string"
+        x-exportParamName: "Phone"
+      - name: "country"
+        in: "formData"
+        description: "Country of the user."
+        required: false
+        type: "string"
+        x-exportParamName: "Country"
+      - name: "industry"
+        in: "formData"
+        description: "Industry of the user."
+        required: false
+        type: "string"
+        x-exportParamName: "Industry"
+      - name: "address"
+        in: "formData"
+        description: "Street Address of the user."
+        required: false
+        type: "string"
+        x-exportParamName: "Address"
+      - name: "city"
+        in: "formData"
+        description: "City of the user."
+        required: false
+        type: "string"
+        x-exportParamName: "City"
+      - name: "postalCode"
+        in: "formData"
+        description: "Postal/Zip code of the user."
+        required: false
+        type: "string"
+        x-exportParamName: "PostalCode"
+      - name: "preventWelcomeEmail"
+        in: "formData"
+        description: "prevent an email with login credentials from being sent to the\
+          \ new account. must be set to 'true'"
+        required: false
+        type: "boolean"
+        x-exportParamName: "PreventWelcomeEmail"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "account:manage"
+  /accounts/apikey:
+    put:
+      tags:
+      - "Accounts"
+      summary: "Reset API key"
+      description: "Resets the current user's API key and returns the new key"
+      operationId: "ResetApiKey"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:manage"
+  /accounts/purchaseable:
+    get:
+      tags:
+      - "Accounts"
+      summary: "Check if subscription purchase allowed."
+      description: "Check whether the user can purchase a subscription."
+      operationId: "SubscriptionPurchaseAllowed"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:read"
+  /accounts/stats:
+    get:
+      tags:
+      - "Accounts"
+      summary: "Get Client Statistics"
+      description: "Gets general statics for a Client"
+      operationId: "GetClientStatistics"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "clientId"
+        in: "query"
+        description: "Client ID of the account to retrieve. Defaults to yourself."
+        required: false
+        type: "string"
+        x-exportParamName: "ClientId"
+      - name: "refresh"
+        in: "query"
+        description: "Boolean for whether data returned should be from cache or not."
+        required: false
+        type: "boolean"
+        x-exportParamName: "Refresh"
+      - name: "statisticValues"
+        in: "query"
+        description: "Array of data that should be returned, used exclusively for\
+          \ cacheless data"
+        required: false
+        type: "string"
+        x-exportParamName: "StatisticValues"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:read"
+  /accounts/{clientId}/country:
+    get:
+      tags:
+      - "Accounts"
+      summary: "Gets user country"
+      description: "Gets the users country"
+      operationId: "GetUserCountry"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:read"
+  /automation/{dripId}/dripdrop/{dripDropId}/stats:
+    get:
+      tags:
+      - "Automations"
+      summary: "Get Automation Email Stats"
+      description: "Get Automation Email Stats"
+      operationId: "GetDripDropStats"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "dripId"
+        in: "path"
+        description: "The id of the drip"
+        required: true
+        type: "string"
+        x-exportParamName: "DripId"
+      - name: "dripDropId"
+        in: "path"
+        description: "The id of the drip drop"
+        required: true
+        type: "string"
+        x-exportParamName: "DripDropId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "automation:read"
+  /automation/{id}/scheduling/status:
+    get:
+      tags:
+      - "Automations"
+      summary: "Get the number of pending scheduling calculations"
+      description: "Get the number of pending scheduling calculations"
+      operationId: "GetSchedulingStatus"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id of the automation"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "automation:read"
+  /automation/{id}/stats:
+    get:
+      tags:
+      - "Automations"
+      summary: "Get Automation Stats"
+      description: "Get Automation Stats"
+      operationId: "GetDripStats"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id of the automation"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "automation:read"
+  /campaign/{campaignId}/content/alternate:
+    get:
+      tags:
+      - "Prompts"
+      summary: "List alternate campaign content"
+      description: "Returns a list of alternate campaign content by campaign id"
+      operationId: "GetAlternateCampaignContent"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "clientGroupId"
+        in: "query"
+        description: "Id for the campaign"
+        required: true
+        type: "string"
+        x-exportParamName: "ClientGroupId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /clients/contact/information:
+    get:
+      tags:
+      - "Users"
+      summary: "Get client contact information."
+      description: "Get the client contact information of the user's account."
+      operationId: "GetClientContactInformation"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:read"
+  /contact/{id}:
+    get:
+      tags:
+      - "Contacts"
+      summary: "Get Contact Details"
+      description: "Get the contact details"
+      operationId: "GetContactById"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Guid for the contact."
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:read"
+  /contacts/:
+    post:
+      tags:
+      - "Contacts"
+      summary: "Add a contact."
+      description: "Add a contact to the users list."
+      operationId: "AddNewContact"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "contactEmail"
+        in: "formData"
+        description: "Email of the new contact we are adding"
+        required: true
+        type: "string"
+        x-exportParamName: "ContactEmail"
+      - name: "contactInfo"
+        in: "formData"
+        description: "The info sent for this contact"
+        required: false
+        type: "string"
+        x-exportParamName: "ContactInfo"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /contacts/custom_fields/:
+    get:
+      tags:
+      - "Contacts"
+      summary: "Get custom fields."
+      description: "Get the current users custom fields."
+      operationId: "GetCustomFields"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+    post:
+      tags:
+      - "Contacts"
+      summary: "Add custom fields."
+      description: "Add a new custom field."
+      operationId: "AddNewCustomField"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "fieldName"
+        in: "formData"
+        description: "Custom field name to be added"
+        required: true
+        type: "string"
+        x-exportParamName: "FieldName"
+      - name: "fieldType"
+        in: "formData"
+        description: "Custom field type for the field to be added"
+        required: false
+        type: "string"
+        x-exportParamName: "FieldType"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /contacts/delete:
+    put:
+      tags:
+      - "Contacts"
+      summary: "Delete Contacts"
+      description: "Delete all contacts within a list, or provide a comma separated\
+        \ list of contactIds to delete."
+      operationId: "DeleteContacts"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "listId"
+        in: "formData"
+        description: "The list of contacts to be deleted."
+        required: false
+        type: "string"
+        x-exportParamName: "ListId"
+      - name: "contactIds"
+        in: "formData"
+        description: "comma separated list of contact ids to delete"
+        required: false
+        type: "string"
+        x-exportParamName: "ContactIds"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /contacts/import_csv:
+    post:
+      tags:
+      - "Contacts"
+      summary: "Add contacts from a CSV file."
+      description: "Add multiple contacts through the upload importer from a CSV file."
+      operationId: "AddContactsCSV"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mappingData"
+        in: "formData"
+        description: "The info sent for the contacts"
+        required: true
+        type: "string"
+        x-exportParamName: "MappingData"
+      - name: "listData"
+        in: "formData"
+        description: "The info sent with the import for the list"
+        required: true
+        type: "string"
+        x-exportParamName: "ListData"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /contacts/paste:
+    post:
+      tags:
+      - "Contacts"
+      summary: "Add pasted contacts."
+      description: "Add the pasted contacts to the users list."
+      operationId: "AddPastedContacts"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "contactEmails"
+        in: "formData"
+        description: "Emails array of the new contacts we are adding"
+        required: true
+        type: "string"
+        x-exportParamName: "ContactEmails"
+      - name: "listInfo"
+        in: "formData"
+        description: "Information about the lists id, recalculations on totals, consent\
+          \ etc"
+        required: false
+        type: "string"
+        x-exportParamName: "ListInfo"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /csv-to-object:
+    post:
+      tags:
+      - "Contacts"
+      summary: "Format CSV."
+      description: "Format a CSV file to an object."
+      operationId: "CSVToObject"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "file"
+        in: "formData"
+        description: "The CSV file being uploaded"
+        required: true
+        type: "string"
+        x-exportParamName: "File"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /curricula/:
+    get:
+      tags:
+      - "Curriculum"
+      summary: "Get Curricula"
+      description: "Get Curricula, optionally with progress included."
+      operationId: "GetCurricula"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "includeProgress"
+        in: "query"
+        description: "Whether to return progress with the curriculum."
+        required: false
+        type: "boolean"
+        x-exportParamName: "IncludeProgress"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Curriculum"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+        404:
+          description: "Not Found"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "curriculum:read"
+  /curriculum/getForUserWithProgress:
+    get:
+      tags:
+      - "Curriculum"
+      summary: "Get Detailed For User"
+      description: "Get all curricula for user including progress for each curriculum."
+      operationId: "GetUserCurriculumWithProgress"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CurriculumWithProgress"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+        404:
+          description: "Not Found"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "curriculum:read"
+  /emails/livefire:
+    get:
+      tags:
+      - "Emails"
+      summary: "Get livefire feed data"
+      description: "Get the user data for the live fire feed emails"
+      operationId: "GetLiveFireData"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /emails/print:
+    post:
+      tags:
+      - "Emails"
+      summary: "Create an Email with Printing Press"
+      description: "Prints an email using the template id and content to the users\
+        \ account.If a video id is included, it will replace any video placeholders\
+        \ with that video."
+      operationId: "CreatePrintingPressEmail"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "templateId"
+        in: "formData"
+        description: "The template id to be printed."
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      - name: "content"
+        in: "formData"
+        description: "The content of the email."
+        required: true
+        type: "string"
+        x-exportParamName: "Content"
+      - name: "emailId"
+        in: "formData"
+        description: "The email id to be printed to."
+        required: false
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "videoId"
+        in: "formData"
+        description: "A video to replace video place holders with."
+        required: false
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "subjectLine"
+        in: "formData"
+        description: "The subject line to be printed."
+        required: false
+        type: "string"
+        x-exportParamName: "SubjectLine"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /emails/quicksend:
+    get:
+      tags:
+      - "Emails"
+      summary: "Get quicksend data"
+      description: "Get the user data for quicksender, including templates and lists."
+      operationId: "GetVideoQuickSenderData"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "message"
+        in: "query"
+        description: "A message for the video content."
+        required: false
+        type: "string"
+        x-exportParamName: "Message"
+      - name: "subject"
+        in: "query"
+        description: "A subject for the video content."
+        required: false
+        type: "string"
+        x-exportParamName: "Subject"
+      - name: "videoId"
+        in: "query"
+        description: "A video ID."
+        required: false
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "templateId"
+        in: "query"
+        description: "A template ID."
+        required: false
+        type: "string"
+        x-exportParamName: "TemplateId"
+      - name: "commaDelimEmails"
+        in: "query"
+        description: "Comma delimited emails"
+        required: false
+        type: "string"
+        x-exportParamName: "CommaDelimEmails"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+    post:
+      tags:
+      - "Emails"
+      summary: "Send a quicksend email"
+      description: "Send a quicksend video email to the list or users provided."
+      operationId: "VideoQuickSender"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "videoId"
+        in: "formData"
+        description: "A guid id for the video."
+        required: false
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "emailAddresses"
+        in: "formData"
+        description: "A semi-colon separated list of email addresses to send to."
+        required: false
+        type: "string"
+        x-exportParamName: "EmailAddresses"
+      - name: "subject"
+        in: "formData"
+        description: "Subject line for the email."
+        required: false
+        type: "string"
+        x-exportParamName: "Subject"
+      - name: "message"
+        in: "formData"
+        description: "Message for the body of the email."
+        required: false
+        type: "string"
+        x-exportParamName: "Message"
+      - name: "listIds"
+        in: "formData"
+        description: "An array of list ids"
+        required: false
+        type: "string"
+        x-exportParamName: "ListIds"
+      - name: "scheduledSendTimestamp"
+        in: "formData"
+        description: "When to schedule the send (seconds since epoch). null value\
+          \ means send immediately."
+        required: false
+        type: "integer"
+        x-exportParamName: "ScheduledSendTimestamp"
+      - name: "extendedProperties"
+        in: "formData"
+        description: "Bool value that when checked will send back both emailId as\
+          \ well as extra properties"
+        required: false
+        type: "string"
+        x-exportParamName: "ExtendedProperties"
+      - name: "templateId"
+        in: "formData"
+        description: "Id of a template to use for this send. A null value means use\
+          \ the default for this user."
+        required: false
+        type: "string"
+        x-exportParamName: "TemplateId"
+      - name: "stripHTML"
+        in: "formData"
+        description: "remove HTML elements"
+        required: false
+        type: "string"
+        x-exportParamName: "StripHTML"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /emails/quicksend/settings:
+    post:
+      tags:
+      - "Emails"
+      summary: "Save quicksender settings"
+      description: "Save the quicksender notification and default template settings"
+      operationId: "SaveQuickSenderSettings"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "alertOnPlay"
+        in: "formData"
+        description: "A preference setting for whether or not to notify user on quicksend\
+          \ email video plays."
+        required: false
+        type: "string"
+        x-exportParamName: "AlertOnPlay"
+      - name: "alertOnOpen"
+        in: "formData"
+        description: "A preference setting for whether or not to notify user on quicksend\
+          \ email opens."
+        required: false
+        type: "string"
+        x-exportParamName: "AlertOnOpen"
+      - name: "templateId"
+        in: "formData"
+        description: "Id of a template to use for this send. A null value means use\
+          \ the default for this user."
+        required: false
+        type: "string"
+        x-exportParamName: "TemplateId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /emails/quicksend/templates:
+    get:
+      tags:
+      - "Emails"
+      summary: "Get all quicksend templates"
+      description: "Get all quicksend templates accessible to the user."
+      operationId: "GetQuickSendTemplates"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /emails/templates:
+    get:
+      tags:
+      - "Emails"
+      summary: "Get all user templates"
+      description: "Get all templates accessible to the current user"
+      operationId: "GetAllTemplatesForCurrentUser"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "quickSendOnly"
+        in: "query"
+        description: "Whether to return only quick send templates."
+        required: false
+        type: "boolean"
+        x-exportParamName: "QuickSendOnly"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /emails/templates/{templateId}/html:
+    get:
+      tags:
+      - "Emails"
+      summary: "Get the HTML for a given template"
+      description: "Get the HTML for a given template, with or without rendered variables"
+      operationId: "GetTemplateHtmlForTemplateId"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "templateId"
+        in: "path"
+        description: "The id of the template."
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      - name: "renderVariables"
+        in: "query"
+        description: "Whether to render profile variables in the returned HTML."
+        required: false
+        type: "string"
+        x-exportParamName: "RenderVariables"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /emails/{emailId}/tracking:
+    get:
+      tags:
+      - "Emails"
+      summary: "Get Email Tracking"
+      description: "Get Tracking data for all sends of an Email"
+      operationId: "GetEmailTracking"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "emailId"
+        in: "path"
+        description: "ID of the email"
+        required: true
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "jobId"
+        in: "query"
+        description: "ID of the Job (or null for all jobs)"
+        required: false
+        type: "string"
+        x-exportParamName: "JobId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /emails/{emailId}/tracking/hourly:
+    get:
+      tags:
+      - "Emails"
+      summary: "Get Hourly Email Tracking"
+      description: "Get Tracking data for an Email,\n            broken down by the\
+        \ hour and filterable by an Interaction type"
+      operationId: "GetHourlyEmailTracking"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "emailId"
+        in: "path"
+        description: "ID of the email"
+        required: true
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "jobId"
+        in: "query"
+        description: "ID of the Job (or null for all jobs)"
+        required: false
+        type: "string"
+        x-exportParamName: "JobId"
+      - name: "interactionType"
+        in: "query"
+        description: "Interaction type to filter by"
+        required: false
+        type: "string"
+        x-exportParamName: "InteractionType"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /emails/{emailId}/tracking/interactions:
+    get:
+      tags:
+      - "Emails"
+      summary: "Get Email Tracking Interactions"
+      description: "Get Contact detail interactions for an Email"
+      operationId: "GetEmailTrackingInteractions"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "emailId"
+        in: "path"
+        description: "ID of the email"
+        required: true
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "jobId"
+        in: "query"
+        description: "ID of the Job (or null for all jobs)"
+        required: false
+        type: "string"
+        x-exportParamName: "JobId"
+      - name: "interactionType"
+        in: "query"
+        description: "Interaction type to order and filter by"
+        required: false
+        type: "string"
+        x-exportParamName: "InteractionType"
+      - name: "searchTerm"
+        in: "query"
+        description: "Search term to filer by"
+        required: false
+        type: "string"
+        x-exportParamName: "SearchTerm"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /files:
+    get:
+      tags:
+      - "Files"
+      summary: "List all files"
+      description: "List all uploaded user files"
+      operationId: "DocHostList"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/HostedDoc"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "file:read"
+    post:
+      tags:
+      - "Files"
+      summary: "Upload a file"
+      description: "Upload a new file"
+      operationId: "DocHostUploadV2"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "file"
+        in: "formData"
+        description: "The file being uploaded"
+        required: true
+        type: "string"
+        x-exportParamName: "File"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/HostedDoc"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "file:read"
+  /files/images/paged:
+    get:
+      tags:
+      - "Files"
+      summary: "Get paged hosted images"
+      description: "Get a specific page of uploaded images available to the user."
+      operationId: "GetHostedImagesPaged"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "pageSize"
+        in: "query"
+        description: "The number of items to retrieve in a single db query."
+        required: true
+        type: "string"
+        x-exportParamName: "PageSize"
+      - name: "page"
+        in: "query"
+        description: "Zero-based index of the page of data to retrieve from the db."
+        required: true
+        type: "string"
+        x-exportParamName: "Page"
+      - name: "search"
+        in: "query"
+        description: "Filter results with names that match the search term."
+        required: false
+        type: "string"
+        x-exportParamName: "Search"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "file:read"
+  /files/{docId}:
+    get:
+      tags:
+      - "Files"
+      summary: "Get file"
+      description: "Get a single file by id"
+      operationId: "DocHostGet"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "docId"
+        in: "path"
+        description: "Id of document"
+        required: true
+        type: "string"
+        x-exportParamName: "DocId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/HostedDoc"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "file:read"
+    delete:
+      tags:
+      - "Files"
+      summary: "Delete file"
+      description: "Deletes a users file"
+      operationId: "DocHostDelete"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "docId"
+        in: "path"
+        description: "Id of document"
+        required: true
+        type: "string"
+        x-exportParamName: "DocId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "file:manage"
+  /forms/{id}/tracking/export:
+    get:
+      tags:
+      - "Forms"
+      summary: "Get csv"
+      description: "Get form tracking as csv"
+      operationId: "GetFormTrackingAsCsv"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the form"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "form:read"
+  /integrations:
+    post:
+      tags:
+      - "Integrations"
+      summary: "Activate an integration for a user."
+      description: "Provide the correct parameters to enable an integration. Required\
+        \ Parameters vary based on the desired \n        integration. Integrations\
+        \ requiring OAuth will provide the OAuth link that the user must be presented."
+      operationId: "ConnectIntegration"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "code"
+        in: "formData"
+        description: "The identifier of the integration."
+        required: true
+        type: "string"
+        x-exportParamName: "Code"
+      - name: "key"
+        in: "formData"
+        description: "The key value."
+        required: false
+        type: "string"
+        x-exportParamName: "Key"
+      - name: "secret"
+        in: "formData"
+        description: "The secret value."
+        required: false
+        type: "string"
+        x-exportParamName: "Secret"
+      - name: "token"
+        in: "formData"
+        description: "The token value."
+        required: false
+        type: "string"
+        x-exportParamName: "Token"
+      - name: "data"
+        in: "formData"
+        description: "The data value as JSON."
+        required: false
+        type: "string"
+        x-exportParamName: "Data"
+      - name: "overwrite"
+        in: "formData"
+        description: "Boolean value to know whether or not to delete the integration\
+          \ if it already exists"
+        required: false
+        type: "string"
+        x-exportParamName: "Overwrite"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "automation:manage"
+    delete:
+      tags:
+      - "Integrations"
+      summary: "Remove an integration for a user."
+      description: "Remove an integration by providing the integration id or integration\
+        \ code. Only provide one of the\n            parameters."
+      operationId: "DeleteIntegration"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "formData"
+        description: "Integration ID"
+        required: false
+        type: "string"
+        x-exportParamName: "Id"
+      - name: "code"
+        in: "formData"
+        description: "Integration Code"
+        required: false
+        type: "string"
+        x-exportParamName: "Code"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "automation:manage"
+  /integrations/health/{code}:
+    get:
+      tags:
+      - "Integrations"
+      summary: "Get health for a given integration"
+      description: "Get health for an integration."
+      operationId: "GetIntegrationHealth"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "code"
+        in: "path"
+        description: "The integration code for which to retrieve the information from"
+        required: false
+        type: "string"
+        x-exportParamName: "Code"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "all:manage"
+  /integrations/pageComponents:
+    get:
+      tags:
+      - "Integrations"
+      summary: "Get page components for a given integration"
+      description: "Get all page components for an integration."
+      operationId: "GetIntegrationPageComponents"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "integration_name"
+        in: "query"
+        description: "The integration for which to retrieve HTML page components."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationName"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "all:manage"
+  /integrations/sync:
+    get:
+      tags:
+      - "Integrations"
+      summary: "Synchronize your integration list or lists."
+      description: "Synchronize your integration contact list with the service you\
+        \ are integrated with. If no integration code is provided, all integrations\
+        \ will be synchronized."
+      operationId: "SyncUsersIntegratedLists"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "integration_id"
+        in: "query"
+        description: "The integration to sync lists for. All integrations will sync\
+          \ if nothing is provided."
+        required: false
+        type: "string"
+        x-exportParamName: "IntegrationId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "automation:manage"
+  /lists/:
+    get:
+      tags:
+      - "Lists"
+      summary: "Get all Lists"
+      description: "Get all the lists for a specific user."
+      operationId: "GetAllLists"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "list:manage"
+    post:
+      tags:
+      - "Lists"
+      summary: "Add list."
+      description: "Add a list to the users account."
+      operationId: "AddNewList"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "listName"
+        in: "formData"
+        description: "Name of the new list being added"
+        required: true
+        type: "string"
+        x-exportParamName: "ListName"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "list:manage"
+  /lists/{listId}/clear:
+    put:
+      tags:
+      - "Lists"
+      summary: "Clear Contacts from List"
+      description: "Clears all contacts from a list."
+      operationId: "ClearList"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "listId"
+        in: "path"
+        description: "The list to be cleared."
+        required: true
+        type: "string"
+        x-exportParamName: "ListId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /lists/{listId}/copy:
+    post:
+      tags:
+      - "Lists"
+      summary: "Copy All Contacts from a List"
+      description: "Copy all contacts from a list."
+      operationId: "CopyListContacts"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "fromListId"
+        in: "formData"
+        description: "The list to be cleared."
+        required: true
+        type: "string"
+        x-exportParamName: "FromListId"
+      - name: "listId"
+        in: "path"
+        description: "The list to be cleared."
+        required: true
+        type: "string"
+        x-exportParamName: "ListId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /lists/{listId}/suppress:
+    put:
+      tags:
+      - "Lists"
+      summary: "Suppress All Contacts from List"
+      description: "Suppresses all contacts in a list."
+      operationId: "SuppressAllInList"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "listId"
+        in: "path"
+        description: "The list to be cleared."
+        required: true
+        type: "string"
+        x-exportParamName: "ListId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "contact:manage"
+  /oauthclient:
+    get:
+      tags:
+      - "Utilities"
+      summary: "Lists OAuth Clients"
+      description: "Enumerates OAuth Clients managed by the user"
+      operationId: "GetOAuthClients"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OAuthClient"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+    post:
+      tags:
+      - "Utilities"
+      summary: "Create an OAuth Client"
+      description: "Creates an OAuth Client managed by the user"
+      operationId: "CreateOAuthClient"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "formData"
+        description: "The name of the OAuth client. e.g. MyCrm DEV, or MyCrm PROD"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      - name: "redirectUri"
+        in: "formData"
+        description: "The URI to direct the client to after logging in."
+        required: true
+        type: "string"
+        x-exportParamName: "RedirectUri"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/OAuthClient"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /oauthclient/{id}:
+    delete:
+      tags:
+      - "Utilities"
+      summary: "Delete an OAuth Client"
+      description: "Deletes an OAuth Client managed by the user"
+      operationId: "DeleteOAuthClient"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id of the OAuth Client"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /orders/templates/images:
+    delete:
+      tags:
+      - "Orders"
+      summary: "Deletes image from user s3 store"
+      description: "Deletes image from user s3 store"
+      operationId: "TemplateAssetDelete"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "fileName"
+        in: "formData"
+        description: "Filename for deletion"
+        required: true
+        type: "string"
+        x-exportParamName: "FileName"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "order:manage"
+  /prompt:
+    post:
+      tags:
+      - "Prompts"
+      summary: "Prompts user to send a video"
+      description: "Sends the account holder an email prompting them to add a video\
+        \ to a scheduled outgoing message. Recipients, content and timing is all preset\
+        \ for the user."
+      operationId: "CreateVideoEmailPrompt"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "prompt"
+        description: "The Video Email Prompt to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/VideoEmailPrompt"
+        x-exportParamName: "Prompt"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/VideoEmailPrompt"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /prompt/:
+    get:
+      tags:
+      - "Prompts"
+      summary: "List prompts"
+      description: "Returns a list of all prompts."
+      operationId: "GetVideoEmailPrompts"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/VideoEmailPrompt"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+        404:
+          description: "Not Found"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /prompt/pending:
+    get:
+      tags:
+      - "Prompts"
+      summary: "List pending prompts"
+      description: "Returns a list of prompts that have not been sent yet, and can\
+        \ still be customized."
+      operationId: "GetPendingVideoEmailPrompts"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/VideoEmailPrompt"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+        404:
+          description: "Not Found"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /prompt/{id}:
+    get:
+      tags:
+      - "Prompts"
+      summary: "Gets a prompt"
+      description: "Gets a prompt"
+      operationId: "GetVideoEmailPrompt"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The Id of the prompt"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/VideoEmailPrompt"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+        404:
+          description: "Not Found"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "email:read"
+  /prompt/{id}/response:
+    post:
+      tags:
+      - "Prompts"
+      summary: "Respond to a prompt"
+      description: "Respond to a prompt by either adding a video, sending without\
+        \ a video or cancelling the prompt."
+      operationId: "RespondToVideoEmailPrompt"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id of the prompt."
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      - name: "videoId"
+        in: "formData"
+        description: "The id of the video."
+        required: false
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "emailId"
+        in: "formData"
+        description: "The id of the email."
+        required: false
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "subject"
+        in: "formData"
+        description: "The subject of the email"
+        required: false
+        type: "string"
+        x-exportParamName: "Subject"
+      - name: "choice"
+        in: "formData"
+        description: "The users' selection. Can be: WithVideo, WithEmail, Cancel,\
+          \ Restore, Reset, Manual"
+        required: true
+        type: "string"
+        enum:
+        - "WithVideo"
+        - "WithEmail"
+        - "Cancel"
+        - "Restore"
+        - "Reset"
+        - "Manual"
+        x-exportParamName: "Choice"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/VideoEmailPrompt"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+        404:
+          description: "Not Found"
+          schema:
+            type: "string"
+      security: []
+  /prompt/{id}/sendit:
+    post:
+      tags:
+      - "Prompts"
+      summary: ""
+      description: "Ignore send date and send the prompt now."
+      operationId: "SendPromptImmediately"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The Id of the prompt"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:manage"
+  /prompts/bots:
+    get:
+      tags:
+      - "Prompts"
+      summary: "List Prompt Bots"
+      description: "Returns a list of all Prompt Bots for the user."
+      operationId: "GetPromptBots"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Prompt\\Bot"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+    post:
+      tags:
+      - "Prompts"
+      summary: "Create a running Prompt Bot for a list"
+      description: "Creates a Prompt Bot that sends emails to contacts on a list over\
+        \ the span of time defined."
+      operationId: "CreatePromptBot"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "listId"
+        in: "formData"
+        description: "The list id to attach the bot to."
+        required: false
+        type: "string"
+        x-exportParamName: "ListId"
+      - name: "emailId"
+        in: "formData"
+        description: "The default email to use."
+        required: true
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "videoId"
+        in: "formData"
+        description: "The video used in the email."
+        required: false
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "name"
+        in: "formData"
+        description: "The name of the bot."
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      - name: "subject"
+        in: "formData"
+        description: "The subject of the default email."
+        required: true
+        type: "string"
+        x-exportParamName: "Subject"
+      - name: "content"
+        in: "formData"
+        description: "The content used in the email."
+        required: true
+        type: "string"
+        x-exportParamName: "Content"
+      - name: "contactFieldValueColumn"
+        in: "formData"
+        description: "The custom field value column with dates for this bot."
+        required: true
+        type: "string"
+        x-exportParamName: "ContactFieldValueColumn"
+      - name: "endDate"
+        in: "formData"
+        description: "The time frame to complete sending to the list."
+        required: false
+        type: "string"
+        x-exportParamName: "EndDate"
+      - name: "botTypeId"
+        in: "formData"
+        description: "The type of bot to create."
+        required: true
+        type: "string"
+        x-exportParamName: "BotTypeId"
+      - name: "templateId"
+        in: "formData"
+        description: "The template used to create the email id."
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Prompt\\Bot"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /prompts/bots/{id}:
+    put:
+      tags:
+      - "Prompts"
+      summary: "Update Prompt Bot"
+      description: "Updates a Prompt Bot's settings."
+      operationId: "UpdatePromptBot"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The bot id."
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      - name: "listId"
+        in: "formData"
+        description: "The list id to attach the bot to."
+        required: false
+        type: "string"
+        x-exportParamName: "ListId"
+      - name: "emailId"
+        in: "formData"
+        description: "The default email to use."
+        required: true
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "videoId"
+        in: "formData"
+        description: "The video used in the default email."
+        required: false
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "endDate"
+        in: "formData"
+        description: "The time frame to complete sending to the list."
+        required: false
+        type: "string"
+        x-exportParamName: "EndDate"
+      - name: "status"
+        in: "formData"
+        description: "The status of the bot."
+        required: false
+        type: "string"
+        x-exportParamName: "Status"
+      - name: "name"
+        in: "formData"
+        description: "The name of the bot."
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      - name: "subject"
+        in: "formData"
+        description: "The subject of the default email."
+        required: true
+        type: "string"
+        x-exportParamName: "Subject"
+      - name: "content"
+        in: "formData"
+        description: "The content used in the default email."
+        required: true
+        type: "string"
+        x-exportParamName: "Content"
+      - name: "contactFieldValueColumn"
+        in: "formData"
+        description: "The custom field value column with dates for this bot."
+        required: true
+        type: "string"
+        x-exportParamName: "ContactFieldValueColumn"
+      - name: "templateId"
+        in: "formData"
+        description: "The template used to create the email id."
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Prompt\\Bot"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /prompts/campaigns/sync:
+    post:
+      tags:
+      - "Prompts"
+      summary: "Syncs Campaigns and One to Ones Subscriptions for User"
+      description: "Syncs Campaigns and One to Ones Subscriptions for User based on\
+        \ their profile information. The user must be a Prompt Subscriber."
+      operationId: "SyncPromptSubscriptions"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "migrate"
+        in: "formData"
+        description: "After syncing, migrate away from old campaigns."
+        required: false
+        type: "boolean"
+        x-exportParamName: "Migrate"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:manage"
+  /prompts/campaigns/{clientGroupId}:
+    put:
+      tags:
+      - "Prompts"
+      summary: "Update Prompt Campaign"
+      description: "Updates a Prompt Campaign's Settings"
+      operationId: "UpdatePromptCampaign"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "clientGroupId"
+        in: "path"
+        description: "The client group of the campaign."
+        required: true
+        type: "string"
+        x-exportParamName: "ClientGroupId"
+      - name: "brandedTemplateId"
+        in: "formData"
+        description: "The template to use for branded feel emails."
+        required: false
+        type: "string"
+        x-exportParamName: "BrandedTemplateId"
+      - name: "personalTemplateId"
+        in: "formData"
+        description: "The template to use for personal feel emails."
+        required: false
+        type: "string"
+        x-exportParamName: "PersonalTemplateId"
+      - name: "enabled"
+        in: "formData"
+        description: "Set whether the user is able to start receiving prompts."
+        required: false
+        type: "boolean"
+        x-exportParamName: "Enabled"
+      - name: "sendMechanism"
+        in: "formData"
+        description: "The way to send the prompt"
+        required: false
+        type: "string"
+        x-exportParamName: "SendMechanism"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /prompts/{id}:
+    put:
+      tags:
+      - "Prompts"
+      summary: "Update Prompt"
+      description: "Updates a Prompt"
+      operationId: "UpdatePrompt"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The prompt's id"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      - name: "sendMechanism"
+        in: "formData"
+        description: "The mechanism for the prompt to be sent"
+        required: false
+        type: "string"
+        x-exportParamName: "SendMechanism"
+      - name: "facebookMessage"
+        in: "formData"
+        description: "The facebook message assigned to the prompt"
+        required: false
+        type: "string"
+        x-exportParamName: "FacebookMessage"
+      - name: "twitterMessage"
+        in: "formData"
+        description: "The twitter message assigned to the prompt"
+        required: false
+        type: "string"
+        x-exportParamName: "TwitterMessage"
+      - name: "videoId"
+        in: "formData"
+        description: "The id of the video."
+        required: false
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "emailId"
+        in: "formData"
+        description: "The id of the email."
+        required: false
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "subject"
+        in: "formData"
+        description: "The subject of the email"
+        required: false
+        type: "string"
+        x-exportParamName: "Subject"
+      - name: "resetCache"
+        in: "formData"
+        description: "The subject of the email"
+        required: false
+        type: "string"
+        x-exportParamName: "ResetCache"
+      - name: "resetEmailContent"
+        in: "formData"
+        description: "The subject of the email"
+        required: false
+        type: "string"
+        x-exportParamName: "ResetEmailContent"
+      - name: "status"
+        in: "formData"
+        description: "The status of the prompt"
+        required: false
+        type: "string"
+        x-exportParamName: "Status"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /prompts/{id}/content:
+    put:
+      tags:
+      - "Prompts"
+      summary: "Update Prompt Content"
+      description: "Updates a Prompt Content"
+      operationId: "UpdatePromptTemplate"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The prompt's id"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      - name: "alternateContentId"
+        in: "formData"
+        description: "The alternate content id"
+        required: true
+        type: "string"
+        x-exportParamName: "AlternateContentId"
+      - name: "newEmailId"
+        in: "formData"
+        description: "The prompt's new email id"
+        required: true
+        type: "string"
+        x-exportParamName: "NewEmailId"
+      - name: "ogEmailId"
+        in: "formData"
+        description: "The prompt's original email id"
+        required: true
+        type: "string"
+        x-exportParamName: "OgEmailId"
+      - name: "newExampleVideoId"
+        in: "formData"
+        description: "The prompt's new tutorial video id"
+        required: true
+        type: "string"
+        x-exportParamName: "NewExampleVideoId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /prompts/{userId}/campaigns:
+    get:
+      tags:
+      - "Prompts"
+      summary: "List Prompt Campaigns"
+      description: "Returns a list of all Prompt Campaigns for the user."
+      operationId: "GetPromptCampaigns"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "email:manage"
+  /socials/authorizations:
+    get:
+      tags:
+      - "Socials"
+      summary: "Get authorizations for all social integration"
+      description: "Get authorizations and autoshares for all social integration and\
+        \ has redirect for user to login"
+      operationId: "GetSocialAuthorizations"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "clientGroupId"
+        in: "query"
+        description: "ID of the client group association"
+        required: false
+        type: "string"
+        x-exportParamName: "ClientGroupId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/client/sendMechanism:
+    put:
+      tags:
+      - "Socials"
+      summary: "Gets the auto shares from the client group assoc id"
+      description: "Gets the auto shares from the client group assoc id"
+      operationId: "UpdateClientGroupSendMechanism"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sendMechanism"
+        in: "formData"
+        description: "The send mechanism for the prompt"
+        required: true
+        type: "string"
+        x-exportParamName: "SendMechanism"
+      - name: "clientGroupId"
+        in: "formData"
+        description: "ID of the client group association"
+        required: true
+        type: "string"
+        x-exportParamName: "ClientGroupId"
+      - name: "enabled"
+        in: "formData"
+        description: "Is the send mechanism enabled?"
+        required: false
+        type: "string"
+        x-exportParamName: "Enabled"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/client/sendMechanisms:
+    put:
+      tags:
+      - "Socials"
+      summary: "Toggles the prompt campaigns in a users account"
+      description: "Toggles the prompt campaigns in a users account for a social integrations\
+        \ on or off"
+      operationId: "UpdateClientGroupsSendMechanism"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sendMechanism"
+        in: "formData"
+        description: "The send mechanism for the prompt"
+        required: true
+        type: "string"
+        x-exportParamName: "SendMechanism"
+      - name: "enabled"
+        in: "formData"
+        description: "Is the send mechanism enabled?"
+        required: true
+        type: "string"
+        x-exportParamName: "Enabled"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/content:
+    post:
+      tags:
+      - "Socials"
+      summary: "Creates social content"
+      description: "Creates social content for an email"
+      operationId: "PostSocialContent"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "emailId"
+        in: "formData"
+        description: "The email's id"
+        required: true
+        type: "string"
+        x-exportParamName: "EmailId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+    put:
+      tags:
+      - "Socials"
+      summary: "Updates social content"
+      description: "Updates social content for an email"
+      operationId: "UpdateSocialContent"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "socialId"
+        in: "formData"
+        description: "The social id"
+        required: true
+        type: "string"
+        x-exportParamName: "SocialId"
+      - name: "title"
+        in: "formData"
+        description: "The title for the article"
+        required: false
+        type: "string"
+        x-exportParamName: "Title"
+      - name: "description"
+        in: "formData"
+        description: "The article description"
+        required: false
+        type: "string"
+        x-exportParamName: "Description"
+      - name: "pictureUrl"
+        in: "formData"
+        description: "The article picture url"
+        required: false
+        type: "string"
+        x-exportParamName: "PictureUrl"
+      - name: "suggestedMessage"
+        in: "formData"
+        description: "The suggested message to use"
+        required: false
+        type: "string"
+        x-exportParamName: "SuggestedMessage"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/facebook/pages:
+    get:
+      tags:
+      - "Socials"
+      summary: "Gets facebook pages"
+      description: "Gets facebook pages by client id"
+      operationId: "GetFacebookPages"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+    put:
+      tags:
+      - "Socials"
+      summary: "Updates facebook page Ids"
+      description: "Updates facebook page Ids to be sent to for prompts"
+      operationId: "UpdateFacebookPages"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "pageIds"
+        in: "formData"
+        description: "Page Ids for the prompt"
+        required: true
+        type: "string"
+        x-exportParamName: "PageIds"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/profile:
+    get:
+      tags:
+      - "Socials"
+      summary: "Gets the profile properties"
+      description: "Gets the social profile properties"
+      operationId: "GetSocialProfileProperties"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "socialType"
+        in: "query"
+        description: "The social type"
+        required: true
+        type: "string"
+        x-exportParamName: "SocialType"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/properties:
+    get:
+      tags:
+      - "Socials"
+      summary: "Gets the social email properties"
+      description: "Gets the social email properties"
+      operationId: "GetSocialArticleProperties"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "emailId"
+        in: "query"
+        description: "This is the email Id for the email url"
+        required: true
+        type: "string"
+        x-exportParamName: "EmailId"
+      - name: "socialContentId"
+        in: "query"
+        description: "This is the social content Id"
+        required: true
+        type: "string"
+        x-exportParamName: "SocialContentId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/send:
+    post:
+      tags:
+      - "Socials"
+      summary: "Sends social content"
+      description: "Sends social content for a user via their associated prompt"
+      operationId: "SendSocial"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "promptId"
+        in: "formData"
+        description: "The prompt id"
+        required: true
+        type: "string"
+        x-exportParamName: "PromptId"
+      - name: "socialType"
+        in: "formData"
+        description: "The destination for social content"
+        required: true
+        type: "string"
+        x-exportParamName: "SocialType"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/send/retry:
+    post:
+      tags:
+      - "Socials"
+      summary: "Sends social content"
+      description: "Sends social content that failed for a user via their associated\
+        \ prompt"
+      operationId: "RetrySocialSend"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "promptId"
+        in: "formData"
+        description: "The prompt id"
+        required: true
+        type: "string"
+        x-exportParamName: "PromptId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "settings:manage"
+  /socials/{promptId}/stats:
+    get:
+      tags:
+      - "Socials"
+      summary: "Get social stats for a prompt"
+      description: "Get social stats for a prompt by id"
+      operationId: "GetSocialStats"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "promptId"
+        in: "path"
+        description: "ID of the prompt"
+        required: true
+        type: "string"
+        x-exportParamName: "PromptId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:read"
+  /spec:
+    get:
+      tags:
+      - "Utilities"
+      summary: "Describes this api"
+      description: "Describes methods available through the API."
+      operationId: "GetSpec"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security: []
+  /team/assets/:
+    get:
+      tags:
+      - "Teams"
+      summary: "Lists team assets"
+      description: "Returns a collection of assets"
+      operationId: "GetClientGroupAssets"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "assetType"
+        in: "query"
+        description: "The type of assets."
+        required: true
+        type: "string"
+        enum:
+        - "email"
+        - "video"
+        x-exportParamName: "AssetType"
+      - name: "teamId"
+        in: "query"
+        description: "The team containing the assets."
+        required: false
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "autoTagName"
+        in: "query"
+        description: "The auto tag name containing the assets."
+        required: false
+        type: "string"
+        x-exportParamName: "AutoTagName"
+      - name: "pageSize"
+        in: "query"
+        description: "The number of items to retrieve in a single db query."
+        required: false
+        type: "string"
+        x-exportParamName: "PageSize"
+      - name: "page"
+        in: "query"
+        description: "Zero-based index of the page of data to retrieve from the db."
+        required: false
+        type: "string"
+        x-exportParamName: "Page"
+      - name: "search"
+        in: "query"
+        description: "Search words."
+        required: false
+        type: "string"
+        x-exportParamName: "Search"
+      responses:
+        200:
+          description: "Asset metadata"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+      security:
+      - BBOAuth2:
+        - "team:read"
+  /team/associations/:
+    get:
+      tags:
+      - "Teams"
+      summary: "Lists team associations"
+      description: "Returns a collection of team associations for a given user"
+      operationId: "GetAllClientGroupAssociations"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "clientId"
+        in: "query"
+        description: "The clientId requesting group associations."
+        required: true
+        type: "string"
+        x-exportParamName: "ClientId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:read"
+  /team/promptOverview:
+    get:
+      tags:
+      - "Teams"
+      summary: "Get Prompt Overview"
+      description: "Get Prompt Overview"
+      operationId: "GetPromptOverview"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:read"
+  /team/{clientGroupId}/campaign:
+    get:
+      tags:
+      - "Teams"
+      summary: "Get campaigns for team"
+      description: "Get campaigns for the team and their stats"
+      operationId: "GetTeamPromptCampaigns"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "clientGroupId"
+        in: "path"
+        description: "ID of the client group association"
+        required: true
+        type: "string"
+        x-exportParamName: "ClientGroupId"
+      - name: "searchTerm"
+        in: "query"
+        description: "The value to search for in prompt subject"
+        required: false
+        type: "string"
+        x-exportParamName: "SearchTerm"
+      - name: "currentPage"
+        in: "query"
+        description: "The current page"
+        required: false
+        type: "string"
+        x-exportParamName: "CurrentPage"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:read"
+  /team/{clientGroupId}/campaign/stats:
+    get:
+      tags:
+      - "Teams"
+      summary: "Get aggregate stats for campaigns"
+      description: "Get all the campaigns aggregate stats"
+      operationId: "GetTeamPromptAggregateStats"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "clientGroupId"
+        in: "path"
+        description: "ID of the client group association"
+        required: true
+        type: "string"
+        x-exportParamName: "ClientGroupId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:read"
+  /team/{month}/{year}/monthStats:
+    get:
+      tags:
+      - "Teams"
+      summary: "Jericho Monthly Stats"
+      description: "Jericho Monthly Stats"
+      operationId: "GetPromptMonthlyStats"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "month"
+        in: "path"
+        description: "The month whose Jericho sends you wish to see."
+        required: true
+        type: "string"
+        x-exportParamName: "Month"
+      - name: "year"
+        in: "path"
+        description: "The year whose Jericho sends you wish to see."
+        required: true
+        type: "string"
+        x-exportParamName: "Year"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:read"
+  /team/{teamId}:
+    post:
+      tags:
+      - "Teams"
+      summary: "Update a team"
+      description: "Update fields on a team"
+      operationId: "UpdateTeam"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "name"
+        in: "formData"
+        description: "The name of the team"
+        required: false
+        type: "string"
+        x-exportParamName: "Name"
+      - name: "state"
+        in: "formData"
+        description: "The status of the login permissions"
+        required: false
+        type: "string"
+        x-exportParamName: "State"
+      - name: "subteamsCanAddMembers"
+        in: "formData"
+        description: "Updates subteam member adding setting on group"
+        required: false
+        type: "boolean"
+        x-exportParamName: "SubteamsCanAddMembers"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/TeamPublicRepresentation"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /team/{teamId}/jericho:
+    get:
+      tags:
+      - "Teams"
+      summary: "List Jericho Sends"
+      description: "Lists Jericho sends, both pending and sent."
+      operationId: "GetJerichoSends"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team whose Jericho sends you wish to see."
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/JerichoConfiguration"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:read"
+    post:
+      tags:
+      - "Teams"
+      summary: "Creates a Jericho send."
+      description: "Sends email content on behalf of members of a client group. There\
+        \ are two forms this send can take:\n        Static Email, and Video Prompt.\
+        \ Static emails require only an emailId.\n        Video Prompts build emails\
+        \ dynamically and require most of the other fields.\n        You must be an\
+        \ administrator of a Team Account to use this method."
+      operationId: "QueueJerichoSend"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "config"
+        description: "JSON representing a Jericho configuration"
+        required: true
+        schema:
+          $ref: "#/definitions/JerichoConfiguration"
+        x-exportParamName: "Config"
+      - name: "teamId"
+        in: "path"
+        description: "The ID of the team."
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/JerichoConfiguration"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "automation:manage"
+  /team/{teamId}/jericho/{jerichoId}:
+    put:
+      tags:
+      - "Teams"
+      summary: "Updates the Jericho Prompt Settings"
+      description: "Updates the prompt settings based on the original email id"
+      operationId: "UpdateJerichoPromptSend"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "jerichoId"
+        in: "path"
+        description: "ID of the Jericho job"
+        required: true
+        type: "string"
+        x-exportParamName: "JerichoId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+    delete:
+      tags:
+      - "Teams"
+      summary: "Cancel a Jericho Send"
+      description: "Cancels a scheduled Jericho send from being sent."
+      operationId: "CancelJerichoSend"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jerichoId"
+        in: "path"
+        description: "ID of the Jericho Job to cancel"
+        required: true
+        type: "string"
+        x-exportParamName: "JerichoId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /team/{teamId}/jericho/{jerichoId}/performance:
+    get:
+      tags:
+      - "Teams"
+      summary: "Gets Jericho performance statistics"
+      description: "Returns an aggregate view of the performance of a Jericho send"
+      operationId: "GetJerichoStats"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jerichoId"
+        in: "path"
+        description: "ID of the Jericho job"
+        required: true
+        type: "string"
+        x-exportParamName: "JerichoId"
+      - name: "teamId"
+        in: "path"
+        description: "ID of team through which Jericho was sent"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/JerichoPerformance"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:read"
+  /team/{teamId}/member:
+    post:
+      tags:
+      - "Teams"
+      summary: "Add Member to Team"
+      description: "Adds a member to a team."
+      operationId: "AddTeamMember"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "admin"
+        in: "formData"
+        description: "Set if the user is an admin of this team."
+        required: false
+        type: "boolean"
+        x-exportParamName: "Admin"
+      - name: "subgroupIds"
+        in: "formData"
+        description: "Subgroup IDs to add user to"
+        required: false
+        type: "string"
+        x-exportParamName: "SubgroupIds"
+      - name: "userEmail"
+        in: "formData"
+        description: "The email of the member being added to the team."
+        required: false
+        type: "string"
+        x-exportParamName: "UserEmail"
+      - name: "userId"
+        in: "formData"
+        description: "The user id of the member being added to the team."
+        required: false
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+    put:
+      tags:
+      - "Teams"
+      summary: "Update Member of Team"
+      description: "Updates a member of a team"
+      operationId: "UpdateTeamMember"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "userId"
+        in: "formData"
+        description: "The user id of the member being added to the team."
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - name: "admin"
+        in: "formData"
+        description: "Set if the user is an admin of this team."
+        required: true
+        type: "boolean"
+        x-exportParamName: "Admin"
+      - name: "permissionSuiteId"
+        in: "formData"
+        description: "Set if the user is an admin of this team."
+        required: false
+        type: "string"
+        x-exportParamName: "PermissionSuiteId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /team/{teamId}/member/{userId}:
+    delete:
+      tags:
+      - "Teams"
+      summary: "Remove Member from Team"
+      description: "Removes a member from a team."
+      operationId: "RemoveMemberFromTeam"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "userId"
+        in: "path"
+        description: "The user id of the member being removed."
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /team/{teamId}/members:
+    get:
+      tags:
+      - "Teams"
+      summary: "List Team Members"
+      description: "Get a paginated listing of Team members"
+      operationId: "GetPagedClientGroupMembers"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "pageSize"
+        in: "query"
+        description: "Amount of records to return in a page."
+        required: true
+        type: "string"
+        x-exportParamName: "PageSize"
+      - name: "page"
+        in: "query"
+        description: "The page to return."
+        required: true
+        type: "string"
+        x-exportParamName: "Page"
+      - name: "status"
+        in: "query"
+        description: "The status type to filter by."
+        required: false
+        type: "string"
+        x-exportParamName: "Status"
+      - name: "search"
+        in: "query"
+        description: "Filter results with names that match the search term."
+        required: false
+        type: "string"
+        x-exportParamName: "Search"
+      - name: "orderBy"
+        in: "query"
+        description: "Key to order results by"
+        required: false
+        type: "string"
+        enum:
+        - "jobs"
+        - "logins"
+        - "videos"
+        - "contacts"
+        - "firstName"
+        - "lastName"
+        - "status"
+        - "isAdmin"
+        x-exportParamName: "OrderBy"
+      - name: "orderDirection"
+        in: "query"
+        description: "ASC or DESC"
+        required: false
+        type: "string"
+        enum:
+        - "ASC"
+        - "DESC"
+        x-exportParamName: "OrderDirection"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:read"
+    post:
+      tags:
+      - "Teams"
+      summary: "Add users to group."
+      description: "Add a new or existing user to group."
+      operationId: "AddUsers"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "userDetails"
+        in: "formData"
+        description: "Array of emails or objects containing details needed to create\
+          \ user"
+        required: true
+        type: "string"
+        x-exportParamName: "UserDetails"
+      - name: "sendWelcomeEmail"
+        in: "formData"
+        description: "Whether to send welcome email to new users"
+        required: false
+        type: "string"
+        x-exportParamName: "SendWelcomeEmail"
+      - name: "subgroupIds"
+        in: "formData"
+        description: "Subgroup IDs to add user to"
+        required: false
+        type: "string"
+        x-exportParamName: "SubgroupIds"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /team/{teamId}/members/csv:
+    post:
+      tags:
+      - "Teams"
+      summary: "Add members to group from CSV"
+      description: "Imports members to a group from a given CSV ID."
+      operationId: "AddUsersFromCsv"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "csvImportId"
+        in: "formData"
+        description: "ID of the CSV to import"
+        required: true
+        type: "string"
+        x-exportParamName: "CsvImportId"
+      - name: "map"
+        in: "formData"
+        description: "Object to use when mapping import to AccountCreateDetails. Key\
+          \ is property name on details, value is CSV column number."
+        required: true
+        type: "string"
+        x-exportParamName: "Map_"
+      - name: "sendWelcomeEmail"
+        in: "formData"
+        description: "Whether to send welcome email to new users"
+        required: false
+        type: "string"
+        x-exportParamName: "SendWelcomeEmail"
+      - name: "subgroupIds"
+        in: "formData"
+        description: "Subgroup IDs to add user to"
+        required: false
+        type: "string"
+        x-exportParamName: "SubgroupIds"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /team/{teamId}/stats:
+    get:
+      tags:
+      - "Teams"
+      summary: "Get Team statistics"
+      description: "Get top level statistic data for a Team"
+      operationId: "GetClientGroupStatistics"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "memberStatus"
+        in: "query"
+        description: "The status of members to query for"
+        required: false
+        type: "string"
+        enum:
+        - "all"
+        - "active"
+        - "inactive"
+        - "self-paid"
+        x-exportParamName: "MemberStatus"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:read"
+  /team/{teamId}/subteam:
+    get:
+      tags:
+      - "Teams"
+      summary: "List Subteams"
+      description: "Returns a collection of subteams for a parent team"
+      operationId: "GetSubteams"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TeamPublicRepresentation"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security: []
+    post:
+      tags:
+      - "Teams"
+      summary: "Add a Subteam"
+      description: "Adds a subteam to a parent team"
+      operationId: "CreateSubteam"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "name"
+        in: "formData"
+        description: "The subteam's name."
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/TeamPublicRepresentation"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+    delete:
+      tags:
+      - "Teams"
+      summary: "Delete Subteam"
+      description: "Deletes a subteam"
+      operationId: "DeleteSubteam"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "subteamId"
+        in: "formData"
+        description: "The subteam you wish to delete."
+        required: true
+        type: "string"
+        x-exportParamName: "SubteamId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /team/{teamId}/{memberUserId}/rewelcome:
+    post:
+      tags:
+      - "Teams"
+      summary: "Resend invite"
+      description: "Resend invitation to a member of a team"
+      operationId: "ResendTeamMemberInvitation"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "path"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "memberUserId"
+        in: "path"
+        description: "The user id of the member being resent an invitation."
+        required: true
+        type: "string"
+        x-exportParamName: "MemberUserId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/TeamPublicRepresentation"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /teams/prompt/invite:
+    post:
+      tags:
+      - "Teams"
+      summary: "Invite a list to join the admin's social prompt team"
+      description: "Invite to Social Prompt Team"
+      operationId: "InviteToSocialPromptTeam"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "teamId"
+        in: "formData"
+        description: "The team id"
+        required: true
+        type: "string"
+        x-exportParamName: "TeamId"
+      - name: "listId"
+        in: "formData"
+        description: "List to invite to the social prompt team."
+        required: true
+        type: "string"
+        x-exportParamName: "ListId"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "team:manage"
+  /users/profile/information:
+    get:
+      tags:
+      - "Users"
+      summary: "Get user profile information."
+      description: "Get the users profile information."
+      operationId: "GetUserProfileInfo"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "account:read"
+  /video/signedUpload:
+    post:
+      tags:
+      - "Videos"
+      summary: "Generate Signed Url"
+      description: "Generates a signed url to be used for video uploads."
+      operationId: "SignUpload"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "policy"
+        description: "The policy to sign"
+        required: true
+        schema:
+          $ref: "#/definitions/SignUploadRequest"
+        x-exportParamName: "Policy"
+      - name: "v4"
+        in: "formData"
+        description: "Whether to do v4 signing"
+        required: false
+        type: "boolean"
+        x-exportParamName: "V4"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security: []
+  /videos/live/getRecorder:
+    get:
+      tags:
+      - "Videos"
+      summary: "Get Live Video Recorder HTML"
+      description: "Returns an object with a number of properties to help you put\
+        \ a video recorder on your site.\n        This is to be used in conjunction\
+        \ with the VideoRecordedLive call one the user has confirmed in your UI that\n\
+        \        the video is how they want it."
+      operationId: "GetVideoRecorder"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "width"
+        in: "query"
+        description: "The width of the recorder to present."
+        required: false
+        type: "integer"
+        x-exportParamName: "Width"
+      - name: "videoId"
+        in: "query"
+        description: "The id of the video to record"
+        required: false
+        type: "string"
+        x-exportParamName: "VideoId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/VideoRecorderMethodResponse"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "video:manage"
+  /videos/live/markComplete:
+    post:
+      tags:
+      - "Videos"
+      summary: "Completes a live recording"
+      description: "Used in conjunction with the live recorder method to mark a video\
+        \ recording as complete."
+      operationId: "MarkLiveRecordingComplete"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "videoId"
+        in: "formData"
+        description: "The id of the video to mark as done."
+        required: true
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "filename"
+        in: "formData"
+        description: "The filename that was chosen as the final video."
+        required: true
+        type: "string"
+        x-exportParamName: "Filename"
+      - name: "title"
+        in: "formData"
+        description: "The title to give the video"
+        required: true
+        type: "string"
+        x-exportParamName: "Title"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/VideoPublicRepresentation"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "video:manage"
+  /videos/thumbnail:
+    put:
+      tags:
+      - "Videos"
+      summary: "Upload thumbnail"
+      description: "Upload a new video thumbnail"
+      operationId: "UpdateVideoThumbnailV2"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "videoId"
+        in: "formData"
+        description: "The id of the video"
+        required: true
+        type: "string"
+        x-exportParamName: "VideoId"
+      - name: "custom"
+        in: "formData"
+        description: "The default email to use."
+        required: false
+        type: "boolean"
+        x-exportParamName: "Custom"
+      - name: "thumbnail"
+        in: "formData"
+        description: "The thumbnail being uploaded"
+        required: true
+        type: "string"
+        x-exportParamName: "Thumbnail"
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "video:manage"
+  /videos/{videoId}/status:
+    get:
+      tags:
+      - "Videos"
+      summary: "Video Encoding Status"
+      description: "Get information about the current state of encoding for a given\
+        \ video id."
+      operationId: "GetVideoEncodingStatus"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "videoId"
+        in: "path"
+        description: "The video's id."
+        required: true
+        type: "string"
+        x-exportParamName: "VideoId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/VideoEncodingStatusResponse"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "video:read"
+  /webhook:
+    post:
+      tags:
+      - "Webhooks"
+      summary: "Add Webhook"
+      description: "Idempotently adds a Webhook url"
+      operationId: "AddWebHook"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "hookUrl"
+        in: "formData"
+        description: "The Url of your listener"
+        required: true
+        type: "string"
+        x-exportParamName: "HookUrl"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/BBWebHook"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "all:manage"
+  /webhook/:
+    get:
+      tags:
+      - "Webhooks"
+      summary: "Lists Webhooks"
+      description: "Lists all registered Webhooks"
+      operationId: "GetWebHooks"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/BBWebHook"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "all:manage"
+  /webhook/events:
+    get:
+      tags:
+      - "Webhooks"
+      summary: "Describe WebHook Events"
+      description: "Returns example Webhook events for each kind of possible event."
+      operationId: "ListWebHookEvents"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security: []
+  /webhook/test:
+    post:
+      tags:
+      - "Webhooks"
+      summary: "Sends test Webhook"
+      description: "Triggers a test webhook to be sent to your endpoints."
+      operationId: "SendWebhookExample"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "A successful request"
+      security:
+      - BBOAuth2:
+        - "all:manage"
+  /webhook/{hookId}:
+    delete:
+      tags:
+      - "Webhooks"
+      summary: "Deletes Webhook"
+      description: "Deletes a Webhook"
+      operationId: "DeleteWebHook"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "hookId"
+        in: "path"
+        description: "The id of the webhook to delete"
+        required: true
+        type: "string"
+        x-exportParamName: "HookId"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid input"
+          schema:
+            type: "string"
+        401:
+          description: "Unauthorized, please provide credentials"
+          schema:
+            type: "string"
+        403:
+          description: "Forbidden, you may not access this resource"
+          schema:
+            type: "string"
+      security:
+      - BBOAuth2:
+        - "all:manage"
+securityDefinitions:
+  BBOAuth2:
+    type: "oauth2"
+    authorizationUrl: "https://app.bombbomb.com/auth/authorize"
+    flow: "implicit"
+    scopes:
+      all:manage: "View & Manage your BombBomb information"
+      all:read: "View your BombBomb information"
+      email:manage: "View & Manage your BombBomb emails"
+      email:read: "View your BombBomb emails"
+      video:manage: "View & Manage your BombBomb videos"
+      video:read: "View your BombBomb videos"
+      contact:manage: "View & Manage your BombBomb contacts"
+      contact:read: "View your BombBomb contacts"
+      curriculum:manage: "View & Manage your BombBomb challenges"
+      curriculum:read: "View your BombBomb challenges"
+      automation:manage: "View & Manage your BombBomb automations"
+      automation:read: "View your BombBomb automations"
+      form:manage: "View & Manage your BombBomb forms"
+      form:read: "View your BombBomb forms"
+      list:manage: "View & Manage your BombBomb lists"
+      team:manage: "View & Manage your BombBomb teams"
+      team:read: "View your BombBomb teams"
+      order:manage: "Manage your BombBomb orders"
+      settings:manage: "Manage your BombBomb settings"
+      file:manage: "View & Manage your BombBomb files"
+      file:read: "View your BombBomb files"
+      account:manage: "View & Manage your BombBomb account"
+      account:read: "View your BombBomb account"
+definitions:
+  string:
+    type: "string"
+  OAuthClient:
+    type: "object"
+    properties:
+      identifier:
+        type: "string"
+        description: "The id of the OAuth Client"
+        readOnly: true
+      name:
+        type: "string"
+        description: "The user-facing name of the client. Eg. MyCrm"
+      clientSecret:
+        type: "string"
+        description: "The secret supplied to the OAuth Application"
+      grantsAllowed:
+        type: "string"
+        description: "The grants allowed"
+      owningUserId:
+        type: "string"
+        description: "The user who controls the OAuth App"
+      redirectUri:
+        type: "string"
+        description: "Where OAuth authorization sessions are returned to"
+    title: "OAuthClient"
+    example:
+      redirectUri: "redirectUri"
+      identifier: "identifier"
+      name: "name"
+      grantsAllowed: "grantsAllowed"
+      clientSecret: "clientSecret"
+      owningUserId: "owningUserId"
+  BBWebHook:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+        description: "The user to whom the webhook belongs"
+      hookId:
+        type: "integer"
+        description: "The id of the hook"
+      url:
+        type: "string"
+        description: "the url to send hook requests to"
+      isHidden:
+        type: "boolean"
+        description: "Whether the hook is displayed to the user"
+    title: "BBWebHook"
+    description: "The BBWebHook class"
+    example:
+      hookId: 0
+      userId: "userId"
+      url: "url"
+      isHidden: true
+  Curriculum:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Id"
+      name:
+        type: "string"
+        description: "Name"
+      htmlIntro:
+        type: "string"
+        description: "HTML formatted intro"
+      imgUrl:
+        type: "string"
+        description: "URI of header image"
+      itemCount:
+        type: "integer"
+        description: "Number of curriculum items"
+      renderAs:
+        type: "string"
+        description: "Render method for curriculum"
+      visibleToAllUsers:
+        type: "boolean"
+        description: "Globally visible"
+      progress:
+        type: "array"
+        description: "Collection of User Progress for Curriculum"
+        items:
+          $ref: "#/definitions/CurriculumUserProgress"
+    title: "Curriculum"
+    description: "The Curriculum class"
+    example:
+      imgUrl: "imgUrl"
+      htmlIntro: "htmlIntro"
+      name: "name"
+      renderAs: "renderAs"
+      progress:
+      - curriculumItemId: "curriculumItemId"
+        id: "id"
+        curriculumId: "curriculumId"
+        userId: "userId"
+        completedDate: "2000-01-23T04:56:07.000+00:00"
+      - curriculumItemId: "curriculumItemId"
+        id: "id"
+        curriculumId: "curriculumId"
+        userId: "userId"
+        completedDate: "2000-01-23T04:56:07.000+00:00"
+      id: "id"
+      visibleToAllUsers: true
+      itemCount: 0
+  CurriculumUserProgress:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Id"
+      userId:
+        type: "string"
+        description: "User Id"
+      curriculumItemId:
+        type: "string"
+        description: "Curriculum Item Id"
+      curriculumId:
+        type: "string"
+        description: "Curriculum Id"
+      completedDate:
+        type: "string"
+        format: "date-time"
+        description: "When the final email is scheduled to be sent"
+    title: "CurriculumUserProgress"
+    description: "The CurriculumUserProgress class"
+    example:
+      curriculumItemId: "curriculumItemId"
+      id: "id"
+      curriculumId: "curriculumId"
+      userId: "userId"
+      completedDate: "2000-01-23T04:56:07.000+00:00"
+  CurriculumWithProgress:
+    type: "object"
+    properties:
+      progress:
+        type: "array"
+        description: "Collection of User Progress for Curriculum"
+        items:
+          $ref: "#/definitions/CurriculumUserProgress"
+      id:
+        type: "string"
+        description: "Id"
+      name:
+        type: "string"
+        description: "Name"
+      htmlIntro:
+        type: "string"
+        description: "HTML formatted intro"
+      imgUrl:
+        type: "string"
+        description: "URI of header image"
+      itemCount:
+        type: "integer"
+        description: "Number of curriculum items"
+      renderAs:
+        type: "string"
+        description: "Render method for curriculum"
+      visibleToAllUsers:
+        type: "boolean"
+        description: "Globally visible"
+    title: "CurriculumWithProgress"
+    description: "The CurriculumWithProgress class"
+    example:
+      imgUrl: "imgUrl"
+      htmlIntro: "htmlIntro"
+      name: "name"
+      progress:
+      - curriculumItemId: "curriculumItemId"
+        id: "id"
+        curriculumId: "curriculumId"
+        userId: "userId"
+        completedDate: "2000-01-23T04:56:07.000+00:00"
+      - curriculumItemId: "curriculumItemId"
+        id: "id"
+        curriculumId: "curriculumId"
+        userId: "userId"
+        completedDate: "2000-01-23T04:56:07.000+00:00"
+      renderAs: "renderAs"
+      id: "id"
+      visibleToAllUsers: true
+      itemCount: 0
+  HostedDoc:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "The doc's id."
+      userId:
+        type: "string"
+        description: "The doc's owner."
+      fileName:
+        type: "string"
+        description: "docs file name."
+      shortUrl:
+        type: "string"
+        description: "The doc's short url."
+      longUrl:
+        type: "string"
+        description: "The doc's long url."
+      uploadDate:
+        type: "string"
+        format: "date-time"
+        description: "The doc's upload date."
+    title: "HostedDoc"
+    description: "The HostedDoc class"
+    example:
+      fileName: "fileName"
+      uploadDate: "2000-01-23T04:56:07.000+00:00"
+      shortUrl: "shortUrl"
+      longUrl: "longUrl"
+      id: "id"
+      userId: "userId"
+  JerichoPerformance:
+    type: "object"
+    properties:
+      jerichoId:
+        type: "integer"
+        description: "The jericho id"
+      sent:
+        type: "integer"
+        description: "The number of emails sent"
+      uniqueViews:
+        type: "integer"
+        description: "The unique number of people that viewed the email"
+      uniqueLandingPageViews:
+        type: "integer"
+        description: "The unique number of people that visited the landing page"
+      landingPageViews:
+        type: "integer"
+        description: "The total number of people that visisted the landing page"
+      delivered:
+        type: "integer"
+        description: "The number of emails delivered, likely less than sent due to\
+          \ bounces, and other common delivery issues"
+      bounce:
+        type: "integer"
+        description: "The number of emails that bounced as undeliverable"
+      open:
+        type: "integer"
+        description: "The total number of times the emails were viewed"
+      click:
+        type: "integer"
+        description: "The total number of times links in the emails were clicked"
+      videoPlay:
+        type: "integer"
+        description: "The total number of times videos in the emails were played"
+      abuseComplaints:
+        type: "integer"
+        description: "The number of recipients that marked the message as abusive"
+      contacts:
+        type: "integer"
+        description: "The total number of contacts submitted to be sent, may be more\
+          \ than was sent to"
+      promptsSent:
+        type: "integer"
+        description: "The total number of prompts sent to members of the client group"
+      promptsWithRecordings:
+        type: "integer"
+        description: "The total number of prompts sent that included a personal recording"
+      promptsOptedOut:
+        type: "integer"
+        description: "The total number of members that chose not to send a prompt"
+    title: "JerichoPerformance"
+    description: "Reports on the aggregate performance of a Jericho send"
+    example:
+      promptsOptedOut: 1
+      bounce: 7
+      abuseComplaints: 4
+      delivered: 2
+      sent: 6
+      click: 3
+      uniqueLandingPageViews: 5
+      jerichoId: 0
+      promptsSent: 1
+      promptsWithRecordings: 1
+      uniqueViews: 1
+      landingPageViews: 5
+      open: 9
+      videoPlay: 2
+      contacts: 7
+  JerichoConfiguration:
+    type: "object"
+    required:
+    - "isPrompt"
+    properties:
+      id:
+        type: "string"
+        readOnly: true
+      clientGroupId:
+        type: "string"
+        readOnly: true
+      sendDate:
+        type: "string"
+        format: "date-time"
+        description: "When the email should be sent."
+      isPrompt:
+        type: "boolean"
+        description: "Video Prompt: Determines whether this is a static or prompted\
+          \ send."
+      printToTemplate:
+        type: "boolean"
+        description: "Controls whether or not the content is printed into a template."
+      emailId:
+        type: "string"
+        description: "Static send: The Email to send on behalf of the group members."
+      exampleVideoId:
+        type: "string"
+        description: "Video Prompt: The Video to include as an example for prompted\
+          \ users."
+      followUpVideoId:
+        type: "string"
+        description: "The Video to include in the tracking follow up."
+      promptIntro:
+        type: "string"
+        description: "Video Prompt: The intro text directed toward prompted users."
+      promptSubject:
+        type: "string"
+        description: "Video Prompt: The subject line prompting the user to record\
+          \ a video."
+      promptBody:
+        type: "string"
+        description: "Video Prompt: The HTML body of the email prompting the user\
+          \ to record a video."
+      emailSubject:
+        type: "string"
+        description: "Video Prompt: The subject line of the final sent email"
+      emailBody:
+        type: "string"
+        description: "Video Prompt: The HTML body of the final sent email."
+      sendWithoutVideo:
+        type: "boolean"
+        description: "Video Prompt: Whether to send the final email if no video was\
+          \ recorded."
+      status:
+        type: "string"
+        description: "The state of the send."
+        readOnly: true
+      mediaType:
+        type: "string"
+        description: "The type of media used for a social send"
+      customInitialEmailSubjectLine:
+        type: "string"
+        description: "The custom subject line for the prompt initial email"
+    title: "JerichoConfiguration"
+    example:
+      promptBody: "promptBody"
+      followUpVideoId: "followUpVideoId"
+      emailBody: "emailBody"
+      customInitialEmailSubjectLine: "customInitialEmailSubjectLine"
+      clientGroupId: "clientGroupId"
+      sendDate: "2000-01-23T04:56:07.000+00:00"
+      isPrompt: true
+      emailId: "emailId"
+      mediaType: "mediaType"
+      exampleVideoId: "exampleVideoId"
+      emailSubject: "emailSubject"
+      promptSubject: "promptSubject"
+      printToTemplate: true
+      sendWithoutVideo: true
+      id: "id"
+      promptIntro: "promptIntro"
+      status: "status"
+  PromptMonthlyPerformance:
+    type: "object"
+    properties:
+      startDate:
+        type: "string"
+        description: "The startDate property"
+      endDate:
+        type: "string"
+        description: "The endDate property"
+      userBatchListsIdHelper:
+        type: "string"
+        description: "The userBatchListsIdHelper property"
+      promptIdHelper:
+        type: "string"
+        description: "The promptIdHelper property"
+    title: "PromptMonthlyPerformance"
+    description: "The PromptMonthlyPerformance class"
+  PromptOverview:
+    type: "object"
+    properties:
+      startDate:
+        type: "string"
+        description: "The startDate property"
+      endDate:
+        type: "string"
+        description: "The endDate property"
+      userBatchListsIdHelper:
+        type: "string"
+        description: "The userBatchListsIdHelper property"
+      promptIdHelper:
+        type: "string"
+        description: "The promptIdHelper property"
+    title: "PromptOverview"
+    description: "The PromptOverview class"
+  Prompt\Bot:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "The identifier of the prompt bot. Read Only."
+        readOnly: true
+      userId:
+        type: "string"
+        description: "The prompt bot's owner. Read Only."
+        readOnly: true
+      emailId:
+        type: "string"
+        description: "The default email being sent to contacts in the prompt bot list."
+      listId:
+        type: "string"
+        description: "The list to attach the Prompt Bot to."
+      name:
+        type: "string"
+        description: "The name of the bot."
+      contactFieldValueColumn:
+        type: "string"
+        description: "The custom contact field value column used for this bot."
+      status:
+        type: "integer"
+        description: "The status of the prompt bot. Read Only."
+        readOnly: true
+      startDate:
+        type: "string"
+        format: "date-time"
+        description: "when the bot started"
+      endDate:
+        type: "string"
+        format: "date-time"
+        description: "when the bot should finish"
+      botTypeId:
+        type: "string"
+        description: "The type of bot."
+      templateId:
+        type: "string"
+        description: "The template id used to generate the default email."
+      videoId:
+        type: "string"
+        description: "The video that was added to the prompt."
+      content:
+        type: "string"
+        description: "The content to use in the email."
+      subject:
+        type: "string"
+        description: "The subject of the default email."
+      generatedBy:
+        type: "string"
+        description: "Set when generated as a default by a bot."
+    title: "Prompt\\Bot"
+    description: "The Prompt\\Bot class"
+    example:
+      botTypeId: "botTypeId"
+      endDate: "2000-01-23T04:56:07.000+00:00"
+      subject: "subject"
+      emailId: "emailId"
+      videoId: "videoId"
+      contactFieldValueColumn: "contactFieldValueColumn"
+      templateId: "templateId"
+      userId: "userId"
+      content: "content"
+      listId: "listId"
+      name: "name"
+      id: "id"
+      generatedBy: "generatedBy"
+      startDate: "2000-01-23T04:56:07.000+00:00"
+      status: 0
+  Prompt\SocialPrompt:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "The identifier of the prompt. Read Only."
+        readOnly: true
+      userId:
+        type: "string"
+        description: "The prompt's owner. Read Only."
+        readOnly: true
+      jerichoId:
+        type: "string"
+        description: "If sent in a jericho context, this will have the jericho id"
+      promptSubject:
+        type: "string"
+        description: "The prompt's subject line"
+      promptHtml:
+        type: "string"
+        description: "The suggested script of the prompt."
+      scheduledSendDate:
+        type: "string"
+        format: "date-time"
+        description: "When the final email is scheduled to be sent"
+      clientGroupId:
+        type: "string"
+        description: "The client group campaign that created the prompt."
+      thumbnailUrl:
+        type: "string"
+        description: "The URL of a thumbnail image for this prompt"
+      status:
+        type: "integer"
+        description: "The status of the prompt: created = 0, sent = 10, recorded =\
+          \ 20, job_created = 30, timed_out = 40, declined = 50 Read Only"
+        readOnly: true
+      createdDate:
+        type: "string"
+        format: "date-time"
+        description: "When the email was first sent out"
+      lastNotified:
+        type: "string"
+        format: "date-time"
+        description: "When the user was last notified about a prompt email waiting\
+          \ for a video"
+      sendMechanism:
+        type: "string"
+        format: "date-time"
+        description: "The sendMechanism property"
+      sendTypes:
+        type: "array"
+        description: "The types of mechanisms this prompt can send."
+        items:
+          type: "string"
+    title: "Prompt\\SocialPrompt"
+    description: "The Prompt\\SocialPrompt class"
+  SignUploadRequest:
+    type: "object"
+    properties:
+      expiration:
+        type: "string"
+        format: "date-time"
+        description: "when the upload will expire."
+      conditions:
+        type: "object"
+        description: "Key/Value object of request conditions."
+        properties: {}
+    title: "SignUploadRequest"
+    description: "The SignUploadRequest class"
+    example:
+      expiration: "2000-01-23T04:56:07.000+00:00"
+      conditions: "{}"
+  SignUploadResponse:
+    type: "object"
+    properties:
+      policy:
+        type: "string"
+        description: "Base64 encoded policy."
+      signature:
+        type: "string"
+        description: "Signature for policy."
+    title: "SignUploadResponse"
+    description: "The SignUploadResponse class"
+  TeamPublicRepresentation:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "The id of the team"
+      name:
+        type: "string"
+        description: "The name of the team"
+      createdDate:
+        type: "string"
+        description: "The date the team was created"
+    title: "TeamPublicRepresentation"
+    description: "The TeamPublicRepresentation class"
+    example:
+      createdDate: "createdDate"
+      name: "name"
+      id: "id"
+  VideoEmailPrompt:
+    type: "object"
+    properties:
+      templateId:
+        type: "string"
+        description: "Optional. The email template to be used in the sent email, if\
+          \ none supplied, the users' default will be applied."
+      emailSubjectLine:
+        type: "string"
+        description: "The subject line of the final email"
+      emailContent:
+        type: "string"
+        description: "The HTML content of the final email"
+      contactId:
+        type: "string"
+        description: "Contact Id to send the final email to"
+      toLists:
+        type: "array"
+        description: "List Ids to send the final email to"
+        items:
+          type: "string"
+      promptIntro:
+        type: "string"
+        description: "A paragraph intro statement about the purpose of the email you're\
+          \ recording a video for."
+      exampleVideoId:
+        type: "string"
+        description: "An example or explanatory video to help the user understand\
+          \ what to say."
+      followupVideoId:
+        type: "string"
+        description: "An example or explanatory video to help the user understand\
+          \ what to say."
+      sendWithoutVideo:
+        type: "boolean"
+        description: "Whether to send the email if no video is recorded. If set to\
+          \ require a video, and none is added before the videoDueDate, the prompt\
+          \ is cancelled."
+      videoDueDate:
+        type: "string"
+        format: "date-time"
+        description: "When the video must be recorded by"
+      videoId:
+        type: "string"
+        description: "The video that was added to the prompt. Read Only."
+        readOnly: true
+      emailId:
+        type: "string"
+        description: "The email that was created by the prompt Read Only."
+        readOnly: true
+      jobId:
+        type: "string"
+        description: "The job sent by the prompt Read Only."
+        readOnly: true
+      promptBotId:
+        type: "string"
+        description: "The bot that created the prompt."
+      applyTemplate:
+        type: "boolean"
+        description: "Controls whether a user template is applied to the message as\
+          \ it is sent"
+      facebookMessage:
+        type: "string"
+        description: "The facebook message to be passed off to social sender"
+      twitterMessage:
+        type: "string"
+        description: "The twitter message to be passed off to social sender"
+      linkedinMessage:
+        type: "string"
+        description: "The linkedin message to be passed off to social sender"
+      alternateContentId:
+        type: "string"
+        description: "The id for the alternate content id"
+      id:
+        type: "string"
+        description: "The identifier of the prompt. Read Only."
+        readOnly: true
+      userId:
+        type: "string"
+        description: "The prompt's owner. Read Only."
+        readOnly: true
+      jerichoId:
+        type: "string"
+        description: "If sent in a jericho context, this will have the jericho id"
+      promptSubject:
+        type: "string"
+        description: "The prompt's subject line"
+      promptHtml:
+        type: "string"
+        description: "The suggested script of the prompt."
+      scheduledSendDate:
+        type: "string"
+        format: "date-time"
+        description: "When the final email is scheduled to be sent"
+      clientGroupId:
+        type: "string"
+        description: "The client group campaign that created the prompt."
+      thumbnailUrl:
+        type: "string"
+        description: "The URL of a thumbnail image for this prompt"
+      status:
+        type: "integer"
+        description: "The status of the prompt: created = 0, sent = 10, recorded =\
+          \ 20, job_created = 30, timed_out = 40, declined = 50 Read Only"
+        readOnly: true
+      createdDate:
+        type: "string"
+        format: "date-time"
+        description: "When the email was first sent out"
+      lastNotified:
+        type: "string"
+        format: "date-time"
+        description: "When the user was last notified about a prompt email waiting\
+          \ for a video"
+      sendMechanism:
+        type: "string"
+        format: "date-time"
+        description: "The sendMechanism property"
+      sendTypes:
+        type: "array"
+        description: "The types of mechanisms this prompt can send."
+        items:
+          type: "string"
+    title: "VideoEmailPrompt"
+    description: "Configures a single prompt which asks a user to record a video into\
+      \ an outgoing email."
+    example:
+      twitterMessage: "twitterMessage"
+      toLists:
+      - "toLists"
+      - "toLists"
+      videoDueDate: "2000-01-23T04:56:07.000+00:00"
+      promptHtml: "promptHtml"
+      videoId: "videoId"
+      emailId: "emailId"
+      exampleVideoId: "exampleVideoId"
+      templateId: "templateId"
+      promptSubject: "promptSubject"
+      followupVideoId: "followupVideoId"
+      alternateContentId: "alternateContentId"
+      promptIntro: "promptIntro"
+      id: "id"
+      applyTemplate: true
+      linkedinMessage: "linkedinMessage"
+      thumbnailUrl: "thumbnailUrl"
+      contactId: "contactId"
+      clientGroupId: "clientGroupId"
+      emailSubjectLine: "emailSubjectLine"
+      facebookMessage: "facebookMessage"
+      userId: "userId"
+      sendTypes:
+      - "sendTypes"
+      - "sendTypes"
+      promptBotId: "promptBotId"
+      sendMechanism: "2000-01-23T04:56:07.000+00:00"
+      jerichoId: "jerichoId"
+      jobId: "jobId"
+      createdDate: "2000-01-23T04:56:07.000+00:00"
+      sendWithoutVideo: true
+      emailContent: "emailContent"
+      scheduledSendDate: "2000-01-23T04:56:07.000+00:00"
+      lastNotified: "2000-01-23T04:56:07.000+00:00"
+      status: 0
+  VideoEncodingStatusResponse:
+    type: "object"
+    properties:
+      isReady:
+        type: "boolean"
+        description: "Returns true if the video is done encoding and finalized."
+      isFailed:
+        type: "boolean"
+        description: "Returns true if the video encoding process failed."
+      progress:
+        type: "integer"
+        description: "0-100 value indicating progress of video encoding process."
+    title: "VideoEncodingStatusResponse"
+    description: "The VideoEncodingStatusResponse class"
+    example:
+      isFailed: true
+      isReady: true
+      progress: 0
+  VideoPublicRepresentation:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "The id of the video"
+      userId:
+        type: "string"
+        description: "The is of the owning user"
+      status:
+        type: "string"
+        description: "The status of the video"
+      name:
+        type: "string"
+        description: "The name of the video"
+      description:
+        type: "string"
+        description: "A description of the video"
+      thumbUrl:
+        type: "string"
+        description: "The url of the thumbnail for the video"
+      videoUrls:
+        type: "array"
+        description: "Urls to different formats of the video"
+        items:
+          type: "string"
+      shortUrl:
+        type: "string"
+        description: "The url to use to link to the video"
+      height:
+        type: "integer"
+        description: "The height of the video in pixels"
+      width:
+        type: "integer"
+        description: "The width of the video in pixels"
+      uploadDate:
+        type: "string"
+        description: "The date the video was uploaded"
+    title: "VideoPublicRepresentation"
+    description: "The VideoPublicRepresentation class"
+    example:
+      uploadDate: "uploadDate"
+      shortUrl: "shortUrl"
+      name: "name"
+      width: 6
+      description: "description"
+      id: "id"
+      thumbUrl: "thumbUrl"
+      videoUrls:
+      - "videoUrls"
+      - "videoUrls"
+      userId: "userId"
+      status: "status"
+      height: 0
+  VideoRecorderMethodResponse:
+    type: "object"
+    properties:
+      user_id:
+        type: "string"
+        description: "The id of the user for whom this video will be recorded"
+      email:
+        type: "string"
+        description: "The email address of the user for whom this video will be recorded"
+      client_id:
+        type: "string"
+        description: "The client_id of the user for whom this video will be recorded"
+      vid_id:
+        type: "string"
+        description: "The id of the video that will be recorded"
+      content:
+        type: "string"
+        description: "An HTML blob that displays a video recorder"
+      width:
+        type: "integer"
+        description: "The width of the video recorder"
+      height:
+        type: "integer"
+        description: "the Height of the video recorder"
+      https:
+        type: "boolean"
+        description: "Whether communication from the recorder will be handled via\
+          \ HTTPS (always true)"
+    title: "VideoRecorderMethodResponse"
+    description: "The VideoRecorderMethodResponse class"
+    example:
+      user_id: "user_id"
+      width: 0
+      vid_id: "vid_id"
+      https: true
+      email: "email"
+      client_id: "client_id"
+      content: "content"
+      height: 6
+  ClientGroupAssetMetaData:
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      userId:
+        type: "string"
+      thumbUrl:
+        type: "string"
+    example:
+      name: "name"
+      id: "id"
+      thumbUrl: "thumbUrl"
+      userId: "userId"
+  inline_response_200:
+    properties:
+      totalPages:
+        type: "integer"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/ClientGroupAssetMetaData"
+    example:
+      totalPages: 0
+      items:
+      - name: "name"
+        id: "id"
+        thumbUrl: "thumbUrl"
+        userId: "userId"
+      - name: "name"
+        id: "id"
+        thumbUrl: "thumbUrl"
+        userId: "userId"

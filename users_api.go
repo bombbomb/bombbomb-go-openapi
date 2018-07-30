@@ -15,7 +15,6 @@ import (
 	"net/http"
 	"strings"
 	"golang.org/x/net/context"
-	"encoding/json"
 )
 
 // Linger please
@@ -23,38 +22,29 @@ var (
 	_ context.Context
 )
 
-type CurriculumApiService service
+type UsersApiService service
 
 
-/* CurriculumApiService Get Curricula
- Get Curricula, optionally with progress included.
+/* UsersApiService Get client contact information.
+ Get the client contact information of the user&#39;s account.
  * @param ctx context.Context for authentication, logging, tracing, etc.
- @param optional (nil or map[string]interface{}) with one or more of:
-     @param "includeProgress" (bool) Whether to return progress with the curriculum.
- @return []Curriculum*/
-func (a *CurriculumApiService) GetCurricula(ctx context.Context, localVarOptionals map[string]interface{}) ([]Curriculum,  *http.Response, error) {
+ @return */
+func (a *UsersApiService) GetClientContactInformation(ctx context.Context) ( *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
 		localVarFileName string
 		localVarFileBytes []byte
-	 	successPayload  []Curriculum
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/curricula/"
+	localVarPath := a.client.cfg.BasePath + "/clients/contact/information"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if err := typeCheckParameter(localVarOptionals["includeProgress"], "bool", "includeProgress"); err != nil {
-		return successPayload, nil, err
-	}
 
-	if localVarTempParam, localVarOk := localVarOptionals["includeProgress"].(bool); localVarOk {
-		localVarQueryParams.Add("includeProgress", parameterToString(localVarTempParam, ""))
-	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{ "application/x-www-form-urlencoded",  }
 
@@ -76,42 +66,36 @@ func (a *CurriculumApiService) GetCurricula(ctx context.Context, localVarOptiona
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return successPayload, nil, err
+		return nil, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return successPayload, localVarHttpResponse, err
+		return localVarHttpResponse, err
 	}
 	defer localVarHttpResponse.Body.Close()
 	if localVarHttpResponse.StatusCode >= 300 {
 		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
-		return successPayload, localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+		return localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
 	}
 
-	if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&successPayload); err != nil {
-		return successPayload, localVarHttpResponse, err
-	}
-
-
-	return successPayload, localVarHttpResponse, err
+	return localVarHttpResponse, err
 }
 
-/* CurriculumApiService Get Detailed For User
- Get all curricula for user including progress for each curriculum.
+/* UsersApiService Get user profile information.
+ Get the users profile information.
  * @param ctx context.Context for authentication, logging, tracing, etc.
- @return []CurriculumWithProgress*/
-func (a *CurriculumApiService) GetUserCurriculumWithProgress(ctx context.Context) ([]CurriculumWithProgress,  *http.Response, error) {
+ @return */
+func (a *UsersApiService) GetUserProfileInfo(ctx context.Context) ( *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
 		localVarFileName string
 		localVarFileBytes []byte
-	 	successPayload  []CurriculumWithProgress
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/curriculum/getForUserWithProgress"
+	localVarPath := a.client.cfg.BasePath + "/users/profile/information"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -139,24 +123,19 @@ func (a *CurriculumApiService) GetUserCurriculumWithProgress(ctx context.Context
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return successPayload, nil, err
+		return nil, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return successPayload, localVarHttpResponse, err
+		return localVarHttpResponse, err
 	}
 	defer localVarHttpResponse.Body.Close()
 	if localVarHttpResponse.StatusCode >= 300 {
 		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
-		return successPayload, localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+		return localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
 	}
 
-	if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&successPayload); err != nil {
-		return successPayload, localVarHttpResponse, err
-	}
-
-
-	return successPayload, localVarHttpResponse, err
+	return localVarHttpResponse, err
 }
 

@@ -9,12 +9,13 @@
 
 package bombbomb
 
-// The SignUploadResponse class
-type SignUploadResponse struct {
+type ClientGroupAssetMetaData struct {
 
-	// Base64 encoded policy.
-	Policy string `json:"policy,omitempty"`
+	Id string `json:"id,omitempty"`
 
-	// Signature for policy.
-	Signature string `json:"signature,omitempty"`
+	Name string `json:"name,omitempty"`
+
+	UserId string `json:"userId,omitempty"`
+
+	ThumbUrl string `json:"thumbUrl,omitempty"`
 }

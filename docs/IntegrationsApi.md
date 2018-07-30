@@ -12,27 +12,34 @@ Method | HTTP request | Description
 
 
 # **ConnectIntegration**
-> ConnectIntegration($code, $key, $secret, $token, $data, $overwrite)
-
+> ConnectIntegration(ctx, code, optional)
 Activate an integration for a user.
 
 Provide the correct parameters to enable an integration. Required Parameters vary based on the desired          integration. Integrations requiring OAuth will provide the OAuth link that the user must be presented.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **code** | **string**| The identifier of the integration. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **code** | **string**| The identifier of the integration. | 
- **key** | **string**| The key value. | [optional] 
- **secret** | **string**| The secret value. | [optional] 
- **token** | **string**| The token value. | [optional] 
- **data** | **string**| The data value as JSON. | [optional] 
- **overwrite** | **string**| Boolean value to know whether or not to delete the integration if it already exists | [optional] 
+ **key** | **string**| The key value. | 
+ **secret** | **string**| The secret value. | 
+ **token** | **string**| The token value. | 
+ **data** | **string**| The data value as JSON. | 
+ **overwrite** | **string**| Boolean value to know whether or not to delete the integration if it already exists | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -46,23 +53,29 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteIntegration**
-> DeleteIntegration($id, $code)
-
+> DeleteIntegration(ctx, optional)
 Remove an integration for a user.
 
 Remove an integration by providing the integration id or integration code. Only provide one of the             parameters.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **string**| Integration ID | [optional] 
- **code** | **string**| Integration Code | [optional] 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **string**| Integration ID | 
+ **code** | **string**| Integration Code | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -76,22 +89,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetIntegrationHealth**
-> GetIntegrationHealth($code)
-
+> GetIntegrationHealth(ctx, code)
 Get health for a given integration
 
 Get health for an integration.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **code** | **string**| The integration code for which to retrieve the information from | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **code** | **string**| The integration code for which to retrieve the information from | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -105,22 +117,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetIntegrationPageComponents**
-> GetIntegrationPageComponents($integrationName)
-
+> GetIntegrationPageComponents(ctx, integrationName)
 Get page components for a given integration
 
 Get all page components for an integration.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integrationName** | **string**| The integration for which to retrieve HTML page components. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **integrationName** | **string**| The integration for which to retrieve HTML page components. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -134,18 +145,24 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **SyncUsersIntegratedLists**
-> string SyncUsersIntegratedLists($integrationId)
-
+> string SyncUsersIntegratedLists(ctx, optional)
 Synchronize your integration list or lists.
 
 Synchronize your integration contact list with the service you are integrated with. If no integration code is provided, all integrations will be synchronized.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integrationId** | **string**| The integration to sync lists for. All integrations will sync if nothing is provided. | [optional] 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **integrationId** | **string**| The integration to sync lists for. All integrations will sync if nothing is provided. | 
 
 ### Return type
 

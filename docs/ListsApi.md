@@ -12,22 +12,21 @@ Method | HTTP request | Description
 
 
 # **AddNewList**
-> AddNewList($listName)
-
+> AddNewList(ctx, listName)
 Add list.
 
 Add a list to the users account.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listName** | **string**| Name of the new list being added | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **listName** | **string**| Name of the new list being added | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -41,22 +40,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ClearList**
-> ClearList($listId)
-
+> ClearList(ctx, listId)
 Clear Contacts from List
 
 Clears all contacts from a list.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**| The list to be cleared. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **listId** | **string**| The list to be cleared. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -70,23 +68,22 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CopyListContacts**
-> CopyListContacts($fromListId, $listId)
-
+> CopyListContacts(ctx, fromListId, listId)
 Copy All Contacts from a List
 
 Copy all contacts from a list.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **fromListId** | **string**| The list to be cleared. | 
- **listId** | **string**| The list to be cleared. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **fromListId** | **string**| The list to be cleared. | 
+  **listId** | **string**| The list to be cleared. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -100,19 +97,17 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetAllLists**
-> GetAllLists()
-
+> GetAllLists(ctx, )
 Get all Lists
 
 Get all the lists for a specific user.
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -126,22 +121,21 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **SuppressAllInList**
-> SuppressAllInList($listId)
-
+> SuppressAllInList(ctx, listId)
 Suppress All Contacts from List
 
 Suppresses all contacts in a list.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **string**| The list to be cleared. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **listId** | **string**| The list to be cleared. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

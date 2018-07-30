@@ -12,18 +12,17 @@ Method | HTTP request | Description
 
 
 # **GetVideoEncodingStatus**
-> VideoEncodingStatusResponse GetVideoEncodingStatus($videoId)
-
+> VideoEncodingStatusResponse GetVideoEncodingStatus(ctx, videoId)
 Video Encoding Status
 
 Get information about the current state of encoding for a given video id.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **videoId** | **string**| The video&#39;s id. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **videoId** | **string**| The video&#39;s id. | 
 
 ### Return type
 
@@ -41,19 +40,25 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetVideoRecorder**
-> VideoRecorderMethodResponse GetVideoRecorder($width, $videoId)
-
+> VideoRecorderMethodResponse GetVideoRecorder(ctx, optional)
 Get Live Video Recorder HTML
 
 Returns an object with a number of properties to help you put a video recorder on your site.         This is to be used in conjunction with the VideoRecordedLive call one the user has confirmed in your UI that         the video is how they want it.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **width** | **int32**| The width of the recorder to present. | [optional] 
- **videoId** | **string**| The id of the video to record | [optional] 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **width** | **int32**| The width of the recorder to present. | 
+ **videoId** | **string**| The id of the video to record | 
 
 ### Return type
 
@@ -71,20 +76,19 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **MarkLiveRecordingComplete**
-> VideoPublicRepresentation MarkLiveRecordingComplete($videoId, $filename, $title)
-
+> VideoPublicRepresentation MarkLiveRecordingComplete(ctx, videoId, filename, title)
 Completes a live recording
 
 Used in conjunction with the live recorder method to mark a video recording as complete.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **videoId** | **string**| The id of the video to mark as done. | 
- **filename** | **string**| The filename that was chosen as the final video. | 
- **title** | **string**| The title to give the video | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **videoId** | **string**| The id of the video to mark as done. | 
+  **filename** | **string**| The filename that was chosen as the final video. | 
+  **title** | **string**| The title to give the video | 
 
 ### Return type
 
@@ -102,19 +106,26 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **SignUpload**
-> string SignUpload($policy, $v4)
-
+> string SignUpload(ctx, policy, optional)
 Generate Signed Url
 
 Generates a signed url to be used for video uploads.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **policy** | [**SignUploadRequest**](SignUploadRequest.md)| The policy to sign | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **policy** | [**SignUploadRequest**](SignUploadRequest.md)| The policy to sign | 
- **v4** | **bool**| Whether to do v4 signing | [optional] 
+ **v4** | **bool**| Whether to do v4 signing | 
 
 ### Return type
 
@@ -132,24 +143,32 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateVideoThumbnailV2**
-> UpdateVideoThumbnailV2($videoId, $thumbnail, $custom)
-
+> UpdateVideoThumbnailV2(ctx, videoId, thumbnail, optional)
 Upload thumbnail
 
 Upload a new video thumbnail
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **videoId** | **string**| The id of the video | 
+  **thumbnail** | **string**| The thumbnail being uploaded | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **videoId** | **string**| The id of the video | 
  **thumbnail** | **string**| The thumbnail being uploaded | 
- **custom** | **bool**| The default email to use. | [optional] 
+ **custom** | **bool**| The default email to use. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

@@ -12,18 +12,17 @@ Method | HTTP request | Description
 
 
 # **AddWebHook**
-> BbWebHook AddWebHook($hookUrl)
-
+> BbWebHook AddWebHook(ctx, hookUrl)
 Add Webhook
 
 Idempotently adds a Webhook url
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hookUrl** | **string**| The Url of your listener | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **hookUrl** | **string**| The Url of your listener | 
 
 ### Return type
 
@@ -41,18 +40,17 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteWebHook**
-> string DeleteWebHook($hookId)
-
+> string DeleteWebHook(ctx, hookId)
 Deletes Webhook
 
 Deletes a Webhook
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hookId** | **string**| The id of the webhook to delete | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **hookId** | **string**| The id of the webhook to delete | 
 
 ### Return type
 
@@ -70,14 +68,12 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetWebHooks**
-> []BbWebHook GetWebHooks()
-
+> []BbWebHook GetWebHooks(ctx, )
 Lists Webhooks
 
 Lists all registered Webhooks
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
@@ -96,19 +92,17 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListWebHookEvents**
-> ListWebHookEvents()
-
+> ListWebHookEvents(ctx, )
 Describe WebHook Events
 
 Returns example Webhook events for each kind of possible event.
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -122,19 +116,17 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **SendWebhookExample**
-> SendWebhookExample()
-
+> SendWebhookExample(ctx, )
 Sends test Webhook
 
 Triggers a test webhook to be sent to your endpoints.
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

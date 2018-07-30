@@ -11,19 +11,18 @@ Method | HTTP request | Description
 
 
 # **CreateOAuthClient**
-> OAuthClient CreateOAuthClient($name, $redirectUri)
-
+> OAuthClient CreateOAuthClient(ctx, name, redirectUri)
 Create an OAuth Client
 
 Creates an OAuth Client managed by the user
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **string**| The name of the OAuth client. e.g. MyCrm DEV, or MyCrm PROD | 
- **redirectUri** | **string**| The URI to direct the client to after logging in. | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **name** | **string**| The name of the OAuth client. e.g. MyCrm DEV, or MyCrm PROD | 
+  **redirectUri** | **string**| The URI to direct the client to after logging in. | 
 
 ### Return type
 
@@ -41,22 +40,21 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteOAuthClient**
-> DeleteOAuthClient($id)
-
+> DeleteOAuthClient(ctx, id)
 Delete an OAuth Client
 
 Deletes an OAuth Client managed by the user
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **string**| The id of the OAuth Client | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **id** | **string**| The id of the OAuth Client | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -70,14 +68,12 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetOAuthClients**
-> []OAuthClient GetOAuthClients()
-
+> []OAuthClient GetOAuthClients(ctx, )
 Lists OAuth Clients
 
 Enumerates OAuth Clients managed by the user
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
@@ -96,19 +92,17 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSpec**
-> GetSpec()
-
+> GetSpec(ctx, )
 Describes this api
 
 Describes methods available through the API.
 
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

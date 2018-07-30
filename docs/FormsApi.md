@@ -8,22 +8,21 @@ Method | HTTP request | Description
 
 
 # **GetFormTrackingAsCsv**
-> GetFormTrackingAsCsv($id)
-
+> GetFormTrackingAsCsv(ctx, id)
 Get csv
 
 Get form tracking as csv
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **string**| Id of the form | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **id** | **string**| Id of the form | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
